@@ -8,6 +8,7 @@ import java.util.List;
 
 public interface appDAO {
 
+    // TODO: Finish SQL script
     // -----------USER--------------
 
     // USER METHODS

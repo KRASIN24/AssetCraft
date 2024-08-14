@@ -32,6 +32,8 @@ public class Controller {
         return "contact";
     }
 
+    // TODO: Add product page
+
     // -------------------------------------
 
     @GetMapping("/admin")
@@ -45,4 +47,6 @@ public class Controller {
         return "login";
     }
 
+    // TODO: Add custom logging page
+    // TODO: Move logging page from start to account
 }
