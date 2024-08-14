@@ -79,10 +79,15 @@
 
     </div>
 
-    <div class="bottomnav">
-        <div class="1"><img src="icons/facebook-like-logo-black-and-white-like-facebook-logo-black-gMzMue-clipart.png"><p>Over 11,000 five-star assets</p></div>
-        <div class="2"><img src="icons/support.png"><p>Supported by 100,000+ forum members</p></div>
-        <div class="3"><img src="icons/verified.png"><p>Rated by 85,000+ customers</p></div>
-    </div>
+    <div id="footer-placeholder"></div>
+    <script>
+        fetch('components/footer.html')
+        .then(response => response.text())
+        .then(data => {
+            document.getElementById('footer-placeholder').innerHTML = data;
+        })
+        .catch(error => console.error('Error loading footer:', error)
+        );
+    </script>
 </body>
 </html>
