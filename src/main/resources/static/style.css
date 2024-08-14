@@ -140,7 +140,7 @@ body{
     object-fit: contain;
     
 }
-
+ 
 .header{
     color: var(--light);
     font-size: 40pt;
@@ -157,6 +157,7 @@ body{
     grid-template-columns: auto auto auto auto auto auto;
     justify-content: center;
 }
+
 
 .positions img{
     width: 210px;

@@ -14,33 +14,7 @@
     </head>
     
 <body>
-    <div class="topnav">
-        <div class="lefttop">
-            <a><img src="icons/new-instagram-logo-white-border-icon-png-large.png"></a>
-            <a><img src="icons/twitter.png"></a>
-            <a><img src="icons/yt.png"></a>
-            <a><img src="icons/fb.png"></a>
-        </div>
-        <div class="righttop">
-            <a th:href="@{/contact}"><img src="icons/iconmonstr-email-3-240.png"></a>
-            <a th:href="@{/cart}"><img src="icons/cart.png"></a>
-            <a th:href="@{/account}"><img src="icons/account.png"></a>
-        </div>
-    </div>
-    <div class="middlenav">
-        <a th:href="@{/}"><img src="icons/Bez nazwy-2.png"></a>
-        <div class="search">
-            <input class="searchbar" type="text" placeholder="Search">
-            <i id="icon" class="fa fa-search"></i>
-        </div>
-    <div class="links">
-        <a th:href="@{/shop}">3D</a>
-        <a th:href="@{/shop}">2D</a>
-        <a th:href="@{/shop}">Audio</a>
-        <a th:href="@{/shop}">Code</a>
-        <a th:href="@{/shop}">Order</a>
-    </div>
-    </div>
+  <div th:replace="components/nav.html :: nav" id="nav-placeholder"></div>
 
     <div class="center">
     <div class="positions-shop">
@@ -164,10 +138,15 @@
     </div>
 
 
-    <div class="bottomnav">
-        <div class="1"><img src="icons/facebook-like-logo-black-and-white-like-facebook-logo-black-gMzMue-clipart.png"><p>Over 11,000 five-star assets</p></div>
-        <div class="2"><img src="icons/support.png"><p>Supported by 100,000+ forum members</p></div>
-        <div class="3"><img src="icons/verified.png"><p>Rated by 85,000+ customers</p></div>
-    </div>
+    <div id="footer-placeholder"></div>
+    <script>
+        fetch('components/footer.html')
+        .then(response => response.text())
+        .then(data => {
+            document.getElementById('footer-placeholder').innerHTML = data;
+        })
+        .catch(error => console.error('Error loading footer:', error)
+        );
+    </script>
 </body>
 </html>
