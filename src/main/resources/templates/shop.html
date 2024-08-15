@@ -49,9 +49,17 @@
         </div>
       </div>
 
-      <div class="rating">
+      <div class="rating-holder">
         <h3>Rating</h3>
-          <input type="range" min="0.5" max="5" step="0.5" name="" id="rating-input">
+        <label class="rating-label">
+          <input
+            class="rating"
+            max="5"
+            oninput="this.style.setProperty('--value', this.value)"
+            step="0.5"
+            type="range"
+            value="1">
+        </label>
       </div>
 
         <h3>Categories</h3>
