@@ -42,11 +42,23 @@
       <h1>Filter</h1>
       <div class="cost">
         <h3>Cost</h3>
-        <div class="input-holder">
-          <input type="number" name="" id="min-input" class="cost-input">
-          <h2>-</h2>
-          <input type="number" name="" id="max-input" class="cost-input">
-        </div>
+        <!-- FIXME: Fix inputs range and steps so that they will accept decimals-->
+        <div class="range_container">
+          <div class="form_control">
+              <div class="form_control_container">
+                  <div class="form_control_container__time">Min</div>
+                  <input class="form_control_container__time__input" type="number" id="fromInput" value="10" min="0" max="100"/>
+              </div>
+              <div class="form_control_container">
+                  <div class="form_control_container__time">Max</div>
+                  <input class="form_control_container__time__input" type="number" id="toInput" value="40" min="0" max="100"/>
+              </div>
+          </div>
+          <div class="sliders_control">
+              <input id="fromSlider" type="range" value="10" min="0" max="100"/>
+              <input id="toSlider" type="range" value="40" min="0" max="100"/>
+          </div>
+      </div>
       </div>
 
       <div class="rating-holder">
@@ -54,11 +66,11 @@
         <label class="rating-label">
           <input
             class="rating"
+            min="0.5"
             max="5"
             oninput="this.style.setProperty('--value', this.value)"
             step="0.5"
-            type="range"
-            value="1">
+            type="range">
         </label>
       </div>
 
@@ -164,5 +176,6 @@
 
 
     <div th:replace="components/footer.html :: footer" id="footer-placeholder"></div>
+    <script src="/script.js"></script>
 </body>
 </html>
