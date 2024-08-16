@@ -12,7 +12,7 @@
         <title>Asset Store Start</title>
     </head>
 <body>
-    <div th:replace="components/nav.html :: nav" id="nav-placeholder"></div>
+    <div th:replace="~{fragments/nav.html :: nav}" id="nav-placeholder"></div>
 
 
         <img class="imgbox" src="icons/baner2.png"> </a>
@@ -40,6 +40,6 @@
         <img src="icons/Warstwa 9.png">
     </div>
 
-    <div th:replace="components/footer.html :: footer" id="footer-placeholder"></div>
+    <div th:replace="~{fragments/footer.html :: footer}" id="footer-placeholder"></div>
 </body>
 </html>

@@ -10,5 +10,4 @@ public class AssetCraftApplication {
 		SpringApplication.run(AssetCraftApplication.class, args);
 	}
 
-	// FIXME: Update thymeleaf fragment-expressions
 }
