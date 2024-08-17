@@ -1,27 +1,43 @@
 package com.spring.asset_craft.entity;
 
+import jakarta.persistence.*;
+
+import java.util.ArrayList;
+import java.util.List;
+
+
+@Entity
+@Table(name = "product")
 public class Product {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id")
     private int id;
+    @Column(name = "name")
     private String name;
+    @Column(name = "price")
     private float price;
+    @Column(name = "category")
     private String category;
+    @Column(name = "description")
     private String description;
-    private String picture;
+    @Column(name = "rating")
     private float rating;
+    @OneToMany(mappedBy = "product", cascade = CascadeType.ALL)
+    private List<Review> reviews;
 
 
     public Product() {
     }
 
 
-    public Product(int id, String name, float price, String category, String description, String picture, float rating) {
+    public Product(int id, String name, float price, String category, String description, float rating) {
         this.id = id;
         this.name = name;
         this.price = price;
         this.category = category;
         this.description = description;
-        this.picture = picture;
         this.rating = rating;
     }
 
@@ -57,12 +73,7 @@ public class Product {
     public void setDescription(String description) {
         this.description = description;
     }
-    public String getPicture() {
-        return picture;
-    }
-    public void setPicture(String picture) {
-        this.picture = picture;
-    }
+
     public float getRating() {
         return rating;
     }
@@ -70,6 +81,23 @@ public class Product {
         this.rating = rating;
     }
 
+    public List<Review> getReviews() {
+        return reviews;
+    }
+
+    public void setReviews(List<Review> reviews) {
+        this.reviews = reviews;
+    }
+
+
+    public void addReview(Review review) {
+        if (reviews == null) {
+            reviews = new ArrayList<>();
+        }
+        reviews.add(review);
+
+        review.setProduct(this);
+    }
 
     @Override
     public String toString() {
@@ -79,7 +107,6 @@ public class Product {
                 ", price=" + price +
                 ", category='" + category + '\'' +
                 ", description='" + description + '\'' +
-                ", picture='" + picture + '\'' +
                 ", rating=" + rating +
                 '}';
     }

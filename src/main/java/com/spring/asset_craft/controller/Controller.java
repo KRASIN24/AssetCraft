@@ -1,12 +1,26 @@
 package com.spring.asset_craft.controller;
 
+import com.spring.asset_craft.dao.AppDAO;
+import com.spring.asset_craft.entity.Product;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+
+import java.util.List;
 
 @org.springframework.stereotype.Controller
 public class Controller {
 
+    private AppDAO appDAO;
+
+    public Controller(AppDAO appDAO) {
+        this.appDAO = appDAO;
+    }
+
     @GetMapping("/")
-    public String showIndex(){
+    public String showIndex(Model model){
+        String name = "";
+        List<Product> products = appDAO.findProductByName(name);
+        model.addAttribute("products", products);
         return "index";
     }
 

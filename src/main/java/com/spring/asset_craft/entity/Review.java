@@ -1,12 +1,27 @@
 package com.spring.asset_craft.entity;
 
+import jakarta.persistence.*;
+
+@Entity
+@Table(name = "review")
 public class Review {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id")
     private int id;
+    @Column(name = "comment")
     private String comment;
+    @Column(name = "rating")
     private int rating;
-    private int userId;
-    private int productId;
+
+    @ManyToOne(cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
+    @JoinColumn(name = "product_id", referencedColumnName = "id")
+    private Product product;
+
+    @ManyToOne(cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
+    @JoinColumn(name = "user_id", referencedColumnName = "id")
+    private User user;
 
     public Review() {
     }
@@ -15,8 +30,6 @@ public class Review {
         this.id = id;
         this.comment = comment;
         this.rating = rating;
-        this.userId = userId;
-        this.productId = productId;
     }
 
     public int getId() {
@@ -37,17 +50,21 @@ public class Review {
     public void setRating(int rating) {
         this.rating = rating;
     }
-    public int getUserId() {
-        return userId;
+
+    public Product getProduct() {
+        return product;
     }
-    public void setUserId(int userId) {
-        this.userId = userId;
+
+    public void setProduct(Product product) {
+        this.product = product;
     }
-    public int getProductId() {
-        return productId;
+
+    public User getUser() {
+        return user;
     }
-    public void setProductId(int productId) {
-        this.productId = productId;
+
+    public void setUser(User user) {
+        this.user = user;
     }
 
     @Override
@@ -56,8 +73,6 @@ public class Review {
                 "id=" + id +
                 ", comment='" + comment + '\'' +
                 ", rating=" + rating +
-                ", userId='" + userId + '\'' +
-                ", productId=" + productId +
                 '}';
     }
 }

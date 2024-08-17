@@ -1,0 +1,18 @@
+<div th:fragment="product(product)">
+    <article class="product-card">
+        <header class="product-card__header">
+            <h2 class="product-card__title" th:text="${product.name}">Product Name</h2>
+        </header>
+        <section class="product-card__body">
+            <p class="product-card__description" th:text="${product.description}">
+                Product Description
+            </p>
+            <p class="product-card__price">
+                <strong>Price:</strong> <span th:text="${product.price}">$0.00</span>
+            </p>
+            <p class="product-card__category">
+                <strong>Category:</strong> <span th:text="${product.category}">Category Name</span>
+            </p>
+        </section>
+    </article>
+</div>
