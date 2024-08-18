@@ -50,7 +50,7 @@ public class AppDAOImpl implements AppDAO {
 
     @Override
     public List<Product> findProductByName(String name) {
-        TypedQuery<Product> query = entityManager.createQuery("SELECT p FROM Product p WHERE LOWER(p.name) LIKE LOWER(:data)", Product.class);
+        TypedQuery<Product> query = entityManager.createQuery("SELECT p FROM Product p LEFT JOIN FETCH p.productImages WHERE LOWER(p.name) LIKE LOWER(:data)", Product.class);
         query.setParameter("data", "%" + name.toLowerCase() + "%");
         List<Product> products = query.getResultList();
         if (products != null) {

@@ -27,6 +27,9 @@ public class Product {
     @OneToMany(mappedBy = "product", cascade = CascadeType.ALL)
     private List<Review> reviews;
 
+    @OneToMany(mappedBy = "product", cascade = CascadeType.ALL)
+    private List<ProductImage> productImages;
+
 
     public Product() {
     }
@@ -89,6 +92,13 @@ public class Product {
         this.reviews = reviews;
     }
 
+    public List<ProductImage> getProductImages() {
+        return productImages;
+    }
+
+    public void setProductImages(List<ProductImage> productImages) {
+        this.productImages = productImages;
+    }
 
     public void addReview(Review review) {
         if (reviews == null) {
@@ -97,6 +107,15 @@ public class Product {
         reviews.add(review);
 
         review.setProduct(this);
+    }
+
+    public void addProductImage(ProductImage productImage){
+        if (productImages == null) {
+            productImages = new ArrayList<>();
+        }
+        productImages.add(productImage);
+
+        productImage.setProduct(this);
     }
 
     @Override
