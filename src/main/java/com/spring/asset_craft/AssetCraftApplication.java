@@ -12,6 +12,8 @@ import java.util.List;
 @SpringBootApplication
 public class AssetCraftApplication {
 
+	//TODO: Add Loading Types to Hibernate mappings
+
 	public static void main(String[] args) {
 		SpringApplication.run(AssetCraftApplication.class, args);
 	}
@@ -26,8 +28,8 @@ public class AssetCraftApplication {
 
 	private void getProducts(AppDAO appDAO) {
 
-		String name = "";
-		List<Product> products = appDAO.findProductByName(name);
-		System.out.println(products.toString());
+//		String name = "";
+//		List<Product> products = appDAO.findProductByName(name);
+//		System.out.println(products.toString());
 	}
 }

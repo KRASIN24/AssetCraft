@@ -4,18 +4,18 @@
             <!-- loop through product images and display them 
              th:each="image : ${product.productImages}" 
             <img th:src="@{${image.path}}" alt="Product Image"> -->
-            <img th:src="@{${product.productImages[0].path}}" alt="Product Image">
+            <img th:src="@{${product.imgPath[0].path}}" alt="Product Image">
             <h2 class="product-card__title" th:text="${product.name}">Product Name</h2>
         </header>
         <section class="product-card__body">
-            <p class="product-card__description" th:text="${product.description}">
-                Product Description
+            <p class="product-card__owner">
+                <strong>Owner:</strong> <span th:text="${product.owner}">Owner Username</span>
+            </p>
+            <p class="product-card__rating">
+                <strong>Rating:</strong> <span th:text="${product.rating}">Rating</span>
             </p>
             <p class="product-card__price">
                 <strong>Price:</strong> <span th:text="${product.price}">$0.00</span>
-            </p>
-            <p class="product-card__category">
-                <strong>Category:</strong> <span th:text="${product.category}">Category Name</span>
             </p>
         </section>
     </article>

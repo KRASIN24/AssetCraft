@@ -50,6 +50,17 @@ public class AppDAOImpl implements AppDAO {
 
     @Override
     public List<Product> findProductByName(String name) {
+
+//        String queryString = """
+//    SELECT DISTINCT p
+//    FROM Product p
+//    LEFT JOIN FETCH p.productImages pi
+//    WHERE LOWER(p.name) LIKE LOWER(:data)
+//    """;
+//        TypedQuery<Product> query = entityManager.createQuery(queryString, Product.class);
+//        query.setParameter("data", "%" + name.toLowerCase() + "%");
+//        return query.getResultList();
+
         TypedQuery<Product> query = entityManager.createQuery("SELECT p FROM Product p LEFT JOIN FETCH p.productImages WHERE LOWER(p.name) LIKE LOWER(:data)", Product.class);
         query.setParameter("data", "%" + name.toLowerCase() + "%");
         List<Product> products = query.getResultList();
@@ -57,6 +68,24 @@ public class AppDAOImpl implements AppDAO {
             return products;
         }
         return null;
+    }
+
+    public String getOwnerUsername(int productId) {
+        String queryString = """
+    SELECT u.username
+    FROM AssociationProductUser pu
+    JOIN pu.user u
+    WHERE pu.product.id = :productId
+      AND pu.status = com.spring.asset_craft.entity.AssociationProductUser.ProductUserStatus.OWNER
+    """;
+        TypedQuery<String> query = entityManager.createQuery(queryString, String.class);
+        query.setParameter("productId", productId);
+        try{
+            String username = query.getSingleResult();
+            return username;
+        }catch (Exception e){
+            return "";
+        }
     }
 
     @Override

@@ -29,6 +29,8 @@ import java.util.List;
 
      List<Product> findProductByName(String name);
 
+     String getOwnerUsername(int productId);
+
      void updateProduct(Product product);
 
      void deleteProduct(Product product);

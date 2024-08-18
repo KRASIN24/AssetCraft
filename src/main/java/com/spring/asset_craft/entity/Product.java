@@ -30,6 +30,9 @@ public class Product {
     @OneToMany(mappedBy = "product", cascade = CascadeType.ALL)
     private List<ProductImage> productImages;
 
+    @OneToMany(cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
+    private List<AssociationProductUser> associationProductUsers;
+
 
     public Product() {
     }
@@ -116,6 +119,14 @@ public class Product {
         productImages.add(productImage);
 
         productImage.setProduct(this);
+    }
+
+    public List<AssociationProductUser> getAssociationProductUsers() {
+        return associationProductUsers;
+    }
+
+    public void setAssociationProductUsers(List<AssociationProductUser> associationProductUsers) {
+        this.associationProductUsers = associationProductUsers;
     }
 
     @Override

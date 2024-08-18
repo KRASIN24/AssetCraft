@@ -23,6 +23,9 @@ public class User {
     @OneToMany(mappedBy = "user", cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
     private List<Review> reviews;
 
+    @OneToMany(cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
+    private List<AssociationProductUser> associationProductUsers;
+
 
     public User() {
     }
@@ -81,6 +84,14 @@ public class User {
         reviews.add(review);
 
         review.setUser(this);
+    }
+
+    public List<AssociationProductUser> getAssociationProductUsers() {
+        return associationProductUsers;
+    }
+
+    public void setAssociationProductUsers(List<AssociationProductUser> associationProductUsers) {
+        this.associationProductUsers = associationProductUsers;
     }
 
     @Override
