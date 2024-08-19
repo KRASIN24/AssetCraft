@@ -14,6 +14,10 @@ public class SmallProductDTO
     private String owner;
 
 
+    public SmallProductDTO() {
+    }
+
+
     public SmallProductDTO(int id, String name, float price, float rating, List<ProductImage> imgPath, String owner) {
         this.id = id;
         this.name = name;

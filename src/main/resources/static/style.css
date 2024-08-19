@@ -162,6 +162,16 @@ body{
     font-weight: 500;
 }
 
+.no-products{
+    margin: 2vh auto;
+}
+
+.no-products p{
+    color: var(--white);
+    font-size: 20pt;
+    text-align: center;
+}
+
 .products{
     margin: 2vh auto;
     display: grid;

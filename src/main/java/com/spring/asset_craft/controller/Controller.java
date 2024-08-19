@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -24,40 +25,35 @@ public class Controller {
         this.appDAO = appDAO;
     }
 
+    //TODO: Make it better
     @GetMapping("/")
     public String showIndex(Model model){
         String name = "";
         List<Product> products = appDAO.findProductByName(name);
-        List<SmallProductDTO> smallProductDTOS = new ArrayList<>();
-        //model.addAttribute("products", products);
-
-        for (Product product : products) {
-            // Fetch the owner username based on the product ID
-            String ownerUsername = appDAO.getOwnerUsername(product.getId());
-
-            // Create a new MinProduct object with the owner username
-            SmallProductDTO smallProductDTO = new SmallProductDTO(product.getId(), product.getName(), product.getPrice(), product.getRating(), product.getProductImages(), ownerUsername);
-
-            // Add the MinProduct object to the list
-            smallProductDTOS.add(smallProductDTO);
-        }
-
+        List<SmallProductDTO> smallProductDTOS = productService.populateSmallProductDTOS(products);
         // Add the map to the model
         model.addAttribute("products", smallProductDTOS);
-        System.out.println((smallProductDTOS.get(0)).toString());
         return "index";
     }
 
 
     @GetMapping("/shop")
-    public String showShop(){
+    public String showShop(@RequestParam(required = false) String name,
+                           @RequestParam(required = false) String category,
+                           @RequestParam(required = false) Float minPrice,
+                           @RequestParam(required = false) Float maxPrice,
+                           Model model){
+
+        List<Product> products = productService.searchProducts(name, category, minPrice, maxPrice);
+
+        List<SmallProductDTO> smallProductDTOS = productService.populateSmallProductDTOS(products);
+        // Add the map to the model
+        model.addAttribute("products", smallProductDTOS);
         return "shop";
     }
 
-
     @GetMapping("/account")
-    public String showAccount(){
-        return "account";
+    public String showAccount(){  return "account";
     }
 
     @GetMapping("/cart")

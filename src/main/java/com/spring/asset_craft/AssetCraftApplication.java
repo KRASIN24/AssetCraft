@@ -18,18 +18,11 @@ public class AssetCraftApplication {
 		SpringApplication.run(AssetCraftApplication.class, args);
 	}
 
-	@Bean
-	public CommandLineRunner commandLineRunner(AppDAO appDAO) {
-		return runner -> {
-			System.out.println("Hello World!");
-			getProducts(appDAO);
-		};
-	}
+//	@Bean
+//	public CommandLineRunner commandLineRunner(AppDAO appDAO) {
+//		return runner -> {
+//			System.out.println("Hello World!");
+//		};
+//	}
 
-	private void getProducts(AppDAO appDAO) {
-
-//		String name = "";
-//		List<Product> products = appDAO.findProductByName(name);
-//		System.out.println(products.toString());
-	}
 }

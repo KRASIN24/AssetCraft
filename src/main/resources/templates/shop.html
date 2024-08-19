@@ -18,6 +18,18 @@
 <!--TODO: Add sort by -->
 
 <!-- TODO: Replace static elements with templates shop-->
+<div>
+<div th:if="${products.isEmpty()}" class="no-products">
+  <p>No products found.</p>
+</div>
+
+<div th:unless="${products.isEmpty()}" class="products">
+    <div th:each="product : ${products}"> 
+        <div th:replace="~{fragments/product.html :: product(${product})}"></div>
+    </div>
+  </div>
+</div>
+
     <div class="center">
     <div class="positions-shop">
         <img src="icons/Warstwa 10.png">
@@ -39,6 +51,7 @@
     </div>
 
     <!-- TODO: Update filter-->
+     <!-- TODO: Make filter work-->
     <div class="nav-shop">
       <h1>Filter</h1>
       <div class="cost">
@@ -48,11 +61,11 @@
           <div class="form_control">
               <div class="form_control_container">
                   <div class="form_control_container__time">Min</div>
-                  <input class="form_control_container__time__input" type="number" id="fromInput" value="10" min="0" max="100"/>
+                  <input class="form_control_container__time__input" type="number" name="minPrice" id="fromInput" value="10" min="0" max="100"/>
               </div>
               <div class="form_control_container">
                   <div class="form_control_container__time">Max</div>
-                  <input class="form_control_container__time__input" type="number" id="toInput" value="40" min="0" max="100"/>
+                  <input class="form_control_container__time__input" type="number" name="maxPrice" id="toInput" value="40" min="0" max="100"/>
               </div>
           </div>
           <div class="sliders_control">

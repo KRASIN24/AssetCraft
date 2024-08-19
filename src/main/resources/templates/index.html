@@ -21,9 +21,12 @@
 
 
     <!-- TODO: Replace static elements with templates index-->
-    <div th:each="product : ${products}"> 
-        <div th:replace="~{fragments/product.html :: product(${product})}"></div>
-    </div>
+     <div class="products">
+         <div th:each="product : ${products}"> 
+             <div th:replace="~{fragments/product.html :: product(${product})}"></div>
+         </div>
+     </div>
+
     <div class="positions">
         <img src="icons/Warstwa 10.png">
         <img src="icons/Warstwa 29.png">
