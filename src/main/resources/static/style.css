@@ -162,6 +162,224 @@ body{
     font-weight: 500;
 }
 
+.products{
+    margin: 2vh auto;
+    display: grid;
+    grid-template-columns: auto auto auto auto auto auto;
+    justify-content: center;
+}
+
+.products a{
+    text-decoration: none;
+}
+
+.product-card{
+    width: 250px;
+    margin: 2.5vh 1.5vw;
+    transform: scale(1);
+    transition: all 0.3s ease-out;
+    cursor: pointer;
+}
+
+.product-card:hover{
+    transform: scale(1.2);
+    transition: all 0.3s ease-out;
+}
+
+.product-card__header img{
+    width: 200px;
+}
+
+.product-content p, h1 {
+    color: var(--white);
+}
+
+.product-content {
+    margin: 15vh 10vw;
+    padding: 3vh 2vw;
+    border: solid 2px var(--dark);
+    display: grid;
+    grid-template-columns: auto auto;
+}
+
+.photo {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: left;
+    padding-bottom: 20px;
+}
+
+.jobs {
+    width: 300px;
+    height: 300px;
+    object-fit: cover;
+    margin: 20px;
+    border: solid 2px var(--dark);
+    border-radius: 15px;
+    box-shadow: 0px 0px 12px 1px var(--dark);
+    overflow: hidden;
+    transform: scale(1);
+    transition: all 0.3s ease-out;
+    cursor: pointer;
+}
+
+.popup {
+    align-content: center;
+    animation: fadeIn 0.3s;
+    background: rgba(0, 0, 0, 0.5);
+    backdrop-filter: blur(10px);
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    height: 100vh;
+    left: 0;
+    position: fixed;
+    top: 0;
+    width: 100vw;
+}
+
+.popup.hidden {
+    display: none;
+}
+
+.popup.fade-out {
+    animation: fadeOut 0.3s both;
+}
+
+.popup__img {
+    max-height: 80%;
+    max-width: 80%;
+}
+
+.popup__close {
+    background-color: var(--light);
+    border-radius: 50%;
+    width: 100px;
+    height: 100px;
+    border: none;
+    cursor: pointer;
+    font-size: 128px;
+    position: fixed;
+    right: 34px;
+    top: 15px;
+}
+
+.popup__arrow {
+    border: none;
+    border-radius: 50%;
+    cursor: pointer;
+    background-color: var(--light);
+    width: 100px;
+    height: 100px;
+    position: absolute;
+    top: 50%;
+}
+
+.lineX1 {
+    width: 80px;
+    height: 20px;
+    border-radius: 15px;
+    background-color: white;
+    position: absolute;
+    top: 40px;
+    left: 10px;
+    transform: rotate(-45deg);
+}
+
+.lineX2 {
+    width: 80px;
+    height: 20px;
+    border-radius: 15px;
+    background-color: white;
+    position: absolute;
+    top: 40px;
+    left: 10px;
+    transform: rotate(45deg);
+}
+
+.linel1 {
+    width: 60px;
+    height: 20px;
+    border-radius: 15px;
+    background-color: white;
+    position: absolute;
+    top: 30px;
+    left: 15px;
+    transform: rotate(-30deg);
+}
+
+.linel2 {
+    width: 60px;
+    height: 20px;
+    border-radius: 15px;
+    background-color: white;
+    position: absolute;
+    top: 50px;
+    left: 15px;
+    transform: rotate(30deg);
+}
+
+.liner1 {
+    width: 60px;
+    height: 20px;
+    border-radius: 15px;
+    background-color: white;
+    position: absolute;
+    top: 30px;
+    left: 25px;
+    transform: rotate(-330deg);
+}
+
+.liner2 {
+    width: 60px;
+    height: 20px;
+    border-radius: 15px;
+    background-color: white;
+    position: absolute;
+    top: 50px;
+    left: 25px;
+    transform: rotate(330deg);
+}
+
+.popup__close,
+.popup__arrow {
+    opacity: 0.5;
+    transition: opacity 0.3s;
+}
+
+.popup__close:hover,
+.popup__arrow:hover {
+    opacity: 1;
+}
+
+.popup__arrow--left {
+    left: 25px;
+}
+
+.popup__arrow--right {
+    right: 25px;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes fadeOut {
+    from {
+        opacity: 1;
+    }
+
+    to {
+        opacity: 0;
+    }
+}
+
 .positions{
 
     margin: 2vh auto;
@@ -223,7 +441,7 @@ body{
 }
 
 .nav-shop h1{
-    color: white;
+    color: var(--white);
     font-size: 40px;
     margin: 25px auto;
     border-radius: 12px;
@@ -232,7 +450,7 @@ body{
 
 .nav-shop h1:hover{
     color: var(--dark);
-    background: white;
+    background: var(--white);
 }
 .option{
     display: flex;

@@ -1,26 +1,62 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/style.css">
+    <link rel="icon" type="image/png" href="icons/AC.png"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link href="https://allfont.net/allfont.css?fonts=agency-fb" rel="stylesheet" type="text/css" />
     <title th:text="${product.name}">Product Page</title>
 </head>
 <body>
-    <h1 th:text="${product.name}">Product Name</h1>
-    <p><strong>Owner:</strong> <span th:text="${product.owner}">Owner Username</span></p>
-    <p><strong>Price:</strong> <span th:text="${product.price}">$0.00</span></p>
-    <p><strong>Description:</strong> <span th:text="${product.description}">Description</span></p>
-    <p><strong>Category:</strong> <span th:text="${product.category}">Category</span></p>
-    <p><strong>Rating:</strong> <span th:text="${product.rating}">0.0</span></p>
+    <div th:replace="~{fragments/nav.html :: nav}" id="nav-placeholder"></div>
 
-    <h2>Images:</h2>
-    <div>
-        <img th:each="image : ${product.productImages}" th:src="@{${image.path}}" alt="Product Image"/>
+<div class="product-content">
+    <div class="left">
+        <div div class="photo">
+            <img th:each="image : ${product.productImages}" th:src="@{${image.path}}" class="jobs" alt="Product Image"/>
+        </div>
+        <p><strong>Description:</strong> <span th:text="${product.description}">Description</span></p>
+        <h2>Reviews:</h2>
+        <div th:each="review : ${product.reviews}">
+            <p><strong>Review:</strong> <span th:text="${review.rating}">0.0</span> <span th:text="${review.username}">0.0</span> <span th:text="${review.comment}">0.0</span></p>
+        </div>
+    </div>
+    <div class="right">
+        <p><strong>Category:</strong> <span th:text="${product.category}">Category</span></p>
+        <h1 th:text="${product.name}">Product Name</h1>
+        <p><strong>Owner:</strong> <span th:text="${product.owner}">Owner Username</span></p>
+        <p><strong>Rating:</strong> <span th:text="${product.rating}">0.0</span></p>
+        <div><h2>$</h2><h2 th:text="${product.price}">$0.00</h2></div>
+        <div>
+            <input type="submit" value="Add to Cart" class="cart-button">
+            <input type="submit" value="Heart" class="whishlist-button">
+        </div>
     </div>
 
-    <h2>Reviews:</h2>
-    <div th:each="review : ${product.reviews}">
-        <p><strong>Review:</strong> <span th:text="${review.rating}">0.0</span> <span th:text="${review.username}">0.0</span> <span th:text="${review.comment}">0.0</span></p>
+
+</div>
+
+    <div class="popup hidden">
+        <div class="popup__close">
+            <div class="lineX1"></div>
+            <div class="lineX2"></div>
+        </div>
+        <img src="" class="popup__img" />
+        <div class="popup__arrow popup__arrow--left">
+            <div class="linel1"></div>
+            <div class="linel2"></div>
+        </div>
+
+        <div class="popup__arrow popup__arrow--right">
+            <div class="liner1"></div>
+            <div class="liner2"></div>
+        </div>
     </div>
 
-    <!-- You can add more details or related data here -->
+<div th:replace="~{fragments/footer.html :: footer}" id="footer-placeholder"></div>
+    <script th:src="@{/script2.js}"></script>
 </body>
 </html>

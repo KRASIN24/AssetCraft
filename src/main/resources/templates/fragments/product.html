@@ -2,9 +2,6 @@
     <a th:href="@{/productPage/{id}(id=${product.id})}" class="product-card-link">
     <article class="product-card">
         <header class="product-card__header">
-            <!-- loop through product images and display them 
-             th:each="image : ${product.productImages}" 
-            <img th:src="@{${image.path}}" alt="Product Image"> -->
             <img th:src="@{${product.imgPath[0].path}}" alt="Product Image">
             <h2 class="product-card__title" th:text="${product.name}">Product Name</h2>
         </header>
