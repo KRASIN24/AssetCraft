@@ -1,5 +1,6 @@
 package com.spring.asset_craft.dao;
 
+import com.spring.asset_craft.dto.ReviewDTO;
 import com.spring.asset_craft.entity.Product;
 import com.spring.asset_craft.entity.Review;
 import com.spring.asset_craft.entity.User;
@@ -21,25 +22,21 @@ public class AppDAOImpl implements AppDAO {
 
     @Override
     public Product findProductById(int id) {
-        TypedQuery<Product> query = entityManager.createQuery("SELECT p FROM Product p LEFT JOIN FETCH p.productImages WHERE p.id =:data", Product.class);
+        TypedQuery<Product> query = entityManager.createQuery(
+                "SELECT p FROM Product p LEFT JOIN FETCH p.productImages WHERE p.id =:data", Product.class);
         query.setParameter("data", id);
         Product product = query.getSingleResult();
-        if (product != null) {
             return product;
-        }
-        return null;
     }
 
     @Override
     public List<Product> findProductByName(String name) {
 
-        TypedQuery<Product> query = entityManager.createQuery("SELECT p FROM Product p LEFT JOIN FETCH p.productImages WHERE LOWER(p.name) LIKE LOWER(:data)", Product.class);
+        TypedQuery<Product> query = entityManager.createQuery(
+                "SELECT p FROM Product p LEFT JOIN FETCH p.productImages WHERE LOWER(p.name) LIKE LOWER(:data)", Product.class);
         query.setParameter("data", "%" + name.toLowerCase() + "%");
         List<Product> products = query.getResultList();
-        if (products != null) {
             return products;
-        }
-        return null;
     }
 
     public String getOwnerUsername(int productId) {
@@ -58,5 +55,19 @@ public class AppDAOImpl implements AppDAO {
         }catch (Exception e){
             return "";
         }
+    }
+
+    @Override
+    public List<ReviewDTO> getProductReviews(int id) {
+        String querryString = """
+                SELECT new com.spring.asset_craft.dto.ReviewDTO(r.comment, r.rating, u.username)
+                FROM Review r JOIN r.user u
+                WHERE r.product.id = :data
+                """;
+        TypedQuery<ReviewDTO> query = entityManager.createQuery(querryString, ReviewDTO.class);
+        query.setParameter("data", id);
+        List<ReviewDTO> reviews = query.getResultList();
+            return reviews;
+
     }
 }

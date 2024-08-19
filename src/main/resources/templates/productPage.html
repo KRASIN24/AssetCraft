@@ -5,6 +5,7 @@
 </head>
 <body>
     <h1 th:text="${product.name}">Product Name</h1>
+    <p><strong>Owner:</strong> <span th:text="${product.owner}">Owner Username</span></p>
     <p><strong>Price:</strong> <span th:text="${product.price}">$0.00</span></p>
     <p><strong>Description:</strong> <span th:text="${product.description}">Description</span></p>
     <p><strong>Category:</strong> <span th:text="${product.category}">Category</span></p>
@@ -13,6 +14,11 @@
     <h2>Images:</h2>
     <div>
         <img th:each="image : ${product.productImages}" th:src="@{${image.path}}" alt="Product Image"/>
+    </div>
+
+    <h2>Reviews:</h2>
+    <div th:each="review : ${product.reviews}">
+        <p><strong>Review:</strong> <span th:text="${review.rating}">0.0</span> <span th:text="${review.username}">0.0</span> <span th:text="${review.comment}">0.0</span></p>
     </div>
 
     <!-- You can add more details or related data here -->

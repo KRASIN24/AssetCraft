@@ -1,8 +1,11 @@
 package com.spring.asset_craft.controller;
 
 import com.spring.asset_craft.dao.AppDAO;
+import com.spring.asset_craft.dto.BigProductDTO;
 import com.spring.asset_craft.dto.SmallProductDTO;
 import com.spring.asset_craft.entity.Product;
+import com.spring.asset_craft.service.ProductService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -13,6 +16,8 @@ import java.util.List;
 @org.springframework.stereotype.Controller
 public class Controller {
 
+    @Autowired
+    private ProductService productService;
     private AppDAO appDAO;
 
     public Controller(AppDAO appDAO) {
@@ -68,9 +73,10 @@ public class Controller {
     // TODO: Add product page
     @GetMapping("/productPage/{id}")
     public String showProductPage(@PathVariable("id") int id, Model model) {
-        Product product = appDAO.findProductById(id);
-        model.addAttribute("product", product);
-        return "productPage"; // Return the name of your Thymeleaf template (e.g., "product.html")
+        //Product product = appDAO.findProductById(id);
+        BigProductDTO bigProductDTO = productService.getBigProductDTO(id);
+        model.addAttribute("product", bigProductDTO);
+        return "productPage";
     }
 
     // -------------------------------------
