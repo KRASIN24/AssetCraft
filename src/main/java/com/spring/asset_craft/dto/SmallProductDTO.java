@@ -10,6 +10,9 @@ public class SmallProductDTO
     private String name;
     private float price;
     private float rating;
+    private String category;
+
+    //TODO: Change list to string
     private List<ProductImage> imgPath;
     private String owner;
 
@@ -18,11 +21,12 @@ public class SmallProductDTO
     }
 
 
-    public SmallProductDTO(int id, String name, float price, float rating, List<ProductImage> imgPath, String owner) {
+    public SmallProductDTO(int id, String name, float price, float rating, String category, List<ProductImage> imgPath, String owner) {
         this.id = id;
         this.name = name;
         this.price = price;
         this.rating = rating;
+        this.category = category;
         this.imgPath = imgPath;
         this.owner = owner;
     }
@@ -59,6 +63,14 @@ public class SmallProductDTO
         this.rating = rating;
     }
 
+    public String getCategory() {
+        return category;
+    }
+
+    public void setCategory(String category) {
+        this.category = category;
+    }
+
     public List<ProductImage> getImgPath() {
         return imgPath;
     }
@@ -77,14 +89,14 @@ public class SmallProductDTO
 
     @Override
     public String toString() {
-        return "MinProduct{" +
+        return "SmallProductDTO{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
                 ", price=" + price +
                 ", rating=" + rating +
-                ", imgPath='" + imgPath + '\'' +
+                ", category='" + category + '\'' +
+                ", imgPath=" + imgPath +
                 ", owner='" + owner + '\'' +
                 '}';
     }
-
 }

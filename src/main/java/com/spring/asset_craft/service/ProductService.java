@@ -90,6 +90,7 @@ public class ProductService {
                 product.getName(),
                 product.getPrice(),
                 product.getRating(),
+                product.getCategory(),
                 product.getProductImages(),
                 ownerUsername
         );

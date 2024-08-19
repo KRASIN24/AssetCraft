@@ -20,13 +20,12 @@
             <button type="submit" id="icon" class="fa fa-search"></button>
             </form>
         </div>
-    <!-- TODO: Diversyfy links goto-->
     <div class="links">
-        <a th:href="@{/shop}">3D</a>
-        <a th:href="@{/shop}">2D</a>
-        <a th:href="@{/shop}">Audio</a>
+        <a th:href="@{/shop(category='3D')}">3D</a>
+        <a th:href="@{/shop(category='2D')}">2D</a>
+        <a th:href="@{/shop(category='Audio')}">Audio</a>
         <a th:href="@{/shop}">Code</a>
-        <a th:href="@{/shop}">Order</a>
+        <a th:href="@{/shop}">All</a>
     </div>
     </div>
 </nav>

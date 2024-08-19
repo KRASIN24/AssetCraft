@@ -66,7 +66,6 @@ public class Controller {
         return "contact";
     }
 
-    // TODO: Add product page
     @GetMapping("/productPage/{id}")
     public String showProductPage(@PathVariable("id") int id, Model model) {
         //Product product = appDAO.findProductById(id);
