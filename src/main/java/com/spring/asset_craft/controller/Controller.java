@@ -1,14 +1,13 @@
 package com.spring.asset_craft.controller;
 
 import com.spring.asset_craft.dao.AppDAO;
-import com.spring.asset_craft.dto.MinProduct;
+import com.spring.asset_craft.dto.SmallProductDTO;
 import com.spring.asset_craft.entity.Product;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 
 import java.util.ArrayList;
-import java.util.Map;
-import java.util.HashMap;
 import java.util.List;
 
 @org.springframework.stereotype.Controller
@@ -24,7 +23,7 @@ public class Controller {
     public String showIndex(Model model){
         String name = "";
         List<Product> products = appDAO.findProductByName(name);
-        List<MinProduct> minProducts = new ArrayList<>();
+        List<SmallProductDTO> smallProductDTOS = new ArrayList<>();
         //model.addAttribute("products", products);
 
         for (Product product : products) {
@@ -32,15 +31,15 @@ public class Controller {
             String ownerUsername = appDAO.getOwnerUsername(product.getId());
 
             // Create a new MinProduct object with the owner username
-            MinProduct minProduct = new MinProduct(product.getId(), product.getName(), product.getPrice(), product.getRating(), product.getProductImages(), ownerUsername);
+            SmallProductDTO smallProductDTO = new SmallProductDTO(product.getId(), product.getName(), product.getPrice(), product.getRating(), product.getProductImages(), ownerUsername);
 
             // Add the MinProduct object to the list
-            minProducts.add(minProduct);
+            smallProductDTOS.add(smallProductDTO);
         }
 
         // Add the map to the model
-        model.addAttribute("products", minProducts);
-        System.out.println((minProducts.get(0)).toString());
+        model.addAttribute("products", smallProductDTOS);
+        System.out.println((smallProductDTOS.get(0)).toString());
         return "index";
     }
 
@@ -67,6 +66,12 @@ public class Controller {
     }
 
     // TODO: Add product page
+    @GetMapping("/productPage/{id}")
+    public String showProductPage(@PathVariable("id") int id, Model model) {
+        Product product = appDAO.findProductById(id);
+        model.addAttribute("product", product);
+        return "productPage"; // Return the name of your Thymeleaf template (e.g., "product.html")
+    }
 
     // -------------------------------------
 

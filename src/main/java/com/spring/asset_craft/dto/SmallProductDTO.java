@@ -4,7 +4,7 @@ import com.spring.asset_craft.entity.ProductImage;
 
 import java.util.List;
 
-public class MinProduct
+public class SmallProductDTO
 {
     private int id;
     private String name;
@@ -14,7 +14,7 @@ public class MinProduct
     private String owner;
 
 
-    public MinProduct(int id, String name, float price, float rating, List<ProductImage> imgPath, String owner) {
+    public SmallProductDTO(int id, String name, float price, float rating, List<ProductImage> imgPath, String owner) {
         this.id = id;
         this.name = name;
         this.price = price;

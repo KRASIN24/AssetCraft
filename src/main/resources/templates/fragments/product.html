@@ -1,4 +1,5 @@
 <div th:fragment="product(product)">
+    <a th:href="@{/productPage/{id}(id=${product.id})}" class="product-card-link">
     <article class="product-card">
         <header class="product-card__header">
             <!-- loop through product images and display them 
@@ -19,4 +20,5 @@
             </p>
         </section>
     </article>
+    </a>
 </div>
