@@ -1,8 +1,10 @@
-<div th:fragment="product(product)">
+<div th:fragment="product(product)" class="product-card__main">
     <a th:href="@{/productPage/{id}(id=${product.id})}" class="product-card-link">
     <article class="product-card">
         <header class="product-card__header">
+            <div class="img-container">
             <img th:src="@{${product.imgPath[0].path}}" alt="Product Image">
+            </div>
             <h2 class="product-card__title" th:text="${product.name}">Product Name</h2>
         </header>
         <section class="product-card__body">
