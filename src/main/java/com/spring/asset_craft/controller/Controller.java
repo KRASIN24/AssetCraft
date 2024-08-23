@@ -47,8 +47,14 @@ public class Controller {
         List<Product> products = productService.searchProducts(name, category, minPrice, maxPrice);
 
         List<SmallProductDTO> smallProductDTOS = productService.populateSmallProductDTOS(products);
-        // Add the map to the model
         model.addAttribute("products", smallProductDTOS);
+
+        float biggestPrice = productService.biggestPrice(smallProductDTOS);
+        model.addAttribute("biggestPrice", biggestPrice);
+
+        float smallestPrice = productService.smallestPrice(smallProductDTOS);
+        model.addAttribute("smallestPrice", smallestPrice);
+
         return "shop";
     }
 

@@ -175,6 +175,7 @@ body{
 }
 
 
+
 .product-content p, h1 {
     color: var(--white);
 }
@@ -416,6 +417,30 @@ body{
 
 .product-card-link{
     text-decoration: none;
+}
+
+.stars{
+    /* TODO: Fix star display */
+    --dir: right;
+    --fill: var(--white);
+    --fillbg: var(--white);
+    --star: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 17.25l-6.188 3.75 1.641-7.031-5.438-4.734 7.172-0.609 2.813-6.609 2.813 6.609 7.172 0.609-5.438 4.734 1.641 7.031z"/></svg>');
+    --stars: 2.5;
+    --starsize: 1.5rem;
+    --symbol: var(--star);
+    --value: 1.5;
+    --w: calc(var(--stars) * var(--starsize));
+    --x: calc(100% * (var(--value) / var(--stars)));
+    block-size: var(--starsize);
+    inline-size: var(--w);
+    /* This is changed */
+    background: var(--symbol);
+    position: relative;
+    -webkit-appearance: none;
+}
+
+.product-card-cart-button img{
+    height: 20px;
 }
 
 

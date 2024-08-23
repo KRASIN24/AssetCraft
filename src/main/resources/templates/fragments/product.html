@@ -1,3 +1,4 @@
+<!-- TODO: Update froduct card visuals -->
 <div th:fragment="product(product)" class="product-card__main">
     <a th:href="@{/productPage/{id}(id=${product.id})}" class="product-card-link">
     <article class="product-card">
@@ -5,18 +6,26 @@
             <div class="img-container">
             <img th:src="@{${product.imgPath[0].path}}" alt="Product Image">
             </div>
+            <p class="product-card__owner">
+                <span th:text="${product.owner}">Owner Username</span>
+            </p>
             <h2 class="product-card__title" th:text="${product.name}">Product Name</h2>
         </header>
         <section class="product-card__body">
-            <p class="product-card__owner">
-                <strong>Owner:</strong> <span th:text="${product.owner}">Owner Username</span>
-            </p>
             <p class="product-card__rating">
-                <strong>Rating:</strong> <span th:text="${product.rating}">Rating</span>
+                <div class="stars" onload="this.style.setProperty('--stars', '${product.rating}')"></div> <span th:text="${product.rating}">Rating</span>
             </p>
-            <p class="product-card__price">
-                <strong>Price:</strong> <span th:text="${product.price}">$0.00</span>
-            </p>
+            <div class="product-card-bottom">
+                <p class="product-card__price">
+                    <span>$</span><span th:text="${product.price}">$0.00</span>
+                </p>
+                <div class="product-card-cart-button">
+                    <img th:src="@{/icons/cart.png}">
+                    <input type="submit" value="Add to Cart" class="product-card-cart-button">
+                </div>
+            </div>
+
+            
         </section>
     </article>
     </a>

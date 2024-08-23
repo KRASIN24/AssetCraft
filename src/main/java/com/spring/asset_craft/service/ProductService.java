@@ -48,6 +48,7 @@ public class ProductService {
     public SmallProductDTO getSmallProductDTO(int id){
         Product product = appDAO.findProductById(id);
         String owner = appDAO.getOwnerUsername(id);
+
         SmallProductDTO smallProductDTO = new SmallProductDTO();
         smallProductDTO.setId(product.getId());
         smallProductDTO.setName(product.getName());
@@ -94,5 +95,22 @@ public class ProductService {
                 product.getProductImages(),
                 ownerUsername
         );
+    }
+
+    public float biggestPrice(List<SmallProductDTO> smallProductDTOS) {
+
+        float number = smallProductDTOS.stream()
+                                        .map(SmallProductDTO::getPrice)
+                                        .max(Float::compare)
+                                        .orElse(0.0f);
+        return number;
+    }
+
+    public float smallestPrice(List<SmallProductDTO> smallProductDTOS) {
+        float number = smallProductDTOS.stream()
+                                        .map(SmallProductDTO::getPrice)
+                                        .min(Float::compare)
+                                        .orElse(0.0f);
+        return number;
     }
 }

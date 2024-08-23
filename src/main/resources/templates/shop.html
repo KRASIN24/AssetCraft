@@ -44,28 +44,29 @@
           <img class="positions-shop-img" src="icons/Warstwa 9.png">
         </div>
 
+        <!-- TODO: Make filter work-->
     <!-- TODO: Stash pop stash@{0} after merging with master branch -->
+     
     <!-- TODO: Update filter-->
-     <!-- TODO: Make filter work-->
     <div class="nav-shop">
       <h1>Filter</h1>
       <div class="cost">
         <h3>Cost</h3>
-        <!-- FIXME: Fix inputs range and steps so that they will accept decimals-->
         <div class="range_container">
           <div class="form_control">
-              <div class="form_control_container">
-                  <div class="form_control_container__time">Min</div>
-                  <input class="form_control_container__time__input" type="number" name="minPrice" id="fromInput" value="10" min="0" max="100"/>
-              </div>
-              <div class="form_control_container">
-                  <div class="form_control_container__time">Max</div>
-                  <input class="form_control_container__time__input" type="number" name="maxPrice" id="toInput" value="40" min="0" max="100"/>
+            <div class="form_control_container">
+              <div class="form_control_container__time">Min</div>
+              <input class="form_control_container__time__input" type="number" name="minPrice" id="fromInput" th:value="${smallestPrice}" th:min="${smallestPrice}" th:max="${biggestPrice}" th:step="0.01"/>
+            </div>
+            <!-- FIXME: Fix range steps-->
+            <div class="form_control_container">
+              <div class="form_control_container__time">Max</div>
+                  <input class="form_control_container__time__input" type="number" name="maxPrice" id="toInput" th:value="${biggestPrice}" th:min="${smallestPrice}" th:max="${biggestPrice}" th:step="0.01"/>
               </div>
           </div>
           <div class="sliders_control">
-              <input id="fromSlider" type="range" value="10" min="0" max="100"/>
-              <input id="toSlider" type="range" value="40" min="0" max="100"/>
+              <input id="fromSlider" type="range" th:value="${smallestPrice}" th:min="${smallestPrice}" th:max="${biggestPrice}" th:step="0.1"/>
+              <input id="toSlider" type="range" th:value="${biggestPrice}" th:min="${smallestPrice}" th:max="${biggestPrice}"/>
           </div>
       </div>
       </div>
