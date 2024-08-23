@@ -183,7 +183,9 @@ body{
 .product-content {
     margin: 15vh 10vw;
     padding: 3vh 2vw;
-    border: solid 2px var(--dark);
+    border: solid 3px var(--dark);
+    border-radius: 12px;
+    padding: 20px;
     display: grid;
     grid-template-columns: auto auto;
 }

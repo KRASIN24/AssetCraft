@@ -20,6 +20,23 @@
             <img th:each="image : ${product.productImages}" th:src="@{${image.path}}" class="jobs" alt="Product Image"/>
         </div>
         <p><strong>Description:</strong> <span th:text="${product.description}">Description</span></p>
+        <form action="">
+            <div class="rating-holder">
+                <h3>Rating</h3>
+                <label class="rating-label">
+                  <input
+                    class="rating"
+                    min="0.5"
+                    max="5"
+                    oninput="this.style.setProperty('--value', this.value)"
+                    step="0.5"
+                    type="range">
+                </label>
+            </div>
+            <textarea rows="4" class="left-review" placeholder="Review"></textarea>
+            <input type="submit" value="Submit" class="submit-review-button">
+
+        </form>
         <h2>Reviews:</h2>
         <div th:each="review : ${product.reviews}">
             <p><strong>Review:</strong> <span th:text="${review.rating}">0.0</span> <span th:text="${review.username}">0.0</span> <span th:text="${review.comment}">0.0</span></p>
