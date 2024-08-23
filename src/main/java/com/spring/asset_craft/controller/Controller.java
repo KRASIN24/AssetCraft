@@ -58,6 +58,10 @@ public class Controller {
         return "shop";
     }
 
+    @GetMapping("/signInPage")
+    public String showSignIn(){  return "signInPage";
+    }
+
     @GetMapping("/account")
     public String showAccount(){  return "account";
     }
