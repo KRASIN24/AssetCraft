@@ -58,6 +58,6 @@ public class AssociationProductUser {
         OWNER,
         BUYER,
         WHISHLIST,
-        INTERESTED
+        CART
     }
 }
