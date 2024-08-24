@@ -39,12 +39,13 @@ public class Controller {
 
     @GetMapping("/shop")
     public String showShop(@RequestParam(required = false) String name,
-                           @RequestParam(required = false) String category,
                            @RequestParam(required = false) Float minPrice,
                            @RequestParam(required = false) Float maxPrice,
+                           @RequestParam(required = false) Float rating,
+                           @RequestParam(required = false) List<String> categories,
                            Model model){
 
-        List<Product> products = productService.searchProducts(name, category, minPrice, maxPrice);
+        List<Product> products = productService.searchProducts(name, minPrice, maxPrice, rating, categories);
 
         List<SmallProductDTO> smallProductDTOS = productService.populateSmallProductDTOS(products);
         model.addAttribute("products", smallProductDTOS);
@@ -54,6 +55,11 @@ public class Controller {
 
         float smallestPrice = productService.smallestPrice(smallProductDTOS);
         model.addAttribute("smallestPrice", smallestPrice);
+
+        if (categories == null) {
+            categories = new ArrayList<>();
+        }
+        model.addAttribute("categories", categories);
 
         return "shop";
     }

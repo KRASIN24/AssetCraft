@@ -59,18 +59,22 @@ public class ProductService {
         return smallProductDTO;
     }
 
-    public List<Product> searchProducts(String name, String category, Float minPrice, Float maxPrice) {
+    public List<Product> searchProducts(String name, Float minPrice, Float maxPrice, Float rating, List<String> categories) {
         Specification<Product> spec = Specification.where(null);  // Start with an empty specification
 
         if (name != null && !name.isEmpty()) {
             spec = spec.and(ProductSpecification.hasName(name));  // Add name filter
         }
-        if (category != null && !category.isEmpty()) {
-            spec = spec.and(ProductSpecification.hasCategory(category));  // Add category filter
-        }
         if (minPrice != null && maxPrice != null) {
             spec = spec.and(ProductSpecification.hasPriceBetween(minPrice, maxPrice));  // Add price range filter
         }
+        if (rating != null) {
+            spec = spec.and(ProductSpecification.hasRating(rating));  // Add name filter
+        }
+        if (categories != null && !categories.isEmpty()) {
+            spec = spec.and(ProductSpecification.hasCategory(categories));  // Add category filter
+        }
+
 
         return productRepository.findAll(spec);
     }

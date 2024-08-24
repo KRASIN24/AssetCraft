@@ -78,12 +78,57 @@ const fromSlider = document.querySelector('#fromSlider');
 const toSlider = document.querySelector('#toSlider');
 const fromInput = document.querySelector('#fromInput');
 const toInput = document.querySelector('#toInput');
+
 const outsideColor = '#C6C6C6';
 const insideColor = '#4e49a5';
 fillSlider(fromSlider, toSlider, outsideColor, insideColor, toSlider);
 setToggleAccessible(toSlider);
 
+
 fromSlider.oninput = () => controlFromSlider(fromSlider, toSlider, fromInput);
 toSlider.oninput = () => controlToSlider(fromSlider, toSlider, toInput);
 fromInput.oninput = () => controlFromInput(fromSlider, fromInput, toInput, toSlider);
 toInput.oninput = () => controlToInput(toSlider, fromInput, toInput, toSlider);
+
+function resetCost() {
+    const smallestPrice = document.getElementById('fromInput').min;
+    const biggestPrice = document.getElementById('toInput').max;
+
+    document.getElementById('fromInput').value = "";
+    document.getElementById('toInput').value = "";
+
+    document.getElementById('fromInput').placeholder = smallestPrice;
+    document.getElementById('toInput').placeholder = biggestPrice;
+
+    // Reset the range sliders
+    document.getElementById('fromSlider').value = smallestPrice;
+    document.getElementById('toSlider').value = biggestPrice;
+
+    fillSlider(fromSlider, toSlider, outsideColor, insideColor, toSlider);
+}
+
+function resetRating() {
+  const rangeInput = document.getElementById('ratingRange');
+  rangeInput.value = 0; // Reset to default value or any value you prefer
+  rangeInput.style.setProperty('--value', rangeInput.value); // Update the CSS variable if needed
+}
+
+// Store the initial state of the checkboxes when the page loads
+const initialCheckboxStates = [];
+
+ window.addEventListener('load', () => {
+     const checkboxes = document.querySelectorAll('.checkbox');
+     checkboxes.forEach((checkbox) => {
+         initialCheckboxStates.push({
+             element: checkbox,
+             checked: checkbox.checked
+         });
+     });
+ });
+
+ function resetCategories() {
+     initialCheckboxStates.forEach((checkboxState) => {
+         checkboxState.element.checked = checkboxState.checked;
+     });
+ }
+

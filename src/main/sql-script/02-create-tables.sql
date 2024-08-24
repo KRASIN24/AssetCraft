@@ -1,16 +1,17 @@
 CREATE DATABASE  IF NOT EXISTS `asset_craft`;
 USE `asset_craft`;
 
- DROP TABLE IF EXISTS `review`;
+DROP TABLE IF EXISTS `review`;
 DROP TABLE IF EXISTS `product_image`;
 DROP TABLE IF EXISTS `product`;
-        DROP TABLE IF EXISTS `user_image`;
-    DROP TABLE IF EXISTS `user`;
+DROP TABLE IF EXISTS `user_image`;
+DROP TABLE IF EXISTS `user`;
 
 CREATE TABLE `product` (
   `id` int NOT NULL AUTO_INCREMENT,
   `name` varchar(45) DEFAULT NULL,
   `price` decimal(5, 2) DEFAULT NULL,
+  -- TODO: change to ENUM
   `category` varchar(45) DEFAULT NULL,
   `description` varchar(250) DEFAULT NULL,
   `rating` decimal(2, 1) DEFAULT NULL,
@@ -82,7 +83,7 @@ INSERT INTO `user_image` VALUES
 	(5,'/images/users/user-image5.jpg',5);
     
     
-
+-- TODO: Add table product_user
 
 CREATE TABLE `review` (
   `id` int NOT NULL AUTO_INCREMENT,

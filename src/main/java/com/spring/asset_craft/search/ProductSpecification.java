@@ -3,16 +3,24 @@ package com.spring.asset_craft.search;
 import com.spring.asset_craft.entity.Product;
 import org.springframework.data.jpa.domain.Specification;
 
+import java.util.List;
+
 public class ProductSpecification {
     public static Specification<Product> hasName(String name) {
         return (root, query, criteriaBuilder) ->
                 name == null ? null : criteriaBuilder.like(criteriaBuilder.lower(root.get("name")), "%" + name.toLowerCase() + "%");
     }
 
-    public static Specification<Product> hasCategory(String category) {
+    public static Specification<Product> hasRating(Float rating) {
         return (root, query, criteriaBuilder) ->
-                category == null ? null : criteriaBuilder.equal(root.get("category"), category);
+                rating == null ? null : criteriaBuilder.greaterThanOrEqualTo(root.get("rating"), rating);
     }
+
+    public static Specification<Product> hasCategory(List<String> categories) {
+        return (root, query, criteriaBuilder) ->
+                categories == null || categories.isEmpty() ? null : root.get("category").in(categories);
+    }
+
 
     public static Specification<Product> hasPriceBetween(Float minPrice, Float maxPrice) {
         return (root, query, criteriaBuilder) -> {

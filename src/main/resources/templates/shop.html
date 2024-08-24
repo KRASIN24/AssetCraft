@@ -46,22 +46,28 @@
 
         <!-- TODO: Make filter work-->
     <!-- TODO: Stash pop stash@{0} after merging with master branch -->
-     
+
     <!-- TODO: Update filter-->
     <div class="nav-shop">
       <h1>Filter</h1>
+
+      <form id="filterForm" action="/shop" method="GET">
+        <input type="submit"  class="filter-submit" value="Apply Filters">
+        <input type="submit"  class="filter-clear" value="Clear"> 
+        <!-- <input type="hidden" name="page" value="1"> -->
+        <!-- <input type="hidden" name="name" value="${param.name}"> -->
       <div class="cost">
-        <h3>Cost</h3>
+        <h3 onclick="resetCost()">Cost</h3>
         <div class="range_container">
           <div class="form_control">
             <div class="form_control_container">
               <div class="form_control_container__time">Min</div>
-              <input class="form_control_container__time__input" type="number" name="minPrice" id="fromInput" th:value="${smallestPrice}" th:min="${smallestPrice}" th:max="${biggestPrice}" th:step="0.01"/>
+              <input class="form_control_container__time__input" type="number" name="biggestPrice" id="fromInput" th:placeholder="${smallestPrice}" th:min="${smallestPrice}" th:max="${biggestPrice}" th:step="0.01"/>
             </div>
             <!-- FIXME: Fix range steps-->
             <div class="form_control_container">
               <div class="form_control_container__time">Max</div>
-                  <input class="form_control_container__time__input" type="number" name="maxPrice" id="toInput" th:value="${biggestPrice}" th:min="${smallestPrice}" th:max="${biggestPrice}" th:step="0.01"/>
+                  <input class="form_control_container__time__input" type="number" name="maxPrice" id="toInput" th:placeholder="${biggestPrice}" th:min="${smallestPrice}" th:max="${biggestPrice}" th:step="0.01"/>
               </div>
           </div>
           <div class="sliders_control">
@@ -72,11 +78,13 @@
       </div>
 
       <div class="rating-holder">
-        <h3>Rating</h3>
+        <h3 onclick="resetRating()">Rating</h3>
         <label class="rating-label">
           <input
+            id="ratingRange"
             class="rating"
-            min="0.5"
+            name="rating"
+            min="0.0"
             max="5"
             oninput="this.style.setProperty('--value', this.value)"
             step="0.5"
@@ -84,10 +92,10 @@
         </label>
       </div>
 
-        <h3>Categories</h3>
+        <h3 onclick="resetCategories()">Categories</h3>
         <div class="option">
             <label class="container">
-              <input type="checkbox" checked="checked">
+              <input type="checkbox" name="categories" value="3D" class="checkbox" th:checked="${categories != null and categories.contains('3D')}" >
               <span class="checkmark"></span>
               <p>3D (42794)</p>
             </label>
@@ -95,15 +103,31 @@
 
     <div class="option">
         <label class="container">
-          <input type="checkbox">
+          <input type="checkbox" name="categories" value="2D" class="checkbox" th:checked="${categories != null and categories.contains('2D')}" >
           <span class="checkmark"></span>
           <p>2D (9281)</p>
         </label>
       </div>
 
+      <div class="option">
+        <label class="container">
+          <input type="checkbox" name="categories" value="Templates" class="checkbox" th:checked="${categories != null and categories.contains('Templates')}" >
+          <span class="checkmark"></span>
+          <p>Templates (2925)</p>
+        </label>
+    </div>
+
+    <div class="option">
+      <label class="container">
+        <input type="checkbox" name="categories" value="Audio" class="checkbox" th:checked="${categories != null and categories.contains('Audio')}" >
+        <span class="checkmark"></span>
+        <p>Audio (2925)</p>
+      </label>
+  </div>
+
 <div class="option">
     <label class="container">
-      <input type="checkbox">
+      <input type="checkbox" class="checkbox">
       <span class="checkmark"></span>
       <p>Animations (804)</p>
     </label>
@@ -111,7 +135,7 @@
 
 <div class="option">
     <label class="container">
-      <input type="checkbox">
+      <input type="checkbox" class="checkbox">
       <span class="checkmark"></span>
       <p>Characters (12404)</p>
     </label>
@@ -119,7 +143,7 @@
 
 <div class="option">
     <label class="container">
-      <input type="checkbox">
+      <input type="checkbox" class="checkbox">
       <span class="checkmark"></span>
       <p>Environments (8677)</p>
     </label>
@@ -127,7 +151,7 @@
 
 <div class="option">
     <label class="container">
-      <input type="checkbox">
+      <input type="checkbox" class="checkbox">
       <span class="checkmark"></span>
       <p>Props (12893)</p>
     </label>
@@ -135,7 +159,7 @@
 
 <div class="option">
     <label class="container">
-      <input type="checkbox">
+      <input type="checkbox" class="checkbox">
       <span class="checkmark"></span>
       <p>Vegetation (1079)</p>
     </label>
@@ -143,7 +167,7 @@
 
 <div class="option">
     <label class="container">
-      <input type="checkbox">
+      <input type="checkbox" class="checkbox">
       <span class="checkmark"></span>
       <p>Vehicles (5427)</p>
     </label>
@@ -151,7 +175,7 @@
 
 <div class="option">
     <label class="container">
-      <input type="checkbox">
+      <input type="checkbox" class="checkbox">
       <span class="checkmark"></span>
       <p>Essentials (45)</p>
     </label>
@@ -159,15 +183,7 @@
 
 <div class="option">
     <label class="container">
-      <input type="checkbox">
-      <span class="checkmark"></span>
-      <p>Templates (2925)</p>
-    </label>
-</div>
-
-<div class="option">
-    <label class="container">
-      <input type="checkbox">
+      <input type="checkbox" class="checkbox">
       <span class="checkmark"></span>
       <p>Tools (9818)</p>
     </label>
@@ -175,17 +191,24 @@
 
 <div class="option">
     <label class="container">
-      <input type="checkbox">
+      <input type="checkbox" class="checkbox">
       <span class="checkmark"></span>
       <p>VFX (2989)</p>
     </label>
 </div>
+
+
+
+</form>
     </div>
 
     </div>
+
+    
 
 
     <div th:replace="~{fragments/footer.html :: footer}" id="footer-placeholder"></div>
+    //FIXME: Add to script part for relading filters inputs
     <script src="/script.js"></script>
 </body>
 </html>

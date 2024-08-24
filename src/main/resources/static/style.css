@@ -490,6 +490,11 @@ body{
 
 .nav-shop h3{
     margin-top: 20px;
+    cursor: pointer;
+}
+
+.nav-shop h3:hover{
+    color: var(--light);
 }
 
 .range_container {
@@ -591,7 +596,7 @@ body{
     --stars: 5;
     --starsize: 2.5rem;
     --symbol: var(--star);
-    --value: 1.5;
+    --value: 0;
     --w: calc(var(--stars) * var(--starsize));
     --x: calc(100% * (var(--value) / var(--stars)));
     block-size: var(--starsize);
