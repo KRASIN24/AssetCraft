@@ -65,7 +65,7 @@ public class ProductService {
         if (name != null && !name.isEmpty()) {
             spec = spec.and(ProductSpecification.hasName(name));  // Add name filter
         }
-        if (minPrice != null && maxPrice != null) {
+        if (minPrice != null || maxPrice != null) {
             spec = spec.and(ProductSpecification.hasPriceBetween(minPrice, maxPrice));  // Add price range filter
         }
         if (rating != null) {

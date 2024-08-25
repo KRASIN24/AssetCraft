@@ -59,7 +59,6 @@ public class Controller {
         if (categories == null) {
             categories = new ArrayList<>();
         }
-        model.addAttribute("categories", categories);
 
         return "shop";
     }
