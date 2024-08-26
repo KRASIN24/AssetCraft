@@ -60,6 +60,8 @@ public class Controller {
             categories = new ArrayList<>();
         }
 
+        model.addAttribute("rating", rating);
+
         return "shop";
     }
 

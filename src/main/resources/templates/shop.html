@@ -84,6 +84,8 @@
             id="ratingRange"
             class="rating"
             name="rating"
+            th:value="${rating != null ? rating : 0}"
+            th:style="'--value:' + (${rating != null ? rating : 0})"
             min="0.0"
             max="5"
             oninput="this.style.setProperty('--value', this.value)"

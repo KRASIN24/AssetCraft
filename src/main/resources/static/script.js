@@ -132,3 +132,18 @@ const initialCheckboxStates = [];
      });
  }
 
+ document.getElementById('filterForm').addEventListener('submit',function(event){
+    const ratingInput = document.getElementById('ratingRange');
+    const fromInput = document.querySelector('#fromInput');
+    const toInput = document.querySelector('#toInput');
+
+    if (ratingInput.value === '0')
+      ratingInput.name = '';
+
+    if (fromInput.value === '')
+      fromInput.name = '';
+
+    if (toInput.value === '')
+      toInput.name = '';
+ });
+

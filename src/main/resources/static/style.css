@@ -578,7 +578,7 @@ body{
     height: 2px;
     width: 100%;
     position: absolute;
-    background-color: #C6C6C6;
+    background-color: var(--white);
     pointer-events: none;
   }
   
