@@ -136,6 +136,7 @@ const initialCheckboxStates = [];
     const ratingInput = document.getElementById('ratingRange');
     const fromInput = document.querySelector('#fromInput');
     const toInput = document.querySelector('#toInput');
+    const searchBar = document.getElementById('hiddenSearch');
 
     if (ratingInput.value === '0')
       ratingInput.name = '';
@@ -145,5 +146,8 @@ const initialCheckboxStates = [];
 
     if (toInput.value === '')
       toInput.name = '';
+
+    if(searchBar.value === '')
+      searchBar.name = '';
  });
 

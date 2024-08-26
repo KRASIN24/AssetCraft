@@ -60,7 +60,11 @@ public class Controller {
             categories = new ArrayList<>();
         }
 
+        model.addAttribute("categories", categories);
+        
         model.addAttribute("rating", rating);
+
+        model.addAttribute("name", name);
 
         return "shop";
     }

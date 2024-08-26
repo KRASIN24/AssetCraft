@@ -52,10 +52,10 @@
       <h1>Filter</h1>
 
       <form id="filterForm" action="/shop" method="GET">
-        <input type="submit"  class="filter-submit" value="Apply Filters">
+        <input type="submit"  class="filter-submit" value="Apply">
         <input type="submit"  class="filter-clear" value="Clear"> 
         <!-- <input type="hidden" name="page" value="1"> -->
-        <!-- <input type="hidden" name="name" value="${param.name}"> -->
+        <input type="hidden" id="hiddenSearch" name="name" th:value="${name != null ? name : ''}">
       <div class="cost">
         <h3 onclick="resetCost()">Cost</h3>
         <div class="range_container">

@@ -16,7 +16,7 @@
         <a th:href="@{/}"><img th:src="@{/icons/Bez nazwy-2.png}"></a>
         <div class="search">
             <form action="/shop" method="GET">
-            <input class="searchbar" type="text" name="name" placeholder="Search">
+            <input class="searchbar" type="text" name="name" th:value="${name != null ? name : ''}" placeholder="Search">
             <button type="submit" id="icon" class="fa fa-search"></button>
             </form>
         </div>
