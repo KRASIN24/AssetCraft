@@ -114,23 +114,30 @@ function resetRating() {
 }
 
 // Store the initial state of the checkboxes when the page loads
-const initialCheckboxStates = [];
+// const initialCheckboxStates = [];
 
- window.addEventListener('load', () => {
-     const checkboxes = document.querySelectorAll('.checkbox');
-     checkboxes.forEach((checkbox) => {
-         initialCheckboxStates.push({
-             element: checkbox,
-             checked: checkbox.checked
-         });
-     });
- });
+//  window.addEventListener('load', () => {
+//      const checkboxes = document.querySelectorAll('.checkbox');
+//      checkboxes.forEach((checkbox) => {
+//          initialCheckboxStates.push({
+//              element: checkbox,
+//              checked: checkbox.checked
+//          });
+//      });
+//  });
 
- function resetCategories() {
-     initialCheckboxStates.forEach((checkboxState) => {
-         checkboxState.element.checked = checkboxState.checked;
-     });
- }
+//  function resetCategories() {
+//      initialCheckboxStates.forEach((checkboxState) => {
+//          checkboxState.element.checked = checkboxState.checked;
+//      });
+//  }
+
+function resetCategories() {
+  const checkboxes = document.querySelectorAll('.checkbox');
+      checkboxes.forEach(function(checkbox) {
+        checkbox.checked = false;
+      });
+    }
 
  document.getElementById('filterForm').addEventListener('submit',function(event){
     const ratingInput = document.getElementById('ratingRange');
@@ -150,4 +157,9 @@ const initialCheckboxStates = [];
     if(searchBar.value === '')
       searchBar.name = '';
  });
-
+ 
+ function resetFilter(){
+    resetCategories();  
+    resetRating();
+    resetCost();
+ }
