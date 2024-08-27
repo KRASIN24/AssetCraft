@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="/css/style.css">
     <link rel="icon" type="image/png" href="icons/AC.png"/>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link href="https://allfont.net/allfont.css?fonts=agency-fb" rel="stylesheet" type="text/css" />
@@ -16,17 +16,24 @@
         <div class="img-holder">
             <img th:src="@{/icons/account.png}" alt="">
         </div>
-        <form th:action="POST" th:href="@{/account}">
-            <p>Username:<input type="text" name="" id="" class="username-input"></p>
-            <p>Password:<input type="password" name="" id="" class="password-input"></p>
+        <form th:href="@{/account}" th:action="@{/authenticateTheUser}" method="POST">
+            <p>Username:<input type="text" name="username" id="" class="username-input"></p>
+            <p>Password:<input type="password" name="password" id="" class="password-input"></p>
             <span class="sign-up"><a href="@{/signUp}" class="sign-up-link"></a></span>
             
             <span class="forgot-password-link">Forgot password? <a href="" class="forgot-password-link">resset password</a></span>
-            <span class="error-message">Wrong username or password entered.</span>
+            
+            <div th:if="${param.error}">
+                <span class="error-message">Wrong username or password entered.</span>
+            </div>
+
+            <div th:if="${param.logout}">
+                <span class="logout-message">You have been loged out.</span>
+            </div>
             
             <div class="button-holder">
                 <input type="button" value="Go Back" class="go-back-input">
-                <input type="button" value="Sign In" class="submit-input">
+                <input type="submit" value="Sign In" class="submit-input">
             </div>
         </form>
     </div>

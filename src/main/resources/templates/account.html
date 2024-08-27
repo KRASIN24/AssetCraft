@@ -1,11 +1,11 @@
 <!DOCTYPE html>
-<html lang="pl" xmlns:th="http://www.thymeleaf.org">
+<html lang="pl" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 
     <head>
         <meta charset="UTF-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <link rel="stylesheet" href="style.css">
+        <link rel="stylesheet" href="/css/style.css">
         <link rel="icon" type="image/png" href="icons/AC.png"/>
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
         <link href="https://allfont.net/allfont.css?fonts=agency-fb" rel="stylesheet" type="text/css" />
@@ -21,7 +21,15 @@
 
             <div class="hello">
                 <h1>Hello User!</h1>
+                <span sec:authentication="principal.username"></span>
                 <p>account@e-mail.com</p>
+
+                <form th:action="@{/logout}" method="POST">
+                    <input type="submit" value="Logout"/>
+                </form>
+
+                <!-- <div sec:authorize="hasRole('UserRole')"> <a href="#">Link that show when user has neccesary role</a></div> -->
+
             </div>
 
                 <div class="avatar"><img src="icons/avatar.png"></div>

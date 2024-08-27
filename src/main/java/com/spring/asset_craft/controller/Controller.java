@@ -61,7 +61,7 @@ public class Controller {
         }
 
         model.addAttribute("categories", categories);
-        
+
         model.addAttribute("rating", rating);
 
         model.addAttribute("name", name);
@@ -102,11 +102,6 @@ public class Controller {
         return "admin";
     }
 
-
-    @GetMapping("/login")
-    public String showLogin(){
-        return "login";
-    }
 
     // TODO: Add custom logging page
     // TODO: Move logging page from start to account

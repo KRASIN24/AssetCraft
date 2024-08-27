@@ -5,6 +5,7 @@ DROP TABLE IF EXISTS `review`;
 DROP TABLE IF EXISTS `product_user`;
 DROP TABLE IF EXISTS `product_image`;
 DROP TABLE IF EXISTS `product`;
+DROP TABLE IF EXISTS `role`;
 DROP TABLE IF EXISTS `user_image`;
 DROP TABLE IF EXISTS `user`;
 
@@ -75,25 +76,26 @@ CREATE TABLE `user` (
   `password` varchar(45) DEFAULT NULL,
 	-- TODO: Email veryfication--
   `email` varchar(45) DEFAULT NULL,
+  `active` BOOLEAN NOT NULL DEFAULT FALSE,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=latin1;
 
 INSERT INTO `user` VALUES 
-	(1,'Leslie','1234','leslie@outlook.com'),
-	(2,'Emma','0000','emma@gmail.com'),
-	(3,'Avani','9876','avani@outlook.com'),
-	(4,'Yuri','1111','yuri@outlook.com'),
-	(5,'Juan','2222','juan@gmail.com'),
-    (6, 'Sophia', '5678', 'sophia@example.com'),
-	(7, 'Liam', 'abcd', 'liam@example.com'),
-	(8, 'Olivia', 'efgh', 'olivia@example.com'),
-	(9, 'Noah', 'ijkl', 'noah@example.com'),
-	(10, 'Ava', 'mnop', 'ava@example.com'),
-	(11, 'Mason', 'qrst', 'mason@example.com'),
-	(12, 'Isabella', 'uvwx', 'isabella@example.com'),
-	(13, 'James', 'yz12', 'james@example.com'),
-	(14, 'Mia', '3456', 'mia@example.com'),
-	(15, 'Benjamin', '7890', 'benjamin@example.com');
+	(1,'Leslie','{noop}1234','leslie@outlook.com', TRUE),
+	(2,'Emma','{noop}0000','emma@gmail.com', TRUE),
+	(3,'Avani','{noop}9876','avani@outlook.com', TRUE),
+	(4,'Yuri','{noop}1111','yuri@outlook.com', TRUE),
+	(5,'Juan','{noop}2222','juan@gmail.com', TRUE),
+    (6, 'Sophia', '{noop}5678', 'sophia@example.com', TRUE),
+	(7, 'Liam', '{noop}abcd', 'liam@example.com', TRUE),
+	(8, 'Olivia', '{noop}efgh', 'olivia@example.com', TRUE),
+	(9, 'Noah', '{noop}ijkl', 'noah@example.com', TRUE),
+	(10, 'Ava', '{noop}mnop', 'ava@example.com', TRUE),
+	(11, 'Mason', '{noop}qrst', 'mason@example.com', TRUE),
+	(12, 'Isabella', '{noop}uvwx', 'isabella@example.com', TRUE),
+	(13, 'James', '{noop}yz12', 'james@example.com', TRUE),
+	(14, 'Mia', '{noop}3456', 'mia@example.com', TRUE),
+	(15, 'Benjamin', '{noop}7890', 'benjamin@example.com', TRUE);
     
     
 
@@ -122,6 +124,18 @@ INSERT INTO `user_image` VALUES
 	(13, '/images/users/user-image13.jpg', 13),
 	(14, '/images/users/user-image14.jpg', 14),
 	(15, '/images/users/user-image15.jpg', 15);
+    
+    
+    -- TODO: Change one of role names
+	CREATE TABLE `role` (
+    `user_id` int NOT NULL,
+    `role` varchar(50) NOT NULL,
+    UNIQUE KEY `autorieties5_idx_1` (`user_id`, `role`),
+    CONSTRAINT `autorieties5_idx_1` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`)
+    )ENGINE=InnoDB DEFAULT CHARSET=latin1;
+    
+    INSERT INTO `role` VALUES
+    (1, 'USER');
     
     
 CREATE TABLE `product_user` (

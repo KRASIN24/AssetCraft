@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="/style.css">
+    <link rel="stylesheet" href="/css/style.css">
     <link rel="icon" type="image/png" href="icons/AC.png"/>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link href="https://allfont.net/allfont.css?fonts=agency-fb" rel="stylesheet" type="text/css" />
@@ -33,7 +33,7 @@
                     type="range">
                 </label>
             </div>
-            <textarea rows="4" class="left-review" placeholder="Review"></textarea>
+            <textarea rows="4" class="left-review" spellcheck="true" placeholder="Review"></textarea>
             <input type="submit" value="Submit" class="submit-review-button">
 
         </form>
@@ -75,6 +75,6 @@
     </div>
 
 <div th:replace="~{fragments/footer.html :: footer}" id="footer-placeholder"></div>
-    <script th:src="@{/script2.js}"></script>
+    <script th:src="@{/js/script2.js}"></script>
 </body>
 </html>
