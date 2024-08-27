@@ -47,7 +47,7 @@ CREATE TABLE `product_image` (
 ) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=latin1;
 
 INSERT INTO `product_image` VALUES 
-	(1,'/images/products/product-image1.jpg',1),
+	(1,'/images/products/img.png',1),
 	(2,'/images/products/product-image2.jpg',2),
 	(3,'/images/products/product-image3.jpg',3),
 	(4,'/images/products/product-image4.jpg',4),
@@ -61,7 +61,8 @@ INSERT INTO `product_image` VALUES
 	(12, '/images/products/product-image12.jpg', 12),
 	(13, '/images/products/product-image13.jpg', 13),
 	(14, '/images/products/product-image14.jpg', 14),
-	(15, '/images/products/product-image15.jpg', 15);
+	(15, '/images/products/product-image15.jpg', 15),
+    (16, '/images/products/imag.png',1);
     
     
     

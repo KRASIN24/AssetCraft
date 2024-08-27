@@ -12,16 +12,18 @@
             <h2 class="product-card__title" th:text="${product.name}">Product Name</h2>
         </header>
         <section class="product-card__body">
-            <p class="product-card__rating">
+            <div class="product-card__rating">
                 <div class="stars" onload="this.style.setProperty('--stars', '${product.rating}')"></div> <span th:text="${product.rating}">Rating</span>
-            </p>
+            </div>
             <div class="product-card-bottom">
                 <p class="product-card__price">
                     <span>$</span><span th:text="${product.price}">$0.00</span>
                 </p>
                 <div class="product-card-cart-button">
-                    <img th:src="@{/icons/cart.png}">
-                    <input type="submit" value="Add to Cart" class="product-card-cart-button">
+                    <div class="cart-img-holder">
+                        <img th:src="@{/icons/cart.png}">
+                    </div>
+                    <input type="submit" value="Add to Cart">
                 </div>
             </div>
 
