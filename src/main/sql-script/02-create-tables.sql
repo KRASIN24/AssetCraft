@@ -9,6 +9,8 @@ DROP TABLE IF EXISTS `role`;
 DROP TABLE IF EXISTS `user_image`;
 DROP TABLE IF EXISTS `user`;
 
+-- TODO: Change int to bigint
+
 CREATE TABLE `product` (
   `id` int NOT NULL AUTO_INCREMENT,
   `name` varchar(45) DEFAULT NULL,
@@ -126,11 +128,10 @@ INSERT INTO `user_image` VALUES
 	(15, '/images/users/user-image15.jpg', 15);
     
     
-    -- TODO: Change one of role names
 	CREATE TABLE `role` (
     `user_id` int NOT NULL,
-    `role` varchar(50) NOT NULL,
-    UNIQUE KEY `autorieties5_idx_1` (`user_id`, `role`),
+    `role_name` varchar(50) NOT NULL,
+    UNIQUE KEY `autorieties5_idx_1` (`user_id`, `role_name`),
     CONSTRAINT `autorieties5_idx_1` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`)
     )ENGINE=InnoDB DEFAULT CHARSET=latin1;
     

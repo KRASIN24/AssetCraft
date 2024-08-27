@@ -9,8 +9,6 @@ import java.util.List;
 
  public interface AppDAO {
 
-    // TODO: Finish SQL script
-
      //Function to get data for product page
      Product findProductById(int id);
 

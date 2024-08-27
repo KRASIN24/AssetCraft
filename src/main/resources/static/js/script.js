@@ -159,6 +159,7 @@ function resetCategories() {
  });
  
  function resetFilter(){
+  // FIXME: resetCategories() work on their own but not in this function
     resetCategories();  
     resetRating();
     resetCost();

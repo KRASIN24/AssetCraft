@@ -95,6 +95,9 @@ public class Controller {
         return "productPage";
     }
 
+//    TODO: Add user registration and verification
+    // TODO: MAYBE change user login to JPA/Hibernate instead of JDBC
+
     // -------------------------------------
 
     @GetMapping("/admin")
@@ -102,7 +105,4 @@ public class Controller {
         return "admin";
     }
 
-
-    // TODO: Add custom logging page
-    // TODO: Move logging page from start to account
 }
