@@ -23,6 +23,7 @@
                 <h1>Hello User!</h1>
                 <p sec:authentication="principal.username"></p>
                 <p th:text="${email}">account@e-mail.com</p>
+                <!-- <span th:text="${#authentication.principal.email}"></span> -->
 
                 <form th:action="@{/logout}" method="POST">
                     <input type="submit" value="Logout"/>

@@ -1463,17 +1463,59 @@ h2{
 
 
 .form-holder{
-    width: 40vw;
-    margin: 10vh auto;
+    display: flex;
+    flex-direction: column;
+    width: fit-content;
+    margin: 5vh auto;
     border: 3px solid var(--light);
     border-radius: 12px;
     padding: 20px;
     color: var(--white);
     justify-content: center;
+    align-items: center;
 }
 
 .img-holder img{
     width: 5vw;
+}
+
+.form-holder input{
+    border: 3px solid var(--light);
+    border-radius: 12px;
+    padding: 10px;
+    background-color: var(--black);
+    color: var(--white);
+    font-size: 16pt;
+    margin: 10px;
+    outline: none;
+}
+
+.button-holder{
+    width: fit-content;
+    margin: 5px auto;
+}
+
+.button-holder input{
+    margin: auto 25px;
+    margin-top: 10px;
+    cursor: pointer;
+}
+
+.button-holder input:hover{
+    background-color: var(--light);
+}
+
+.forgot-password-link-holder{
+    width: fit-content;
+    margin: 5px auto; 
+}
+
+.forgot-password-link-holder a{
+    color: var(--light);
+}
+
+.message{
+    margin: 30px;
 }
 
 .error-message{
@@ -1481,6 +1523,13 @@ h2{
     border-radius: 12px;
     padding: 20px;
     color: red;
+}
+
+.logout-message{
+    border: 3px solid var(--light);
+    border-radius: 12px;
+    padding: 20px;
+    color: green;
 }
 
 
