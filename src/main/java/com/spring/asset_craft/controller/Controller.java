@@ -5,12 +5,14 @@ import com.spring.asset_craft.dto.BigProductDTO;
 import com.spring.asset_craft.dto.SmallProductDTO;
 import com.spring.asset_craft.entity.Product;
 import com.spring.asset_craft.service.ProductService;
+import com.spring.asset_craft.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import java.security.Principal;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -19,6 +21,8 @@ public class Controller {
 
     @Autowired
     private ProductService productService;
+    @Autowired
+    private UserService userService;
     private AppDAO appDAO;
 
     public Controller(AppDAO appDAO) {
@@ -74,7 +78,13 @@ public class Controller {
     }
 
     @GetMapping("/account")
-    public String showAccount(){  return "account";
+    public String showAccount(Model model, Principal principal){
+
+        // TODO: (HARD) Change approach to use CustomUserDetails and #authentcation
+        String username = principal.getName();
+        String email = userService.getUserEmail(username);
+        model.addAttribute("email", email);
+        return "account";
     }
 
     @GetMapping("/cart")
@@ -96,7 +106,7 @@ public class Controller {
     }
 
 //    TODO: Add user registration and verification
-    // TODO: MAYBE change user login to JPA/Hibernate instead of JDBC
+    // TODO: (MAYBE) change user login to JPA/Hibernate instead of JDBC
 
     // -------------------------------------
 

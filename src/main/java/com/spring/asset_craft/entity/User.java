@@ -20,6 +20,8 @@ public class User {
     @Column(name = "email")
     private String email;
     // TODO: Add so protection on deleted user shows deleted on review of him
+    @Column(name = "active")
+    private boolean active;
     @OneToMany(mappedBy = "user", cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
     private List<Review> reviews;
 
@@ -69,6 +71,14 @@ public class User {
         this.email = email;
     }
 
+    public boolean isActive() {
+        return active;
+    }
+
+    public void setActive(boolean active) {
+        this.active = active;
+    }
+
     public List<Review> getReviews() {
         return reviews;
     }
@@ -101,6 +111,9 @@ public class User {
                 ", username='" + username + '\'' +
                 ", password='" + password + '\'' +
                 ", email='" + email + '\'' +
+                ", active=" + active +
+                ", reviews=" + reviews +
+                ", associationProductUsers=" + associationProductUsers +
                 '}';
     }
 }

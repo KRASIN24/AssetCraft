@@ -26,14 +26,14 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception{
 
-        http.authorizeHttpRequests(authorizeRequest -> authorizeRequest
+        http
+                .authorizeHttpRequests(authorizeRequest -> authorizeRequest
 //                        .requestMatchers("/webPath").hasRole("UserRole")
                         .requestMatchers("/", "/shop", "/contact", "/productPage/{id}",
                                 "/css/**", "/js/**", "/images/**" ,"/icons/**").permitAll()
                         .anyRequest().authenticated()
-        )
-                .formLogin(form ->
-                        form
+                )
+                .formLogin(form -> form
                                 .loginPage("/signInPage")
                                 .loginProcessingUrl("/authenticateTheUser")
                                 .permitAll()

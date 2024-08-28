@@ -17,6 +17,7 @@ import java.util.stream.Collectors;
 @Service
 public class ProductService {
 
+    @Autowired
     private final ProductRepository productRepository;
     private AppDAO appDAO;
 
