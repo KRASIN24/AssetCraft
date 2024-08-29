@@ -13,7 +13,7 @@ import java.util.List;
 @Repository
 public interface ProductUserRepository extends JpaRepository<AssociationProductUser, Long> {
 
-    @Query(value = "SELECT new com.spring.asset_craft.dto.MidProductDTO(p.name, p.price, u.username) " +
+    @Query(value = "SELECT new com.spring.asset_craft.dto.MidProductDTO(p.id, p.name, p.price, u.username, p.rating, p.category, p.description) " +
             "FROM AssociationProductUser a " +
             "JOIN a.product p " +
             "JOIN a.user u " +
