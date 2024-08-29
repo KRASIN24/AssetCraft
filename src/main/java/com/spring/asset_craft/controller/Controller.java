@@ -4,13 +4,16 @@ import com.spring.asset_craft.dao.AppDAO;
 import com.spring.asset_craft.dto.BigProductDTO;
 import com.spring.asset_craft.dto.MidProductDTO;
 import com.spring.asset_craft.dto.SmallProductDTO;
+import com.spring.asset_craft.entity.AssociationProductUser;
 import com.spring.asset_craft.entity.Product;
+import com.spring.asset_craft.repository.ProductUserRepository;
 import com.spring.asset_craft.service.ProductService;
 import com.spring.asset_craft.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import java.security.Principal;
@@ -20,6 +23,8 @@ import java.util.List;
 @org.springframework.stereotype.Controller
 public class Controller {
 
+    @Autowired
+    private ProductUserRepository productUserRepository;
     @Autowired
     private ProductService productService;
     @Autowired
@@ -89,12 +94,21 @@ public class Controller {
     }
 
     @GetMapping("/cart")
-    public String showCart(Model model , Principal principal){
+    public String showCart(Model model, Principal principal){
 
         String username = principal.getName();
         List<MidProductDTO> productsInCart = productService.getProductsInCartByUser(username);
         model.addAttribute("products", productsInCart);
         return "cart";
+    }
+
+    @PostMapping("/cart/remove")
+    public String removeFromCart(@RequestParam("productId") int productId, Principal principal){
+        AssociationProductUser productUser = productUserRepository.findCartProductsByProductId(productId, principal.getName());
+        if(productUser != null)
+            productUserRepository.delete(productUser);
+
+        return "redirect:/cart";
     }
 
     @GetMapping("/contact")

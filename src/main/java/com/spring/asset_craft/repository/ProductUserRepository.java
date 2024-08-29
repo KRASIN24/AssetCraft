@@ -19,5 +19,8 @@ public interface ProductUserRepository extends JpaRepository<AssociationProductU
             "JOIN a.user u " +
             "WHERE a.status = 'CART' AND u.username = :username")
     List<MidProductDTO> findCartProductsByUser(@Param("username") String username);
+
+    @Query(value="SELECT a FROM AssociationProductUser a WHERE a.product.id = :productId AND a.user.username = :username")
+    AssociationProductUser findCartProductsByProductId(@Param("productId") int productId, @Param("username") String username);
 }
 

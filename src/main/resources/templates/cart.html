@@ -54,11 +54,16 @@
                         <span th:text="${product.description}">Description</span>
                     </p>
                 </a>
-
-                <div class="bin">
-                    <img src="icons/binclose.png" class="img-bottom">
-                    <img src="icons/binopen.png" class="img-top">
-                </div>
+                <form th:action="@{cart/remove}" method="POST">
+                    <input type="hidden" name="_csrf" th:value="${_csrf.token}">
+                    <input type="hidden" name="productId" th:value="${product.productId}">
+                    <button type="submit">
+                        <div class="bin">
+                            <img src="icons/binclose.png" class="img-bottom">
+                            <img src="icons/binopen.png" class="img-top">
+                        </div>
+                    </button>
+                </form>
                 </div>
         </div>
 

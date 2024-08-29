@@ -135,6 +135,7 @@ INSERT INTO `user_image` VALUES
     CONSTRAINT `autorieties5_idx_1` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`)
     )ENGINE=InnoDB DEFAULT CHARSET=latin1;
     
+    -- TODO: Populate role
     INSERT INTO `role` VALUES
     (1, 'USER');
     
@@ -180,9 +181,7 @@ INSERT INTO `product_user` VALUES
 	(28, 7, 14, 'WHISHLIST'),
 	(29, 8, 15, 'WHISHLIST'),
 	(30, 9, 1, 'CART');
-	
-	
-	
+
 
 CREATE TABLE `review` (
   `id` int NOT NULL AUTO_INCREMENT,
