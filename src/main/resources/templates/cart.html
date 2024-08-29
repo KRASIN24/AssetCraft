@@ -17,6 +17,8 @@
     <div class="cartback">
 
     <div class="leftside">
+        
+        
         <div class="incart"> 
             <label class="contain">
                 
@@ -40,7 +42,16 @@
               </label>  
         </div>
 
-        <a class="more" href="@{/shop}">
+        <div class="incart" th:unless="${products.isEmpty()}"> 
+                <div th:each="product : ${products}" class="inCart-products">
+                    <p class="product-card__owner">
+                        <span th:text="${product.ownerUsername}">Owner Username</span>
+                        <h2 class="product-card__title" th:text="${product.productName}">Product Name</h2>
+                    </p>
+                </div>
+        </div>
+
+        <a class="more" th:href="@{/shop}">
                   <p>ADD MORE</p>
                   <P>></P>
         </a>

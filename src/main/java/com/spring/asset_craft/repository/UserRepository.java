@@ -1,4 +1,4 @@
-package com.spring.asset_craft.search;
+package com.spring.asset_craft.repository;
 
 import com.spring.asset_craft.entity.User;
 import org.springframework.data.jpa.repository.JpaRepository;

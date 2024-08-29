@@ -1,6 +1,8 @@
 package com.spring.asset_craft.service;
 
-import com.spring.asset_craft.search.ProductRepository;
+import com.spring.asset_craft.dto.MidProductDTO;
+import com.spring.asset_craft.repository.ProductUserRepository;
+import com.spring.asset_craft.repository.ProductRepository;
 import com.spring.asset_craft.search.ProductSpecification;
 import com.spring.asset_craft.dao.AppDAO;
 import com.spring.asset_craft.dto.BigProductDTO;
@@ -19,6 +21,8 @@ public class ProductService {
 
     @Autowired
     private final ProductRepository productRepository;
+    @Autowired
+    private ProductUserRepository productUserRepository;
     private AppDAO appDAO;
 
     @Autowired
@@ -104,18 +108,20 @@ public class ProductService {
 
     public float biggestPrice(List<SmallProductDTO> smallProductDTOS) {
 
-        float number = smallProductDTOS.stream()
-                                        .map(SmallProductDTO::getPrice)
-                                        .max(Float::compare)
-                                        .orElse(0.0f);
-        return number;
+        return smallProductDTOS.stream()
+                .map(SmallProductDTO::getPrice)
+                .max(Float::compare)
+                .orElse(0.0f);
     }
 
     public float smallestPrice(List<SmallProductDTO> smallProductDTOS) {
-        float number = smallProductDTOS.stream()
-                                        .map(SmallProductDTO::getPrice)
-                                        .min(Float::compare)
-                                        .orElse(0.0f);
-        return number;
+        return smallProductDTOS.stream()
+                .map(SmallProductDTO::getPrice)
+                .min(Float::compare)
+                .orElse(0.0f);
+    }
+
+    public List<MidProductDTO> getProductsInCartByUser(String username){
+        return productUserRepository.findCartProductsByUser(username);
     }
 }

@@ -2,6 +2,7 @@ package com.spring.asset_craft.controller;
 
 import com.spring.asset_craft.dao.AppDAO;
 import com.spring.asset_craft.dto.BigProductDTO;
+import com.spring.asset_craft.dto.MidProductDTO;
 import com.spring.asset_craft.dto.SmallProductDTO;
 import com.spring.asset_craft.entity.Product;
 import com.spring.asset_craft.service.ProductService;
@@ -88,7 +89,11 @@ public class Controller {
     }
 
     @GetMapping("/cart")
-    public String showCart(){
+    public String showCart(Model model , Principal principal){
+
+        String username = principal.getName();
+        List<MidProductDTO> productsInCart = productService.getProductsInCartByUser(username);
+        model.addAttribute("products", productsInCart);
         return "cart";
     }
 
