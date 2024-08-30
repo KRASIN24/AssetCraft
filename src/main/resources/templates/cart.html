@@ -42,8 +42,14 @@
               </label>  
         </div>
 
-        <div class="incart" th:unless="${products.isEmpty()}"> 
-                <div th:each="product : ${products}" class="inCart-products">
+        <div  th:unless="${products.isEmpty()}"> 
+                <div th:each="product : ${products}" class="incart">
+                   
+                    <div>
+                        <input type="checkbox" checked>
+                        <span class="checkmark"></span>
+                    </div>
+
                     <a th:href="@{/productPage/{id}(id=${product.productId})}" class="product-card-link">
                     <p class="product-card__owner">
                         <span th:text="${product.ownerUsername}">Owner Username</span>

@@ -70,4 +70,14 @@ public class AppDAOImpl implements AppDAO {
             return reviews;
 
     }
+
+    @Override
+    public User findUserByUsername(String username) {
+
+        TypedQuery<User> query = entityManager.createQuery(
+                "SELECT u FROM User u WHERE LOWER(p.name) LIKE LOWER(:data)", User.class);
+        query.setParameter("data", "%" + username.toLowerCase() + "%");
+        User user = query.getSingleResult();
+        return user;
+    }
 }

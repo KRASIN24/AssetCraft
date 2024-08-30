@@ -124,4 +124,9 @@ public class ProductService {
     public List<MidProductDTO> getProductsInCartByUser(String username){
         return productUserRepository.findCartProductsByUser(username);
     }
+
+    public Product getProductById(int id){
+        return productRepository.findProductById(id)
+                .orElse(null);
+    }
 }

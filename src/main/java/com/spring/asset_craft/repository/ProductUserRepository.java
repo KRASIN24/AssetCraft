@@ -22,5 +22,8 @@ public interface ProductUserRepository extends JpaRepository<AssociationProductU
 
     @Query(value="SELECT a FROM AssociationProductUser a WHERE a.product.id = :productId AND a.user.username = :username")
     AssociationProductUser findCartProductsByProductId(@Param("productId") int productId, @Param("username") String username);
+
+    @Query("SELECT COUNT(a)>0 FROM AssociationProductUser a WHERE a.product.id = :productId AND a.user.id = :userId AND a.status = :status")
+    boolean alreadyExists(@Param("productId") int productId, @Param("userId") int userId, @Param("status") AssociationProductUser.ProductUserStatus status);
 }
 

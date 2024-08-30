@@ -18,4 +18,6 @@ import java.util.List;
      String getOwnerUsername(int productId);
 
     List<ReviewDTO> getProductReviews(int id);
+
+    User findUserByUsername(String username);
 }

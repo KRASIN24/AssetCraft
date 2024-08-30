@@ -17,6 +17,11 @@ public class UserService {
                 .orElse(null);
     }
 
+    public User getUserByUsername(String username){
+        return userRepository.findByUsername(username)
+                .orElse(null);
+    }
+
 //    public String getUserProfileImage(String username){
 //        return userRepository.findByUsername(username)
 //                .map()

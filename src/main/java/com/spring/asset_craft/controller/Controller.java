@@ -6,7 +6,10 @@ import com.spring.asset_craft.dto.MidProductDTO;
 import com.spring.asset_craft.dto.SmallProductDTO;
 import com.spring.asset_craft.entity.AssociationProductUser;
 import com.spring.asset_craft.entity.Product;
+import com.spring.asset_craft.entity.User;
+import com.spring.asset_craft.repository.ProductRepository;
 import com.spring.asset_craft.repository.ProductUserRepository;
+import com.spring.asset_craft.repository.UserRepository;
 import com.spring.asset_craft.service.ProductService;
 import com.spring.asset_craft.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,6 +23,8 @@ import java.security.Principal;
 import java.util.ArrayList;
 import java.util.List;
 
+import static com.spring.asset_craft.entity.AssociationProductUser.ProductUserStatus.CART;
+
 @org.springframework.stereotype.Controller
 public class Controller {
 
@@ -29,6 +34,11 @@ public class Controller {
     private ProductService productService;
     @Autowired
     private UserService userService;
+    @Autowired
+    private UserRepository userRepository;
+
+    @Autowired
+    private ProductRepository productRepository;
     private AppDAO appDAO;
 
     public Controller(AppDAO appDAO) {
@@ -100,6 +110,21 @@ public class Controller {
         List<MidProductDTO> productsInCart = productService.getProductsInCartByUser(username);
         model.addAttribute("products", productsInCart);
         return "cart";
+    }
+
+    @PostMapping("/cart/add")
+    public String addToCart(@RequestParam("productId") int productId, Principal principal){
+        AssociationProductUser productUser = new AssociationProductUser();
+        productUser.setProduct(productService.getProductById(productId));
+        String username = principal.getName();
+        User user = userService.getUserByUsername(username);
+        productUser.setUser(user);
+        productUser.setStatus(CART);
+        AssociationProductUser.ProductUserStatus status = CART;
+        boolean exists = productUserRepository.alreadyExists(productId, user.getId(), status);
+        if(!exists)
+            productUserRepository.save(productUser);
+        return "redirect:/shop";
     }
 
     @PostMapping("/cart/remove")

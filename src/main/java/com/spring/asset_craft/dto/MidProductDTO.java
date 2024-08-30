@@ -1,5 +1,9 @@
 package com.spring.asset_craft.dto;
 
+import java.lang.reflect.Array;
+import java.util.Arrays;
+import java.util.List;
+
 public class MidProductDTO {
 
     private int productId;
@@ -9,6 +13,8 @@ public class MidProductDTO {
     private float rating;
     private String category;
     private String description;
+
+    private List<String> paths;
 
     public MidProductDTO(int productId, String productName, float productPrice, String ownerUsername, float rating, String category, String description) {
         this.productId = productId;
@@ -74,5 +80,13 @@ public class MidProductDTO {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public List<String> getPath() {
+        return paths;
+    }
+
+    public void setPath(List<String> paths) {
+        this.paths = paths;
     }
 }
