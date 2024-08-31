@@ -5,10 +5,10 @@
     <article class="product-card">
         <header class="product-card__header">
             <div class="img-container">
-            <img th:src="@{${product.imgPath[0].path}}" alt="Product Image">
+            <img th:src="@{${product.productImages[0].path}}" alt="Product Image">
         </div>
         <p class="product-card__owner">
-                <span th:text="${product.owner}">Owner Username</span>
+                <span th:text="${product.ownerUsername}">Owner Username</span>
             </p>
             <h2 class="product-card__title" th:text="${product.name}">Product Name</h2>
         </header>

@@ -1,9 +1,7 @@
 package com.spring.asset_craft.controller;
 
 import com.spring.asset_craft.dao.AppDAO;
-import com.spring.asset_craft.dto.BigProductDTO;
-import com.spring.asset_craft.dto.MidProductDTO;
-import com.spring.asset_craft.dto.SmallProductDTO;
+import com.spring.asset_craft.dto.ProductDTO;
 import com.spring.asset_craft.entity.AssociationProductUser;
 import com.spring.asset_craft.entity.Product;
 import com.spring.asset_craft.entity.User;
@@ -50,9 +48,9 @@ public class Controller {
     public String showIndex(Model model){
         String name = "";
         List<Product> products = appDAO.findProductByName(name);
-        List<SmallProductDTO> smallProductDTOS = productService.populateSmallProductDTOS(products);
+        List<ProductDTO> ProductDTOS = productService.populateSmallProductDTOS(products);
         // Add the map to the model
-        model.addAttribute("products", smallProductDTOS);
+        model.addAttribute("products", ProductDTOS);
         return "index";
     }
 
@@ -67,13 +65,13 @@ public class Controller {
 
         List<Product> products = productService.searchProducts(name, minPrice, maxPrice, rating, categories);
 
-        List<SmallProductDTO> smallProductDTOS = productService.populateSmallProductDTOS(products);
-        model.addAttribute("products", smallProductDTOS);
+        List<ProductDTO> ProductDTOs = productService.populateSmallProductDTOS(products);
+        model.addAttribute("products", ProductDTOs);
 
-        float biggestPrice = productService.biggestPrice(smallProductDTOS);
+        float biggestPrice = productService.biggestPrice(ProductDTOs);
         model.addAttribute("biggestPrice", biggestPrice);
 
-        float smallestPrice = productService.smallestPrice(smallProductDTOS);
+        float smallestPrice = productService.smallestPrice(ProductDTOs);
         model.addAttribute("smallestPrice", smallestPrice);
 
         if (categories == null) {
@@ -107,7 +105,7 @@ public class Controller {
     public String showCart(Model model, Principal principal){
 
         String username = principal.getName();
-        List<MidProductDTO> productsInCart = productService.getProductsInCartByUser(username);
+        List<ProductDTO> productsInCart = productService.getProductsInCartByUser(username);
         model.addAttribute("products", productsInCart);
         return "cart";
     }
@@ -143,9 +141,9 @@ public class Controller {
 
     @GetMapping("/productPage/{id}")
     public String showProductPage(@PathVariable("id") int id, Model model) {
-        //Product product = appDAO.findProductById(id);
-        BigProductDTO bigProductDTO = productService.getBigProductDTO(id);
-        model.addAttribute("product", bigProductDTO);
+
+        ProductDTO ProductDTO = productService.getBigProductDTO(id);
+        model.addAttribute("product", ProductDTO);
         return "productPage";
     }
 

@@ -1,13 +1,11 @@
 package com.spring.asset_craft.service;
 
-import com.spring.asset_craft.dto.MidProductDTO;
 import com.spring.asset_craft.repository.ProductUserRepository;
 import com.spring.asset_craft.repository.ProductRepository;
 import com.spring.asset_craft.search.ProductSpecification;
 import com.spring.asset_craft.dao.AppDAO;
-import com.spring.asset_craft.dto.BigProductDTO;
 import com.spring.asset_craft.dto.ReviewDTO;
-import com.spring.asset_craft.dto.SmallProductDTO;
+import com.spring.asset_craft.dto.ProductDTO;
 import com.spring.asset_craft.entity.Product;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.domain.Specification;
@@ -23,6 +21,7 @@ public class ProductService {
     private final ProductRepository productRepository;
     @Autowired
     private ProductUserRepository productUserRepository;
+    @Autowired
     private AppDAO appDAO;
 
     @Autowired
@@ -31,37 +30,37 @@ public class ProductService {
         this.appDAO = appDAO;
     }
 
-    public BigProductDTO getBigProductDTO(int id){
+    public ProductDTO getBigProductDTO(int id){
 
         Product product = appDAO.findProductById(id);
-        String owner = appDAO.getOwnerUsername(id);
+        String ownerUsername = appDAO.getOwnerUsername(id);
         List<ReviewDTO> reviews= appDAO.getProductReviews(id);
 
-        BigProductDTO bigProductDTO = new BigProductDTO();
-        bigProductDTO.setName(product.getName());
-        bigProductDTO.setProductImages(product.getProductImages());
-        bigProductDTO.setDescription(product.getDescription());
-        bigProductDTO.setId(product.getId());
-        bigProductDTO.setPrice(product.getPrice());
-        bigProductDTO.setRating(product.getRating());
-        bigProductDTO.setCategory(product.getCategory());
-        bigProductDTO.setOwner(owner);
-        bigProductDTO.setReviews(reviews);
-        return bigProductDTO;
+        return new ProductDTO(
+                product.getId(),
+                product.getName(),
+                product.getPrice(),
+                product.getRating(),
+                ownerUsername,
+                product.getDescription(),
+                product.getCategory(),
+                reviews,
+                product.getProductImages()
+        );
     }
 
-    public SmallProductDTO getSmallProductDTO(int id){
+    public ProductDTO getSmallProductDTO(int id){
         Product product = appDAO.findProductById(id);
-        String owner = appDAO.getOwnerUsername(id);
+        String ownerUsername = appDAO.getOwnerUsername(id);
 
-        SmallProductDTO smallProductDTO = new SmallProductDTO();
-        smallProductDTO.setId(product.getId());
-        smallProductDTO.setName(product.getName());
-        smallProductDTO.setPrice(product.getPrice());
-        smallProductDTO.setRating(product.getRating());
-        smallProductDTO.setImgPath(product.getProductImages());
-        smallProductDTO.setOwner(owner);
-        return smallProductDTO;
+        return new ProductDTO(
+                product.getId(),
+                product.getName(),
+                product.getPrice(),
+                product.getRating(),
+                product.getCategory(),
+                product.getProductImages(),
+                ownerUsername);
     }
 
     public List<Product> searchProducts(String name, Float minPrice, Float maxPrice, Float rating, List<String> categories) {
@@ -80,22 +79,21 @@ public class ProductService {
             spec = spec.and(ProductSpecification.hasCategory(categories));  // Add category filter
         }
 
-
         return productRepository.findAll(spec);
     }
 
-    public List<SmallProductDTO> populateSmallProductDTOS(List<Product> products) {
+    public List<ProductDTO> populateSmallProductDTOS(List<Product> products) {
         return products.stream()
                 .map(this::convertToSmallProductDTO)
                 .collect(Collectors.toList());
     }
 
-    private SmallProductDTO convertToSmallProductDTO(Product product) {
+    private ProductDTO convertToSmallProductDTO(Product product) {
         // Fetch the owner username based on the product ID
         String ownerUsername = appDAO.getOwnerUsername(product.getId());
 
-        // Create and return a SmallProductDTO object
-        return new SmallProductDTO(
+        // Create and return a ProductDTO object
+        return new ProductDTO(
                 product.getId(),
                 product.getName(),
                 product.getPrice(),
@@ -106,22 +104,22 @@ public class ProductService {
         );
     }
 
-    public float biggestPrice(List<SmallProductDTO> smallProductDTOS) {
+    public float biggestPrice(List<ProductDTO> ProductDTOS) {
 
-        return smallProductDTOS.stream()
-                .map(SmallProductDTO::getPrice)
+        return ProductDTOS.stream()
+                .map(ProductDTO::getPrice)
                 .max(Float::compare)
                 .orElse(0.0f);
     }
 
-    public float smallestPrice(List<SmallProductDTO> smallProductDTOS) {
-        return smallProductDTOS.stream()
-                .map(SmallProductDTO::getPrice)
+    public float smallestPrice(List<ProductDTO> ProductDTOS) {
+        return ProductDTOS.stream()
+                .map(ProductDTO::getPrice)
                 .min(Float::compare)
                 .orElse(0.0f);
     }
 
-    public List<MidProductDTO> getProductsInCartByUser(String username){
+    public List<ProductDTO> getProductsInCartByUser(String username){
         return productUserRepository.findCartProductsByUser(username);
     }
 

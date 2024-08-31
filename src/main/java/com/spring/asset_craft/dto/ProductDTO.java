@@ -1,25 +1,51 @@
 package com.spring.asset_craft.dto;
 
 import com.spring.asset_craft.entity.ProductImage;
-import com.spring.asset_craft.entity.Review;
-import com.spring.asset_craft.entity.User;
 
 import java.util.List;
 
-public class BigProductDTO {
+public class ProductDTO {
 
     private int id;
     private String name;
     private float price;
     private float rating;
-    private List<ProductImage> imgPath;
-    private String owner;
+    private String ownerUsername;
     private String description;
     private String category;
     private List<ReviewDTO> reviews;
     private List<ProductImage> productImages;
 
-    public BigProductDTO() {
+    public ProductDTO(int id, String name, float price, float rating, String category, List<ProductImage> productImages, String ownerUsername) {
+        this.id = id;
+        this.name = name;
+        this.price = price;
+        this.rating = rating;
+        this.category = category;
+        this.productImages = productImages;
+        this.ownerUsername = ownerUsername;
+    }
+
+    public ProductDTO(int id, String name, float price, String ownerUsername, float rating, String category, String description) {
+        this.id = id;
+        this.name = name;
+        this.price = price;
+        this.ownerUsername = ownerUsername;
+        this.rating = rating;
+        this.category = category;
+        this.description = description;
+    }
+
+    public ProductDTO(int id, String name, float price, float rating, String ownerUsername, String description, String category, List<ReviewDTO> reviews, List<ProductImage> productImages) {
+        this.id = id;
+        this.name = name;
+        this.price = price;
+        this.rating = rating;
+        this.ownerUsername = ownerUsername;
+        this.description = description;
+        this.category = category;
+        this.reviews = reviews;
+        this.productImages = productImages;
     }
 
     public int getId() {
@@ -54,20 +80,12 @@ public class BigProductDTO {
         this.rating = rating;
     }
 
-    public List<ProductImage> getImgPath() {
-        return imgPath;
+    public String getOwnerUsername() {
+        return ownerUsername;
     }
 
-    public void setImgPath(List<ProductImage> imgPath) {
-        this.imgPath = imgPath;
-    }
-
-    public String getOwner() {
-        return owner;
-    }
-
-    public void setOwner(String owner) {
-        this.owner = owner;
+    public void setOwnerUsername(String ownerUsername) {
+        this.ownerUsername = ownerUsername;
     }
 
     public String getDescription() {
