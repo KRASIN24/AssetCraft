@@ -48,7 +48,7 @@ public class Controller {
     public String showIndex(Model model){
         String name = "";
         //List<Product> products = productService.getProductsByName(name);
-        List<Product> products = productRepository.findAll();
+        List<Product> products = productService.getAllProducts();
         List<ProductDTO> ProductDTOS = productService.populateSmallProductDTOS(products);
         // Add the map to the model
         model.addAttribute("products", ProductDTOS);
@@ -112,16 +112,18 @@ public class Controller {
     @PostMapping("/cart/add")
     public String addToCart(@RequestParam("productId") int productId, Principal principal){
 
-        ProductUser productUser = new ProductUser();
-        productUser.setProduct(productService.getProductById(productId));
-        String username = principal.getName();
-        User user = userService.getUserByUsername(username);
-        productUser.setUser(user);
-        productUser.setStatus(CART);
+        User user = userService.getUserByUsername(principal.getName());
         ProductUser.ProductUserStatus status = CART;
-        boolean exists = productUserRepository.alreadyExists(productId, user.getId(), status);
-        if(!exists)
+
+        ProductUser productUser = new ProductUser(
+                productService.getProductById(productId),
+                user,
+                status
+        );
+
+        if(!productService.isInCart(productId, user.getId()))
             productUserRepository.save(productUser);
+
         return "redirect:/shop";
     }
 

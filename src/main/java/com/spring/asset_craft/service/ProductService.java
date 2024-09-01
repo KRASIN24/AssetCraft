@@ -147,7 +147,7 @@ public class ProductService {
     }
 
         public ProductUser getProductInCartToDelete(int productId, String username){
-            return productUserRepository.findCartProductsByProductId(productId, username)
+            return productUserRepository.findCartProductByProductId(productId, username)
                     .orElse(null);
         }
 
@@ -158,5 +158,13 @@ public class ProductService {
 
         public List<ReviewDTO> getReviewsDTO(int productId){
             return productRepository.findProductReviews(productId);
+        }
+
+        public boolean isInCart(int productId, int userId){
+            return productUserRepository.inCart(productId, userId);
+        }
+
+        public List<Product> getAllProducts(){
+            return productRepository.findAll();
         }
 }
