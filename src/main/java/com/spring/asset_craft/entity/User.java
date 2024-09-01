@@ -26,7 +26,7 @@ public class User {
     private List<Review> reviews;
 
     @OneToMany(cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
-    private List<AssociationProductUser> associationProductUsers;
+    private List<ProductUser> productUsers;
 
 
     public User() {
@@ -96,12 +96,12 @@ public class User {
         review.setUser(this);
     }
 
-    public List<AssociationProductUser> getAssociationProductUsers() {
-        return associationProductUsers;
+    public List<ProductUser> getAssociationProductUsers() {
+        return productUsers;
     }
 
-    public void setAssociationProductUsers(List<AssociationProductUser> associationProductUsers) {
-        this.associationProductUsers = associationProductUsers;
+    public void setAssociationProductUsers(List<ProductUser> productUsers) {
+        this.productUsers = productUsers;
     }
 
     @Override
@@ -113,7 +113,7 @@ public class User {
                 ", email='" + email + '\'' +
                 ", active=" + active +
                 ", reviews=" + reviews +
-                ", associationProductUsers=" + associationProductUsers +
+                ", productUsers=" + productUsers +
                 '}';
     }
 }

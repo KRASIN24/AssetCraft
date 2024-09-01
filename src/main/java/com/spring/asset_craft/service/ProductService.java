@@ -1,5 +1,6 @@
 package com.spring.asset_craft.service;
 
+import com.spring.asset_craft.entity.ProductUser;
 import com.spring.asset_craft.repository.ProductUserRepository;
 import com.spring.asset_craft.repository.ProductRepository;
 import com.spring.asset_craft.search.ProductSpecification;
@@ -11,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -30,28 +32,25 @@ public class ProductService {
         this.appDAO = appDAO;
     }
 
-    public ProductDTO getBigProductDTO(int id){
+    public ProductDTO getBigProductDTO(int productId){
 
-        Product product = appDAO.findProductById(id);
-        String ownerUsername = appDAO.getOwnerUsername(id);
-        List<ReviewDTO> reviews= appDAO.getProductReviews(id);
+        Product product = getProductById(productId);
 
         return new ProductDTO(
                 product.getId(),
                 product.getName(),
                 product.getPrice(),
                 product.getRating(),
-                ownerUsername,
+                getOwnerUsername(productId),
                 product.getDescription(),
                 product.getCategory(),
-                reviews,
+                getReviewsDTO(productId),
                 product.getProductImages()
         );
     }
 
     public ProductDTO getSmallProductDTO(int id){
-        Product product = appDAO.findProductById(id);
-        String ownerUsername = appDAO.getOwnerUsername(id);
+        Product product = getProductById(id);
 
         return new ProductDTO(
                 product.getId(),
@@ -60,7 +59,8 @@ public class ProductService {
                 product.getRating(),
                 product.getCategory(),
                 product.getProductImages(),
-                ownerUsername);
+                getOwnerUsername(product.getId())
+                );
     }
 
     public List<Product> searchProducts(String name, Float minPrice, Float maxPrice, Float rating, List<String> categories) {
@@ -89,10 +89,7 @@ public class ProductService {
     }
 
     private ProductDTO convertToSmallProductDTO(Product product) {
-        // Fetch the owner username based on the product ID
-        String ownerUsername = appDAO.getOwnerUsername(product.getId());
 
-        // Create and return a ProductDTO object
         return new ProductDTO(
                 product.getId(),
                 product.getName(),
@@ -100,7 +97,7 @@ public class ProductService {
                 product.getRating(),
                 product.getCategory(),
                 product.getProductImages(),
-                ownerUsername
+                getOwnerUsername(product.getId())
         );
     }
 
@@ -119,12 +116,47 @@ public class ProductService {
                 .orElse(0.0f);
     }
 
-    public List<ProductDTO> getProductsInCartByUser(String username){
-        return productUserRepository.findCartProductsByUser(username);
-    }
 
     public Product getProductById(int id){
         return productRepository.findProductById(id)
                 .orElse(null);
     }
+
+    public List<Product> getProductsByName(String name){
+        return productRepository.findProductByName(name);
+    }
+
+    public List<ProductDTO> getProductsInCart(String username){
+        List<ProductDTO> productDTOs = new ArrayList<>();
+        List<Product> products = productUserRepository.findCartProductsByUser(username);
+
+        for (Product product : products) {
+            ProductDTO dto = new ProductDTO(
+                    product.getId(),
+                    product.getName(),
+                    product.getPrice(),
+                    product.getRating(),
+                    product.getCategory(),
+                    product.getProductImages(),
+                    getOwnerUsername(product.getId())
+            );
+            productDTOs.add(dto);
+        }
+        return productDTOs;
+
+    }
+
+        public ProductUser getProductInCartToDelete(int productId, String username){
+            return productUserRepository.findCartProductsByProductId(productId, username)
+                    .orElse(null);
+        }
+
+        public String getOwnerUsername(int productId) {
+            return productUserRepository.getOwnerUsername(productId)
+                    .orElse(null);
+        }
+
+        public List<ReviewDTO> getReviewsDTO(int productId){
+            return productRepository.findProductReviews(productId);
+        }
 }

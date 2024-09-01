@@ -7,17 +7,8 @@ import com.spring.asset_craft.entity.User;
 
 import java.util.List;
 
-// TODO: (Long) Transfer DAO to JpaRepository compliantly or use hybrid approach for complex queries
  public interface AppDAO {
 
-     //Function to get data for product page
-     Product findProductById(int id);
+     //Product findProductById(int id);
 
-     List<Product> findProductByName(String name);
-
-     String getOwnerUsername(int productId);
-
-    List<ReviewDTO> getProductReviews(int id);
-
-    User findUserByUsername(String username);
 }

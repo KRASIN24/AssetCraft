@@ -2,7 +2,7 @@ package com.spring.asset_craft.controller;
 
 import com.spring.asset_craft.dao.AppDAO;
 import com.spring.asset_craft.dto.ProductDTO;
-import com.spring.asset_craft.entity.AssociationProductUser;
+import com.spring.asset_craft.entity.ProductUser;
 import com.spring.asset_craft.entity.Product;
 import com.spring.asset_craft.entity.User;
 import com.spring.asset_craft.repository.ProductRepository;
@@ -21,7 +21,7 @@ import java.security.Principal;
 import java.util.ArrayList;
 import java.util.List;
 
-import static com.spring.asset_craft.entity.AssociationProductUser.ProductUserStatus.CART;
+import static com.spring.asset_craft.entity.ProductUser.ProductUserStatus.CART;
 
 @org.springframework.stereotype.Controller
 public class Controller {
@@ -47,7 +47,8 @@ public class Controller {
     @GetMapping("/")
     public String showIndex(Model model){
         String name = "";
-        List<Product> products = appDAO.findProductByName(name);
+        //List<Product> products = productService.getProductsByName(name);
+        List<Product> products = productRepository.findAll();
         List<ProductDTO> ProductDTOS = productService.populateSmallProductDTOS(products);
         // Add the map to the model
         model.addAttribute("products", ProductDTOS);
@@ -104,21 +105,20 @@ public class Controller {
     @GetMapping("/cart")
     public String showCart(Model model, Principal principal){
 
-        String username = principal.getName();
-        List<ProductDTO> productsInCart = productService.getProductsInCartByUser(username);
-        model.addAttribute("products", productsInCart);
+        model.addAttribute("products", productService.getProductsInCart(principal.getName()));
         return "cart";
     }
 
     @PostMapping("/cart/add")
     public String addToCart(@RequestParam("productId") int productId, Principal principal){
-        AssociationProductUser productUser = new AssociationProductUser();
+
+        ProductUser productUser = new ProductUser();
         productUser.setProduct(productService.getProductById(productId));
         String username = principal.getName();
         User user = userService.getUserByUsername(username);
         productUser.setUser(user);
         productUser.setStatus(CART);
-        AssociationProductUser.ProductUserStatus status = CART;
+        ProductUser.ProductUserStatus status = CART;
         boolean exists = productUserRepository.alreadyExists(productId, user.getId(), status);
         if(!exists)
             productUserRepository.save(productUser);
@@ -127,7 +127,7 @@ public class Controller {
 
     @PostMapping("/cart/remove")
     public String removeFromCart(@RequestParam("productId") int productId, Principal principal){
-        AssociationProductUser productUser = productUserRepository.findCartProductsByProductId(productId, principal.getName());
+        ProductUser productUser = productService.getProductInCartToDelete(productId, principal.getName());
         if(productUser != null)
             productUserRepository.delete(productUser);
 

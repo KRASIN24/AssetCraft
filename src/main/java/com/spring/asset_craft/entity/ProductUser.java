@@ -4,7 +4,7 @@ import jakarta.persistence.*;
 
 @Entity
 @Table(name = "product_user")
-public class AssociationProductUser {
+public class ProductUser {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -21,10 +21,10 @@ public class AssociationProductUser {
     @Column(name = "status")
     private ProductUserStatus status;
 
-    public AssociationProductUser() {
+    public ProductUser() {
     }
 
-    public AssociationProductUser(Product product, User user, ProductUserStatus status) {
+    public ProductUser(Product product, User user, ProductUserStatus status) {
         this.product = product;
         this.user = user;
         this.status = status;
