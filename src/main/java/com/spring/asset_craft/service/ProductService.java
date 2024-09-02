@@ -105,16 +105,32 @@ public class ProductService {
         return populateSmallProductDTOS(productRepository.findAll(spec));
     }
 
-    public float biggestPrice(List<ProductDTO> ProductDTOS) {
+    public List<ProductDTO> searchProducts(String name, Float rating, List<String> categories) {
+        Specification<Product> spec = Specification.where(null);  // Start with an empty specification
 
-        return ProductDTOS.stream()
+        if (name != null && !name.isEmpty()) {
+            spec = spec.and(ProductSpecification.hasName(name));  // Add name filter
+        }
+        if (rating != null) {
+            spec = spec.and(ProductSpecification.hasRating(rating));  // Add name filter
+        }
+        if (categories != null && !categories.isEmpty()) {
+            spec = spec.and(ProductSpecification.hasCategory(categories));  // Add category filter
+        }
+
+        return populateSmallProductDTOS(productRepository.findAll(spec));
+    }
+
+    public float biggestPrice(List<ProductDTO> productDTOs) {
+
+        return productDTOs.stream()
                 .map(ProductDTO::getPrice)
                 .max(Float::compare)
                 .orElse(0.0f);
     }
 
-    public float smallestPrice(List<ProductDTO> ProductDTOS) {
-        return ProductDTOS.stream()
+    public float smallestPrice(List<ProductDTO> ProductDTOs) {
+        return ProductDTOs.stream()
                 .map(ProductDTO::getPrice)
                 .min(Float::compare)
                 .orElse(0.0f);

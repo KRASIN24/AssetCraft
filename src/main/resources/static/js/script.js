@@ -113,25 +113,6 @@ function resetRating() {
   rangeInput.style.setProperty('--value', rangeInput.value); // Update the CSS variable if needed
 }
 
-// Store the initial state of the checkboxes when the page loads
-// const initialCheckboxStates = [];
-
-//  window.addEventListener('load', () => {
-//      const checkboxes = document.querySelectorAll('.checkbox');
-//      checkboxes.forEach((checkbox) => {
-//          initialCheckboxStates.push({
-//              element: checkbox,
-//              checked: checkbox.checked
-//          });
-//      });
-//  });
-
-//  function resetCategories() {
-//      initialCheckboxStates.forEach((checkboxState) => {
-//          checkboxState.element.checked = checkboxState.checked;
-//      });
-//  }
-
 function resetCategories() {
   const checkboxes = document.querySelectorAll('.checkbox');
       checkboxes.forEach(function(checkbox) {
@@ -143,20 +124,23 @@ function resetCategories() {
     const ratingInput = document.getElementById('ratingRange');
     const fromInput = document.querySelector('#fromInput');
     const toInput = document.querySelector('#toInput');
+    const fromSlider = document.getElementById('fromSlider');
+    const toSlider = document.getElementById('toSlider');
     const searchBar = document.getElementById('hiddenSearch');
 
     if (ratingInput.value === '0')
       ratingInput.name = '';
 
-    if (fromInput.value === '')
+    if (fromInput.value === fromInput.min)
       fromInput.name = '';
 
-    if (toInput.value === '')
+    if (toInput.value === toInput.max)
       toInput.name = '';
 
     if(searchBar.value === '')
       searchBar.name = '';
  });
+
  
  function resetFilter(){
   // FIXME: resetCategories() work on their own but not in this function

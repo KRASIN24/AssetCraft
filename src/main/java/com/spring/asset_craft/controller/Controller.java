@@ -64,16 +64,24 @@ public class Controller {
         List<ProductDTO> ProductDTOs = productService.searchProducts(name, minPrice, maxPrice, rating, categories);
         model.addAttribute("products", ProductDTOs);
 
-        float biggestPrice = productService.biggestPrice(ProductDTOs);
+        List<ProductDTO> priceProductDTOs = productService.getAllSmallProductsDTO();
+        float biggestPrice = productService.biggestPrice(priceProductDTOs);
         model.addAttribute("biggestPrice", biggestPrice);
 
-        float smallestPrice = productService.smallestPrice(ProductDTOs);
+        float smallestPrice = productService.smallestPrice(priceProductDTOs);
         model.addAttribute("smallestPrice", smallestPrice);
 
-        if (categories == null)
-            categories = new ArrayList<>();
 
-        model.addAttribute("categories", categories);
+        if (minPrice == null && maxPrice == null){
+            maxPrice = biggestPrice;
+            minPrice = smallestPrice;
+        }
+
+        model.addAttribute("maxPrice", maxPrice);
+        model.addAttribute("minPrice", minPrice);
+
+        if (categories != null)
+            model.addAttribute("categories", categories);
 
         model.addAttribute("rating", rating);
 
