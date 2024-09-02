@@ -1,8 +1,10 @@
 package com.spring.asset_craft.service;
 
 import com.spring.asset_craft.entity.ProductUser;
+import com.spring.asset_craft.entity.Review;
 import com.spring.asset_craft.repository.ProductUserRepository;
 import com.spring.asset_craft.repository.ProductRepository;
+import com.spring.asset_craft.repository.ReviewRepository;
 import com.spring.asset_craft.search.ProductSpecification;
 import com.spring.asset_craft.dao.AppDAO;
 import com.spring.asset_craft.dto.ReviewDTO;
@@ -23,12 +25,19 @@ public class ProductService {
     @Autowired
     private ProductUserRepository productUserRepository;
     @Autowired
+    private ReviewRepository reviewRepository;
+
+    @Autowired
+    private UserService userService;
+    @Autowired
     private AppDAO appDAO;
 
     @Autowired
-    public ProductService(ProductRepository productRepository, ProductUserRepository productUserRepository, AppDAO appDAO) {
+    public ProductService(ProductRepository productRepository, ProductUserRepository productUserRepository, ReviewRepository reviewRepository, UserService userService, AppDAO appDAO) {
         this.productRepository = productRepository;
         this.productUserRepository = productUserRepository;
+        this.reviewRepository = reviewRepository;
+        this.userService = userService;
         this.appDAO = appDAO;
     }
 
@@ -155,5 +164,10 @@ public class ProductService {
     public void deleteFromCart(int productId, String username){
         productUserRepository.findProductInCartByProductId(productId, username)
                 .ifPresent(productUser -> productUserRepository.delete(productUser));
+    }
+
+    public void addReview(int productId, String review, Float rating, String username) {
+
+        reviewRepository.save(new Review(review, rating, getProductById(productId), userService.getUserByUsername(username)));
     }
 }

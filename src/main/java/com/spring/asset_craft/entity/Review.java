@@ -13,7 +13,7 @@ public class Review {
     @Column(name = "comment")
     private String comment;
     @Column(name = "rating")
-    private int rating;
+    private float rating;
 
     @ManyToOne(cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
     @JoinColumn(name = "product_id", referencedColumnName = "id")
@@ -26,10 +26,17 @@ public class Review {
     public Review() {
     }
 
-    public Review(int id, String comment, int rating, int userId, int productId) {
+    public Review(int id, String comment, float rating, int userId, int productId) {
         this.id = id;
         this.comment = comment;
         this.rating = rating;
+    }
+
+    public Review(String comment, float rating, Product product, User user) {
+        this.comment = comment;
+        this.rating = rating;
+        this.product = product;
+        this.user = user;
     }
 
     public int getId() {
@@ -44,7 +51,7 @@ public class Review {
     public void setComment(String comment) {
         this.comment = comment;
     }
-    public int getRating() {
+    public float getRating() {
         return rating;
     }
     public void setRating(int rating) {

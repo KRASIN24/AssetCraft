@@ -136,12 +136,22 @@ public class Controller {
         return "contact";
     }
 
-    @GetMapping("/productPage/{id}")
-    public String showProductPage(@PathVariable("id") int id, Model model) {
+    @GetMapping("/productPage/{productId}")
+    public String showProductPage(@PathVariable("productId") int productId, Model model) {
 
-        ProductDTO ProductDTO = productService.getBigProductDTO(id);
+        ProductDTO ProductDTO = productService.getBigProductDTO(productId);
         model.addAttribute("product", ProductDTO);
         return "productPage";
+    }
+
+    @PostMapping("/productPage/{productId}")
+    public String addReview(@PathVariable("productId") int productId,
+                            @RequestParam("review") String review,
+                            @RequestParam("rating") Float rating,
+                            Principal principal){
+        productService.addReview(productId, review, rating, principal.getName());
+
+        return "redirect:/productPage/" + productId;
     }
 
 //    TODO: Add user registration and verification
