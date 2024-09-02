@@ -1,6 +1,5 @@
 package com.spring.asset_craft.repository;
 
-import com.spring.asset_craft.dto.ProductDTO;
 import com.spring.asset_craft.entity.Product;
 import com.spring.asset_craft.entity.ProductUser;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -19,10 +18,10 @@ public interface ProductUserRepository extends JpaRepository<ProductUser, Long> 
             "JOIN pu.product p " +
             "JOIN pu.user u " +
             "WHERE pu.status = 'CART' AND u.username = :username")
-    List<Product> findCartProductsByUser(@Param("username") String username);
+    List<Product> findProductsInCartByUser(@Param("username") String username);
 
     @Query(value="SELECT pu FROM ProductUser pu WHERE pu.product.id = :productId AND pu.user.username = :username")
-    Optional<ProductUser> findCartProductByProductId(@Param("productId") int productId, @Param("username") String username);
+    Optional<ProductUser> findProductInCartByProductId(@Param("productId") int productId, @Param("username") String username);
 
     @Query("SELECT COUNT(pu)>0 FROM ProductUser pu WHERE pu.product.id = :productId AND pu.user.id = :userId AND pu.status = com.spring.asset_craft.entity.ProductUser.ProductUserStatus.CART")
     boolean inCart(@Param("productId") int productId, @Param("userId") int userId);
@@ -35,7 +34,6 @@ public interface ProductUserRepository extends JpaRepository<ProductUser, Long> 
     Optional<String> getOwnerUsername(@Param("productId") int productId);
 
 
-    //boolean existsByProductAndUserAndStatus(int productId, int userId, ProductUser.ProductUserStatus status);
 
     @Query("SELECT COUNT(pu)>0 FROM ProductUser pu WHERE pu.product.id = :productId AND pu.user.id = :userId AND pu.status = :status")
     boolean alreadyExists(@Param("productId") int productId, @Param("userId") int userId, @Param("status") ProductUser.ProductUserStatus status);

@@ -3,7 +3,6 @@ package com.spring.asset_craft.controller;
 import com.spring.asset_craft.dao.AppDAO;
 import com.spring.asset_craft.dto.ProductDTO;
 import com.spring.asset_craft.entity.ProductUser;
-import com.spring.asset_craft.entity.Product;
 import com.spring.asset_craft.entity.User;
 import com.spring.asset_craft.repository.ProductRepository;
 import com.spring.asset_craft.repository.ProductUserRepository;
@@ -46,12 +45,10 @@ public class Controller {
     //TODO: Make it better
     @GetMapping("/")
     public String showIndex(Model model){
-        String name = "";
-        //List<Product> products = productService.getProductsByName(name);
-        List<Product> products = productService.getAllProducts();
-        List<ProductDTO> ProductDTOS = productService.populateSmallProductDTOS(products);
-        // Add the map to the model
-        model.addAttribute("products", ProductDTOS);
+
+        List<ProductDTO> ProductDTOs = productService.getAllSmallProductsDTO();
+
+        model.addAttribute("products", ProductDTOs);
         return "index";
     }
 
@@ -64,9 +61,7 @@ public class Controller {
                            @RequestParam(required = false) List<String> categories,
                            Model model){
 
-        List<Product> products = productService.searchProducts(name, minPrice, maxPrice, rating, categories);
-
-        List<ProductDTO> ProductDTOs = productService.populateSmallProductDTOS(products);
+        List<ProductDTO> ProductDTOs = productService.searchProducts(name, minPrice, maxPrice, rating, categories);
         model.addAttribute("products", ProductDTOs);
 
         float biggestPrice = productService.biggestPrice(ProductDTOs);
@@ -75,9 +70,8 @@ public class Controller {
         float smallestPrice = productService.smallestPrice(ProductDTOs);
         model.addAttribute("smallestPrice", smallestPrice);
 
-        if (categories == null) {
+        if (categories == null)
             categories = new ArrayList<>();
-        }
 
         model.addAttribute("categories", categories);
 
@@ -89,8 +83,7 @@ public class Controller {
     }
 
     @GetMapping("/signInPage")
-    public String showSignIn(){  return "signInPage";
-    }
+    public String showSignIn(){  return "signInPage";}
 
     @GetMapping("/account")
     public String showAccount(Model model, Principal principal){
@@ -112,27 +105,21 @@ public class Controller {
     @PostMapping("/cart/add")
     public String addToCart(@RequestParam("productId") int productId, Principal principal){
 
-        User user = userService.getUserByUsername(principal.getName());
-        ProductUser.ProductUserStatus status = CART;
-
         ProductUser productUser = new ProductUser(
                 productService.getProductById(productId),
-                user,
-                status
+                userService.getUserByUsername(principal.getName()),
+                CART
         );
 
-        if(!productService.isInCart(productId, user.getId()))
-            productUserRepository.save(productUser);
+            productService.addToCart(productUser);
 
         return "redirect:/shop";
     }
 
     @PostMapping("/cart/remove")
     public String removeFromCart(@RequestParam("productId") int productId, Principal principal){
-        ProductUser productUser = productService.getProductInCartToDelete(productId, principal.getName());
-        if(productUser != null)
-            productUserRepository.delete(productUser);
 
+        productService.deleteFromCart(productId, principal.getName());
         return "redirect:/cart";
     }
 

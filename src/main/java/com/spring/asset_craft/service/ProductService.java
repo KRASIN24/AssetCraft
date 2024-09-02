@@ -12,7 +12,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -27,9 +26,39 @@ public class ProductService {
     private AppDAO appDAO;
 
     @Autowired
-    public ProductService(ProductRepository productRepository, AppDAO appDAO) {
+    public ProductService(ProductRepository productRepository, ProductUserRepository productUserRepository, AppDAO appDAO) {
         this.productRepository = productRepository;
+        this.productUserRepository = productUserRepository;
         this.appDAO = appDAO;
+    }
+
+    public String getOwnerUsername(int productId) {
+        return productUserRepository.getOwnerUsername(productId)
+                .orElse(null);
+    }
+
+    private ProductDTO convertToSmallProductDTO(Product product) {
+
+        return new ProductDTO(
+                product.getId(),
+                product.getName(),
+                product.getPrice(),
+                product.getRating(),
+                product.getCategory(),
+                product.getProductImages(),
+                getOwnerUsername(product.getId())
+        );
+    }
+
+    public List<ProductDTO> populateSmallProductDTOS(List<Product> products) {
+        return products.stream()
+                .map(this::convertToSmallProductDTO)
+                .collect(Collectors.toList());
+    }
+
+    public Product getProductById(int id){
+        return productRepository.findProductById(id)
+                .orElse(null);
     }
 
     public ProductDTO getBigProductDTO(int productId){
@@ -49,21 +78,15 @@ public class ProductService {
         );
     }
 
-    public ProductDTO getSmallProductDTO(int id){
-        Product product = getProductById(id);
-
-        return new ProductDTO(
-                product.getId(),
-                product.getName(),
-                product.getPrice(),
-                product.getRating(),
-                product.getCategory(),
-                product.getProductImages(),
-                getOwnerUsername(product.getId())
-                );
+    public List<ProductDTO> getAllSmallProductsDTO(){
+        return populateSmallProductDTOS(productRepository.findAll());
     }
 
-    public List<Product> searchProducts(String name, Float minPrice, Float maxPrice, Float rating, List<String> categories) {
+    public List<ReviewDTO> getReviewsDTO(int productId){
+        return productRepository.findProductReviews(productId);
+    }
+
+    public List<ProductDTO> searchProducts(String name, Float minPrice, Float maxPrice, Float rating, List<String> categories) {
         Specification<Product> spec = Specification.where(null);  // Start with an empty specification
 
         if (name != null && !name.isEmpty()) {
@@ -79,26 +102,7 @@ public class ProductService {
             spec = spec.and(ProductSpecification.hasCategory(categories));  // Add category filter
         }
 
-        return productRepository.findAll(spec);
-    }
-
-    public List<ProductDTO> populateSmallProductDTOS(List<Product> products) {
-        return products.stream()
-                .map(this::convertToSmallProductDTO)
-                .collect(Collectors.toList());
-    }
-
-    private ProductDTO convertToSmallProductDTO(Product product) {
-
-        return new ProductDTO(
-                product.getId(),
-                product.getName(),
-                product.getPrice(),
-                product.getRating(),
-                product.getCategory(),
-                product.getProductImages(),
-                getOwnerUsername(product.getId())
-        );
+        return populateSmallProductDTOS(productRepository.findAll(spec));
     }
 
     public float biggestPrice(List<ProductDTO> ProductDTOS) {
@@ -117,54 +121,23 @@ public class ProductService {
     }
 
 
-    public Product getProductById(int id){
-        return productRepository.findProductById(id)
-                .orElse(null);
-    }
-
-    public List<Product> getProductsByName(String name){
-        return productRepository.findProductByName(name);
-    }
-
     public List<ProductDTO> getProductsInCart(String username){
-        List<ProductDTO> productDTOs = new ArrayList<>();
-        List<Product> products = productUserRepository.findCartProductsByUser(username);
-
-        for (Product product : products) {
-            ProductDTO dto = new ProductDTO(
-                    product.getId(),
-                    product.getName(),
-                    product.getPrice(),
-                    product.getRating(),
-                    product.getCategory(),
-                    product.getProductImages(),
-                    getOwnerUsername(product.getId())
-            );
-            productDTOs.add(dto);
-        }
-        return productDTOs;
-
+        List<Product> products = productUserRepository.findProductsInCartByUser(username);
+        return populateSmallProductDTOS(products);
     }
 
-        public ProductUser getProductInCartToDelete(int productId, String username){
-            return productUserRepository.findCartProductByProductId(productId, username)
-                    .orElse(null);
-        }
 
-        public String getOwnerUsername(int productId) {
-            return productUserRepository.getOwnerUsername(productId)
-                    .orElse(null);
-        }
+    public void addToCart(ProductUser productUser) {
 
-        public List<ReviewDTO> getReviewsDTO(int productId){
-            return productRepository.findProductReviews(productId);
-        }
+        if(!isInCart(productUser.getProduct().getId(),productUser.getUser().getId()))
+            productUserRepository.save(productUser);
+    }
+    public boolean isInCart(int productId, int userId){
+        return productUserRepository.inCart(productId, userId);
+    }
 
-        public boolean isInCart(int productId, int userId){
-            return productUserRepository.inCart(productId, userId);
-        }
-
-        public List<Product> getAllProducts(){
-            return productRepository.findAll();
-        }
+    public void deleteFromCart(int productId, String username){
+        productUserRepository.findProductInCartByProductId(productId, username)
+                .ifPresent(productUser -> productUserRepository.delete(productUser));
+    }
 }

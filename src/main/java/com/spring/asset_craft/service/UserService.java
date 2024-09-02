@@ -11,19 +11,17 @@ public class UserService {
     @Autowired
     private UserRepository userRepository;
 
+    public User getUserByUsername(String username){
+        return userRepository.findByUsername(username)
+                .orElse(null);
+    }
+
     public String getUserEmail(String username){
         return userRepository.findByUsername(username)
                 .map(User::getEmail)
                 .orElse(null);
     }
 
-    public User getUserByUsername(String username){
-        return userRepository.findByUsername(username)
-                .orElse(null);
-    }
 
-//    public String getUserProfileImage(String username){
-//        return userRepository.findByUsername(username)
-//                .map()
-//    }
+
 }

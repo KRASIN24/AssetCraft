@@ -14,8 +14,6 @@ public interface ProductRepository extends JpaRepository<Product, Integer>, JpaS
 
     Optional<Product> findProductById(int id);
 
-    List<Product> findProductByName(String name);
-
     @Query("SELECT new com.spring.asset_craft.dto.ReviewDTO(r.comment, r.rating, u.username) " +
             "FROM Review r JOIN r.user u " +
             "WHERE r.product.id = :productId")
