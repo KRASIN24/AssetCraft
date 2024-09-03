@@ -29,12 +29,12 @@ public class SecurityConfig {
         http
                 .authorizeHttpRequests(authorizeRequest -> authorizeRequest
 //                        .requestMatchers("/webPath").hasRole("UserRole")
-                        .requestMatchers("/", "/shop", "/contact", "/productPage/{id}",
+                        .requestMatchers("/", "/shop", "/contact", "/productPage/{id}", "/signUp",
                                 "/css/**", "/js/**", "/images/**" ,"/icons/**").permitAll()
                         .anyRequest().authenticated()
                 )
                 .formLogin(form -> form
-                                .loginPage("/signInPage")
+                                .loginPage("/signIn")
                                 .loginProcessingUrl("/authenticateTheUser")
                                 .permitAll()
                 )

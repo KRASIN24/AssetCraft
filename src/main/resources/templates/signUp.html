@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="icon" type="image/png" href="icons/AC.png"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link href="https://allfont.net/allfont.css?fonts=agency-fb" rel="stylesheet" type="text/css" />
+    <title>Sign Up</title>
+</head>
+<body>
+    <div th:replace="~{fragments/nav.html :: nav}" id="nav-placeholder"></div>
+
+    <div class="form-holder">
+        <div class="img-holder">
+            <img th:src="@{/icons/account.png}" alt="">
+        </div>
+        <h1>Sign Up</h1>
+        
+        <div th:if="${param.error}" class="message">
+            <span class="error-message">Wrong username or password entered.</span>
+        </div>
+        
+        <div th:if="${param.logout}" class="message">
+            <span class="logout-message">You have been loged out.</span>
+        </div>
+        
+        <form th:action="@{/authenticateTheUser}" method="POST">
+            <p><input type="text" name="username" placeholder="Username" id="" class="username-input"></p>
+            <p><input type="text" name="email" placeholder="Email" id="" class="email-input"></p>
+            <p><input type="password" name="password" placeholder="Password" id="" class="password-input"></p>
+            <p><input type="password" name="password" placeholder="Repeat Password" id="" class="password-input"></p>
+            
+            
+            <div class="forgot-password-link-holder">
+                <h3 class="sign-up"> Have account already?
+                    <a href="@{/signIn}" class="sign-up-link"> Sign In</a>
+                </h3>
+            </div>
+
+            <div class="button-holder">
+                <input type="button" value="Go Back" class="go-back-input">
+                <input type="submit" value="Sign Up" class="submit-input">
+            </div>
+        </form>
+    </div>
+
+    <div th:replace="~{fragments/footer.html :: footer}" id="footer-placeholder"></div>
+</body>
+</html>

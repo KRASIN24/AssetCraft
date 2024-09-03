@@ -13,7 +13,7 @@ CREATE TABLE `product` (
   `id` BIGINT NOT NULL AUTO_INCREMENT,
   `name` varchar(45) DEFAULT NULL,
   `price` decimal(5, 2) DEFAULT NULL,
-  -- TODO: change to ENUM
+  -- TODO: (LONG) (HARD) (stashed as stash@{0}) change to ENUM
   `category` varchar(45) DEFAULT NULL,
   `description` varchar(250) DEFAULT NULL,
   `rating` decimal(2, 1) DEFAULT NULL,

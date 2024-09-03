@@ -90,8 +90,11 @@ public class Controller {
         return "shop";
     }
 
-    @GetMapping("/signInPage")
-    public String showSignIn(){  return "signInPage";}
+    @GetMapping("/signIn")
+    public String showSignIn(){  return "signIn";}
+
+    @GetMapping("/signUp")
+    public String showSignUp(){  return "signUp";}
 
     @GetMapping("/account")
     public String showAccount(Model model, Principal principal){
@@ -102,6 +105,7 @@ public class Controller {
         model.addAttribute("email", email);
         return "account";
     }
+    
 
     @GetMapping("/account/sold")
     public String showSoldAssets(Model model, Principal principal) {

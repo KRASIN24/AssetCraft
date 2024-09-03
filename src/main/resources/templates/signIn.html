@@ -29,10 +29,14 @@
         <form th:action="@{/authenticateTheUser}" method="POST">
             <p><input type="text" name="username" placeholder="Username" id="" class="username-input"></p>
             <p><input type="password" name="password" placeholder="Password" id="" class="password-input"></p>
-            <span class="sign-up"><a href="@{/signUp}" class="sign-up-link"></a></span>
+
             
             <div class="forgot-password-link-holder">
                 <h3 >Forgot password? <a href="#" class="forgot-password-link">resset password</a></h3>
+
+                <h3 class="sign-up">Don't have an account yet?
+                    <a th:href="@{/signUp}" class="sign-up-link">Sign Up</a>
+                </h3>
             </div>
 
             <div class="button-holder">
