@@ -9,7 +9,7 @@ public class ProductImage {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
-    private int id;
+    private Long id;
 
     @Column(name = "path")
     private String path;
@@ -22,17 +22,17 @@ public class ProductImage {
     public ProductImage() {
     }
 
-    public ProductImage(int id, String path, Product product) {
+    public ProductImage(Long id, String path, Product product) {
         this.id = id;
         this.path = path;
         this.product = product;
     }
 
-    public int getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Long id) {
         this.id = id;
     }
 

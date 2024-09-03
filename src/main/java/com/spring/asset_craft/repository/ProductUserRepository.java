@@ -21,10 +21,10 @@ public interface ProductUserRepository extends JpaRepository<ProductUser, Long> 
     List<Product> findProductsInCartByUser(@Param("username") String username);
 
     @Query(value="SELECT pu FROM ProductUser pu WHERE pu.product.id = :productId AND pu.user.username = :username")
-    Optional<ProductUser> findProductInCartByProductId(@Param("productId") int productId, @Param("username") String username);
+    Optional<ProductUser> findProductInCartByProductId(@Param("productId") Long productId, @Param("username") String username);
 
     @Query("SELECT COUNT(pu)>0 FROM ProductUser pu WHERE pu.product.id = :productId AND pu.user.id = :userId AND pu.status = com.spring.asset_craft.entity.ProductUser.ProductUserStatus.CART")
-    boolean inCart(@Param("productId") int productId, @Param("userId") int userId);
+    boolean inCart(@Param("productId") Long productId, @Param("userId") Long userId);
 
 
     @Query("SELECT u.username " +
@@ -32,14 +32,14 @@ public interface ProductUserRepository extends JpaRepository<ProductUser, Long> 
             "JOIN pu.user u " +
             "WHERE pu.product.id = :productId " +
             "AND pu.status = com.spring.asset_craft.entity.ProductUser.ProductUserStatus.OWNER")
-    Optional<String> getOwnerUsername(@Param("productId") int productId);
+    Optional<String> getOwnerUsername(@Param("productId") Long productId);
 
     @Query("SELECT u.id " +
             "FROM ProductUser pu " +
             "JOIN pu.user u " +
             "WHERE pu.product.id = :productId " +
             "AND pu.status = com.spring.asset_craft.entity.ProductUser.ProductUserStatus.OWNER")
-  int getOwnerId(@Param("productId") int productId);
+    Long getOwnerId(@Param("productId") Long productId);
 
     @Query(value = "SELECT new com.spring.asset_craft.entity.Product(p.id, p.name, p.price, p.category, p.description, p.rating) " +
             "FROM ProductUser pu " +

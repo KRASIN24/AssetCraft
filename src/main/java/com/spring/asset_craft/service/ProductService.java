@@ -41,12 +41,12 @@ public class ProductService {
         this.appDAO = appDAO;
     }
 
-    public String getOwnerUsername(int productId) {
+    public String getOwnerUsername(Long productId) {
         return productUserRepository.getOwnerUsername(productId)
                 .orElse(null);
     }
 
-    public int getOwnerId(int productId) {
+    public Long getOwnerId(Long productId) {
         return productUserRepository.getOwnerId(productId);
     }
 
@@ -69,12 +69,12 @@ public class ProductService {
                 .collect(Collectors.toList());
     }
 
-    public Product getProductById(int id){
+    public Product getProductById(Long id){
         return productRepository.findProductById(id)
                 .orElse(null);
     }
 
-    public ProductDTO getBigProductDTO(int productId){
+    public ProductDTO getBigProductDTO(Long productId){
 
         Product product = getProductById(productId);
 
@@ -95,7 +95,7 @@ public class ProductService {
         return populateSmallProductDTOS(productRepository.findAll());
     }
 
-    public List<ReviewDTO> getReviewsDTO(int productId){
+    public List<ReviewDTO> getReviewsDTO(Long productId){
         return productRepository.findProductReviews(productId);
     }
 
@@ -107,22 +107,6 @@ public class ProductService {
         }
         if (minPrice != null || maxPrice != null) {
             spec = spec.and(ProductSpecification.hasPriceBetween(minPrice, maxPrice));  // Add price range filter
-        }
-        if (rating != null) {
-            spec = spec.and(ProductSpecification.hasRating(rating));  // Add name filter
-        }
-        if (categories != null && !categories.isEmpty()) {
-            spec = spec.and(ProductSpecification.hasCategory(categories));  // Add category filter
-        }
-
-        return populateSmallProductDTOS(productRepository.findAll(spec));
-    }
-
-    public List<ProductDTO> searchProducts(String name, Float rating, List<String> categories) {
-        Specification<Product> spec = Specification.where(null);  // Start with an empty specification
-
-        if (name != null && !name.isEmpty()) {
-            spec = spec.and(ProductSpecification.hasName(name));  // Add name filter
         }
         if (rating != null) {
             spec = spec.and(ProductSpecification.hasRating(rating));  // Add name filter
@@ -173,22 +157,22 @@ public class ProductService {
             productUserRepository.save(productUser);
     }
     public boolean isInCart(ProductUser productUser){
-        int productId = productUser.getProduct().getId();
-        int userId = productUser.getUser().getId();
+        Long productId = productUser.getProduct().getId();
+        Long userId = productUser.getUser().getId();
         return productUserRepository.inCart(productId, userId);
     }
     public boolean isOwner(ProductUser productUser){
-        int userId = productUser.getUser().getId();
-        int ownerId = getOwnerId(productUser.getProduct().getId());
+        Long userId = productUser.getUser().getId();
+        Long ownerId = getOwnerId(productUser.getProduct().getId());
         return ownerId == userId;
     }
 
-    public void deleteFromCart(int productId, String username){
+    public void deleteFromCart(Long productId, String username){
         productUserRepository.findProductInCartByProductId(productId, username)
                 .ifPresent(productUser -> productUserRepository.delete(productUser));
     }
 
-    public void addReview(int productId, String review, Float rating, String username) {
+    public void addReview(Long productId, String review, Float rating, String username) {
 
         reviewRepository.save(new Review(review, rating, getProductById(productId), userService.getUserByUsername(username)));
     }

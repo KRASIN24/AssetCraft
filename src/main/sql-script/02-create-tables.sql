@@ -9,10 +9,8 @@ DROP TABLE IF EXISTS `role`;
 DROP TABLE IF EXISTS `user_image`;
 DROP TABLE IF EXISTS `user`;
 
--- TODO: Change int to bigint
-
 CREATE TABLE `product` (
-  `id` int NOT NULL AUTO_INCREMENT,
+  `id` BIGINT NOT NULL AUTO_INCREMENT,
   `name` varchar(45) DEFAULT NULL,
   `price` decimal(5, 2) DEFAULT NULL,
   -- TODO: change to ENUM
@@ -42,9 +40,9 @@ INSERT INTO `product` VALUES
 
 
 CREATE TABLE `product_image` (
-  `id` int NOT NULL AUTO_INCREMENT,
+  `id` BIGINT NOT NULL AUTO_INCREMENT,
   `path` varchar(45) DEFAULT NULL,
-  `product_id` int NOT NULL,
+  `product_id` BIGINT NOT NULL,
   FOREIGN KEY (`product_id`) REFERENCES product(`id`),
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=latin1;
@@ -72,7 +70,7 @@ INSERT INTO `product_image` VALUES
 
 
 CREATE TABLE `user` (
-  `id` int NOT NULL AUTO_INCREMENT,
+  `id` BIGINT NOT NULL AUTO_INCREMENT,
   `username` varchar(45) DEFAULT NULL,
 	-- TODO: Make encripted passwords --
   `password` varchar(45) DEFAULT NULL,
@@ -103,9 +101,9 @@ INSERT INTO `user` VALUES
 
 
 CREATE TABLE `user_image` (
-  `id` int NOT NULL AUTO_INCREMENT,
+  `id` BIGINT NOT NULL AUTO_INCREMENT,
   `path` varchar(45) DEFAULT NULL,
-  `user_id` int NOT NULL,
+  `user_id` BIGINT NOT NULL,
   FOREIGN KEY (`user_id`) REFERENCES user(`id`),
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=latin1;
@@ -129,7 +127,7 @@ INSERT INTO `user_image` VALUES
     
     
 	CREATE TABLE `role` (
-    `user_id` int NOT NULL,
+    `user_id` BIGINT NOT NULL,
     `role_name` varchar(50) NOT NULL,
     UNIQUE KEY `autorieties5_idx_1` (`user_id`, `role_name`),
     CONSTRAINT `autorieties5_idx_1` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`)
@@ -141,9 +139,9 @@ INSERT INTO `user_image` VALUES
     
     
 CREATE TABLE `product_user` (
-  `id` int NOT NULL AUTO_INCREMENT,
-  `product_id` int NOT NULL,
-  `user_id` int NOT NULL,
+  `id` BIGINT NOT NULL AUTO_INCREMENT,
+  `product_id` BIGINT NOT NULL,
+  `user_id` BIGINT NOT NULL,
   `status` ENUM('OWNER', 'BUYER','WHISHLIST','CART') NOT NULL,
   FOREIGN KEY (`product_id`) REFERENCES product(`id`),
   FOREIGN KEY (`user_id`) REFERENCES user(`id`),
@@ -185,11 +183,11 @@ INSERT INTO `product_user` VALUES
 
 
 CREATE TABLE `review` (
-  `id` int NOT NULL AUTO_INCREMENT,
+  `id` BIGINT NOT NULL AUTO_INCREMENT,
   `comment` varchar(250) DEFAULT NULL,
   `rating` decimal(2, 1) DEFAULT NULL,
-  `user_id` int NOT NULL,
-  `product_id` int NOT NULL,
+  `user_id` BIGINT NOT NULL,
+  `product_id` BIGINT NOT NULL,
   PRIMARY KEY (`id`),
   FOREIGN KEY (`user_id`) REFERENCES user(`id`),
   FOREIGN KEY (`product_id`) REFERENCES product(`id`)

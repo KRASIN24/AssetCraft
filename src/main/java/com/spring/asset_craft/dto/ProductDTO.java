@@ -6,7 +6,7 @@ import java.util.List;
 
 public class ProductDTO {
 
-    private int id;
+    private Long id;
     private String name;
     private float price;
     private float rating;
@@ -16,7 +16,7 @@ public class ProductDTO {
     private List<ReviewDTO> reviews;
     private List<ProductImage> productImages;
 
-    public ProductDTO(int id, String name, float price, float rating, String category, List<ProductImage> productImages, String ownerUsername) {
+    public ProductDTO(Long id, String name, float price, float rating, String category, List<ProductImage> productImages, String ownerUsername) {
         this.id = id;
         this.name = name;
         this.price = price;
@@ -26,7 +26,7 @@ public class ProductDTO {
         this.ownerUsername = ownerUsername;
     }
 
-    public ProductDTO(int id, String name, float price, String ownerUsername, float rating, String category, String description) {
+    public ProductDTO(Long id, String name, float price, String ownerUsername, float rating, String category, String description) {
         this.id = id;
         this.name = name;
         this.price = price;
@@ -36,7 +36,7 @@ public class ProductDTO {
         this.description = description;
     }
 
-    public ProductDTO(int id, String name, float price, float rating, String ownerUsername, String description, String category, List<ReviewDTO> reviews, List<ProductImage> productImages) {
+    public ProductDTO(Long id, String name, float price, float rating, String ownerUsername, String description, String category, List<ReviewDTO> reviews, List<ProductImage> productImages) {
         this.id = id;
         this.name = name;
         this.price = price;
@@ -48,11 +48,11 @@ public class ProductDTO {
         this.productImages = productImages;
     }
 
-    public int getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Long id) {
         this.id = id;
     }
 

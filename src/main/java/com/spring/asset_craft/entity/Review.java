@@ -9,7 +9,7 @@ public class Review {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
-    private int id;
+    private Long id;
     @Column(name = "comment")
     private String comment;
     @Column(name = "rating")
@@ -26,7 +26,7 @@ public class Review {
     public Review() {
     }
 
-    public Review(int id, String comment, float rating, int userId, int productId) {
+    public Review(Long id, String comment, float rating, int userId, int productId) {
         this.id = id;
         this.comment = comment;
         this.rating = rating;
@@ -39,10 +39,10 @@ public class Review {
         this.user = user;
     }
 
-    public int getId() {
+    public Long getId() {
         return id;
     }
-    public void setId(int id) {
+    public void setId(Long id) {
         this.id = id;
     }
     public String getComment() {

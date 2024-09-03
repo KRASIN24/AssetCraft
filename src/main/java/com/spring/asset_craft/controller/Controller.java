@@ -123,7 +123,7 @@ public class Controller {
     }
 
     @PostMapping("/cart/add")
-    public String addToCart(@RequestParam("productId") int productId, Principal principal){
+    public String addToCart(@RequestParam("productId") Long productId, Principal principal){
 
         ProductUser productUser = new ProductUser(
                 productService.getProductById(productId),
@@ -137,7 +137,7 @@ public class Controller {
     }
 
     @PostMapping("/cart/remove")
-    public String removeFromCart(@RequestParam("productId") int productId, Principal principal){
+    public String removeFromCart(@RequestParam("productId") Long productId, Principal principal){
 
         productService.deleteFromCart(productId, principal.getName());
         return "redirect:/cart";
@@ -149,7 +149,7 @@ public class Controller {
     }
 
     @GetMapping("/productPage/{productId}")
-    public String showProductPage(@PathVariable("productId") int productId, Model model) {
+    public String showProductPage(@PathVariable("productId") Long productId, Model model) {
 
         ProductDTO ProductDTO = productService.getBigProductDTO(productId);
         model.addAttribute("product", ProductDTO);
@@ -157,7 +157,7 @@ public class Controller {
     }
 
     @PostMapping("/productPage/{productId}")
-    public String addReview(@PathVariable("productId") int productId,
+    public String addReview(@PathVariable("productId") Long productId,
                             @RequestParam("review") String review,
                             @RequestParam("rating") Float rating,
                             Principal principal){
