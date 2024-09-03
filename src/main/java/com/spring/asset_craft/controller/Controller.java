@@ -105,7 +105,11 @@ public class Controller {
         model.addAttribute("email", email);
         return "account";
     }
-    
+    @GetMapping("/account/addProduct")
+    public String showAddProductForm(Model model, Principal principal) {
+
+        return "add-product-form";
+    }
 
     @GetMapping("/account/sold")
     public String showSoldAssets(Model model, Principal principal) {

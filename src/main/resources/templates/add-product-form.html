@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="pl" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="/css/style.css">
+        <link rel="icon" type="image/png" href="icons/AC.png"/>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+        <link href="https://allfont.net/allfont.css?fonts=agency-fb" rel="stylesheet" type="text/css" />
+        <title>Add Product</title>
+    </head>
+<body>
+    <div th:replace="~{fragments/nav.html :: nav}" id="nav-placeholder"></div>
+
+    <form action="POST">
+        <p>Name</p><input type="text" name="" id="">
+        <p>Category</p><input type="text" name="" id="">
+        <!-- <p>Produc Imagies</p><input type="text" name="" id=""> -->
+        <p>Price</p><input type="text" name="" id="">
+        <p>Description</p><textarea name="" id=""></textarea>
+
+        <input type="submit" value="Sell">
+        <!-- <input type="submit" value="Save as in progres"> -->
+        <input type="submit" value="Discard">
+    </form>
+
+    <div th:replace="~{fragments/footer.html :: footer}" id="footer-placeholder"></div>
+</body>
+</html>
