@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="icon" type="image/png" href="icons/AC.png"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link href="https://allfont.net/allfont.css?fonts=agency-fb" rel="stylesheet" type="text/css" />
+    <title>Document</title>
+</head>
+<body>
+    <div th:replace="~{fragments/nav.html :: nav}" id="nav-placeholder"></div>
+
+    <div  th:unless="${products.isEmpty()}"> 
+        <div th:each="product : ${products}" class="incart">
+
+            <a th:href="@{/productPage/{id}(id=${product.id})}" class="product-card-link">
+            <p class="product-card__owner">
+                <span th:text="${product.ownerUsername}">Owner Username</span>
+                <h2 class="product-card__title" th:text="${product.name}">Product Name</h2>
+                <span>$</span><span th:text="${product.price}">$0.00</span>
+                <span th:text="${product.rating}">Rating</span>
+                <span th:text="${product.category}">Category</span>
+                <span th:text="${product.description}">Description</span>
+            </p>
+        </a>
+        </div>
+    </div>
+
+    <div th:replace="~{fragments/footer.html :: footer}" id="footer-placeholder"></div>
+</body>
+</html>

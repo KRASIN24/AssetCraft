@@ -180,7 +180,8 @@ INSERT INTO `product_user` VALUES
 	(27, 6, 13, 'BUYER'),
 	(28, 7, 14, 'WHISHLIST'),
 	(29, 8, 15, 'WHISHLIST'),
-	(30, 9, 1, 'CART');
+	(30, 9, 1, 'CART'),
+    (31, 2, 1, 'BUYER');
 
 
 CREATE TABLE `review` (

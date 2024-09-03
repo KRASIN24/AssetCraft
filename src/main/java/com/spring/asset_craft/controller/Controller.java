@@ -103,6 +103,18 @@ public class Controller {
         return "account";
     }
 
+    @GetMapping("/account/sold")
+    public String showSoldAssets(Model model, Principal principal) {
+        model.addAttribute("products", productService.getSoldProducts(principal.getName()));
+        return "sold-assets";
+    }
+
+    @GetMapping("/account/bought")
+    public String showBoughtAssets(Model model, Principal principal) {
+        model.addAttribute("products", productService.getBoughtProducts(principal.getName()));
+        return "bought-assets";
+    }
+
     @GetMapping("/cart")
     public String showCart(Model model, Principal principal){
 

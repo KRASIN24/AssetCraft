@@ -132,10 +132,10 @@ function resetCategories() {
       ratingInput.name = '';
 
     if (fromInput.value === fromInput.min)
-      fromInput.name = '';
+      fromSlider.name = '';
 
-    if (toInput.value === toInput.max)
-      toInput.name = '';
+    if (toInput.value === toInput)
+      toSlider.name = '';
 
     if(searchBar.value === '')
       searchBar.name = '';

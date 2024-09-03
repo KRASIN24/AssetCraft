@@ -145,6 +145,16 @@ public class ProductService {
                 .orElse(0.0f);
     }
 
+    public List<ProductDTO> getSoldProducts(String username){
+        List<Product> products = productUserRepository.findProductsSoldByUser(username);
+        return populateSmallProductDTOS(products);
+    }
+
+    public List<ProductDTO> getBoughtProducts(String username){
+        List<Product> products = productUserRepository.findProductsBoughtByUser(username);
+        return populateSmallProductDTOS(products);
+    }
+
 
     public List<ProductDTO> getProductsInCart(String username){
         List<Product> products = productUserRepository.findProductsInCartByUser(username);
@@ -154,7 +164,7 @@ public class ProductService {
 
     public void addToCart(ProductUser productUser) {
 
-        if(!isInCart(productUser.getProduct().getId(),productUser.getUser().getId()))
+        if(!isInCart(productUser.getProduct().getId(), productUser.getUser().getId()))
             productUserRepository.save(productUser);
     }
     public boolean isInCart(int productId, int userId){

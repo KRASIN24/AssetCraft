@@ -24,6 +24,10 @@
                 <p sec:authentication="principal.username"></p>
                 <p th:text="${email}">account@e-mail.com</p>
                 <!-- <span th:text="${#authentication.principal.email}"></span> -->
+                 
+                 <h2>Assets</h2>
+                <a th:href="@{/account/sold}"><div><img src="icons/security icon.png"> <p>Sold</p></div></a>
+                <a th:href="@{/account/bought}"><div><img src="icons/feedback icon.png"> <p>Bought</p></div></a>
 
                 <form th:action="@{/logout}" method="POST">
                     <input type="submit" value="Logout"/>
@@ -46,7 +50,7 @@
             </div>
         </div>
 
-        <div class="buying">
+        <!-- <div class="buying">
             <div class="bought"><p>Bought</p></div>
             <div class="buy">
                 <img src="icons/Warstwa 38.png">
@@ -58,7 +62,7 @@
         <div class="selling">
             <div class="sold"><p>Sold</p></div>
             <p class="sell">Nothing sold yet.</p>
-        </div>
+        </div> -->
 
     </div>
 
