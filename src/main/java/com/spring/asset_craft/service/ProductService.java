@@ -46,6 +46,10 @@ public class ProductService {
                 .orElse(null);
     }
 
+    public int getOwnerId(int productId) {
+        return productUserRepository.getOwnerId(productId);
+    }
+
     private ProductDTO convertToSmallProductDTO(Product product) {
 
         return new ProductDTO(
@@ -164,11 +168,19 @@ public class ProductService {
 
     public void addToCart(ProductUser productUser) {
 
-        if(!isInCart(productUser.getProduct().getId(), productUser.getUser().getId()))
+    // TODO: Make it check if user and product have any relation other then WHISHLIST rather then those 2
+        if(!isInCart(productUser) && !isOwner(productUser))
             productUserRepository.save(productUser);
     }
-    public boolean isInCart(int productId, int userId){
+    public boolean isInCart(ProductUser productUser){
+        int productId = productUser.getProduct().getId();
+        int userId = productUser.getUser().getId();
         return productUserRepository.inCart(productId, userId);
+    }
+    public boolean isOwner(ProductUser productUser){
+        int userId = productUser.getUser().getId();
+        int ownerId = getOwnerId(productUser.getProduct().getId());
+        return ownerId == userId;
     }
 
     public void deleteFromCart(int productId, String username){

@@ -34,6 +34,13 @@ public interface ProductUserRepository extends JpaRepository<ProductUser, Long> 
             "AND pu.status = com.spring.asset_craft.entity.ProductUser.ProductUserStatus.OWNER")
     Optional<String> getOwnerUsername(@Param("productId") int productId);
 
+    @Query("SELECT u.id " +
+            "FROM ProductUser pu " +
+            "JOIN pu.user u " +
+            "WHERE pu.product.id = :productId " +
+            "AND pu.status = com.spring.asset_craft.entity.ProductUser.ProductUserStatus.OWNER")
+  int getOwnerId(@Param("productId") int productId);
+
     @Query(value = "SELECT new com.spring.asset_craft.entity.Product(p.id, p.name, p.price, p.category, p.description, p.rating) " +
             "FROM ProductUser pu " +
             "JOIN pu.product p " +
