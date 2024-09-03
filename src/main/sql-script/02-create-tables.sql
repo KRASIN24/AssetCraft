@@ -16,26 +16,26 @@ CREATE TABLE `product` (
   -- TODO: (LONG) (HARD) (stashed as stash@{0}) change to ENUM
   `category` varchar(45) DEFAULT NULL,
   `description` varchar(250) DEFAULT NULL,
-  `rating` decimal(2, 1) DEFAULT NULL,
+  -- `rating` decimal(2, 1) DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=latin1;
 
 INSERT INTO `product` VALUES 
-	(1,'Sci-Fi Weapons', 67.39,'3D', 'Great pack of modeled wapons', 4.5),
-	(2,'Button Masher - Game Template', 120.50,'Templates', 'Ready and customizable game template', 3),
-	(3,'Dragon Model', 210.60,'3D', 'Cool looking asset to use in your game', 1.5),
-	(4,'Pixel Icon Pack', 30.00,'2D', 'Pack of icons', 4),
-	(5,'Monster Sound Pack', 102.85,'Audio', 'Sounds of monsters that I keep in my basement', 5),
-    (6, 'Fantasy Sword', 120.00, '3D', 'A sharp sword from the fantasy world', 4.8),
-	(7, 'Modern UI Pack', 45.50, 'Templates', 'Clean and modern UI templates', 4.2),
-	(8, 'Epic Background Music', 99.99, 'Audio', 'Music for epic moments', 3.8),
-	(9, 'Forest Environment', 180.00, '3D', 'Lush forest environment for games', 4.9),
-	(10, 'Pixel Art Character', 15.75, '2D', 'Cute pixel art character sprite', 3.5),
-	(11, 'Horror Sound Effects', 85.60, 'Audio', 'Terrifying sound effects', 4.7),
-	(12, 'Space Adventure Pack', 199.00, '3D', 'Complete space adventure assets', 4.3),
-	(13, 'Retro Game Template', 60.00, 'Templates', 'Retro-style game template', 3.6),
-	(14, 'Alien Creature', 210.00, '3D', 'An alien creature model', 4.1),
-	(15, 'Chiptune Music Pack', 50.00, 'Audio', '8-bit chiptune music pack', 4.4);
+	(1,'Sci-Fi Weapons', 67.39,'3D', 'Great pack of modeled wapons'),
+	(2,'Button Masher - Game Template', 120.50,'Templates', 'Ready and customizable game template'),
+	(3,'Dragon Model', 210.60,'3D', 'Cool looking asset to use in your game'),
+	(4,'Pixel Icon Pack', 30.00,'2D', 'Pack of icons'),
+	(5,'Monster Sound Pack', 102.85,'Audio', 'Sounds of monsters that I keep in my basement'),
+    (6, 'Fantasy Sword', 120.00, '3D', 'A sharp sword from the fantasy world'),
+	(7, 'Modern UI Pack', 45.50, 'Templates', 'Clean and modern UI templates'),
+	(8, 'Epic Background Music', 99.99, 'Audio', 'Music for epic moments'),
+	(9, 'Forest Environment', 180.00, '3D', 'Lush forest environment for games'),
+	(10, 'Pixel Art Character', 15.75, '2D', 'Cute pixel art character sprite'),
+	(11, 'Horror Sound Effects', 85.60, 'Audio', 'Terrifying sound effects'),
+	(12, 'Space Adventure Pack', 199.00, '3D', 'Complete space adventure assets'),
+	(13, 'Retro Game Template', 60.00, 'Templates', 'Retro-style game template'),
+	(14, 'Alien Creature', 210.00, '3D', 'An alien creature model'),
+	(15, 'Chiptune Music Pack', 50.00, 'Audio', '8-bit chiptune music pack');
     
 
 

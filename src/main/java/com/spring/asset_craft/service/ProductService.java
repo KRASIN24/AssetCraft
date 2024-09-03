@@ -56,7 +56,7 @@ public class ProductService {
                 product.getId(),
                 product.getName(),
                 product.getPrice(),
-                product.getRating(),
+                getProductRating(product.getId()),
                 product.getCategory(),
                 product.getProductImages(),
                 getOwnerUsername(product.getId())
@@ -79,10 +79,10 @@ public class ProductService {
         Product product = getProductById(productId);
 
         return new ProductDTO(
-                product.getId(),
+                productId,
                 product.getName(),
                 product.getPrice(),
-                product.getRating(),
+                getProductRating(productId),
                 getOwnerUsername(productId),
                 product.getDescription(),
                 product.getCategory(),
@@ -99,7 +99,7 @@ public class ProductService {
         return productRepository.findProductReviews(productId);
     }
 
-    public List<ProductDTO> searchProducts(String name, Float minPrice, Float maxPrice, Float rating, List<String> categories) {
+    public List<ProductDTO> searchProducts(String name, Float minPrice, Float maxPrice, Double rating, List<String> categories) {
         Specification<Product> spec = Specification.where(null);  // Start with an empty specification
 
         if (name != null && !name.isEmpty()) {
@@ -175,5 +175,9 @@ public class ProductService {
     public void addReview(Long productId, String review, Float rating, String username) {
 
         reviewRepository.save(new Review(review, rating, getProductById(productId), userService.getUserByUsername(username)));
+    }
+
+    public Double getProductRating(Long productId) {
+        return reviewRepository.findProductRatingById(productId);
     }
 }

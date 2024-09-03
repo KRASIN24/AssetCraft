@@ -22,8 +22,6 @@ public class Product {
     private String category;
     @Column(name = "description")
     private String description;
-    @Column(name = "rating")
-    private float rating;
     @OneToMany(mappedBy = "product", cascade = CascadeType.ALL)
     private List<Review> reviews;
 
@@ -38,13 +36,12 @@ public class Product {
     }
 
 
-    public Product(Long id, String name, float price, String category, String description, float rating) {
+    public Product(Long id, String name, float price, String category, String description) {
         this.id = id;
         this.name = name;
         this.price = price;
         this.category = category;
         this.description = description;
-        this.rating = rating;
     }
 
 
@@ -78,13 +75,6 @@ public class Product {
     }
     public void setDescription(String description) {
         this.description = description;
-    }
-
-    public float getRating() {
-        return rating;
-    }
-    public void setRating(float rating) {
-        this.rating = rating;
     }
 
     public List<Review> getReviews() {
@@ -137,7 +127,6 @@ public class Product {
                 ", price=" + price +
                 ", category='" + category + '\'' +
                 ", description='" + description + '\'' +
-                ", rating=" + rating +
                 '}';
     }
 }

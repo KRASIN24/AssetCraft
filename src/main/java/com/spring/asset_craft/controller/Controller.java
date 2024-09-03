@@ -57,7 +57,7 @@ public class Controller {
     public String showShop(@RequestParam(required = false) String name,
                            @RequestParam(required = false) Float minPrice,
                            @RequestParam(required = false) Float maxPrice,
-                           @RequestParam(required = false) Float rating,
+                           @RequestParam(required = false) Double rating,
                            @RequestParam(required = false) List<String> categories,
                            Model model){
 

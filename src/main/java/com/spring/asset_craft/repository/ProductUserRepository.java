@@ -13,7 +13,7 @@ import java.util.Optional;
 @Repository
 public interface ProductUserRepository extends JpaRepository<ProductUser, Long> {
 
-    @Query(value = "SELECT new com.spring.asset_craft.entity.Product(p.id, p.name, p.price, p.category, p.description, p.rating) " +
+    @Query(value = "SELECT new com.spring.asset_craft.entity.Product(p.id, p.name, p.price, p.category, p.description) " +
             "FROM ProductUser pu " +
             "JOIN pu.product p " +
             "JOIN pu.user u " +
@@ -41,14 +41,14 @@ public interface ProductUserRepository extends JpaRepository<ProductUser, Long> 
             "AND pu.status = com.spring.asset_craft.entity.ProductUser.ProductUserStatus.OWNER")
     Long getOwnerId(@Param("productId") Long productId);
 
-    @Query(value = "SELECT new com.spring.asset_craft.entity.Product(p.id, p.name, p.price, p.category, p.description, p.rating) " +
+    @Query(value = "SELECT new com.spring.asset_craft.entity.Product(p.id, p.name, p.price, p.category, p.description) " +
             "FROM ProductUser pu " +
             "JOIN pu.product p " +
             "JOIN pu.user u " +
             "WHERE pu.status = 'OWNER' AND u.username = :username")
     List<Product> findProductsSoldByUser(String username);
 
-    @Query(value = "SELECT new com.spring.asset_craft.entity.Product(p.id, p.name, p.price, p.category, p.description, p.rating) " +
+    @Query(value = "SELECT new com.spring.asset_craft.entity.Product(p.id, p.name, p.price, p.category, p.description) " +
             "FROM ProductUser pu " +
             "JOIN pu.product p " +
             "JOIN pu.user u " +

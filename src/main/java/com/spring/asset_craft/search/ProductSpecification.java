@@ -1,6 +1,9 @@
 package com.spring.asset_craft.search;
 
 import com.spring.asset_craft.entity.Product;
+import com.spring.asset_craft.entity.Review;
+import jakarta.persistence.criteria.Root;
+import jakarta.persistence.criteria.Subquery;
 import org.springframework.data.jpa.domain.Specification;
 
 import java.util.List;
@@ -11,9 +14,20 @@ public class ProductSpecification {
                 name == null ? null : criteriaBuilder.like(criteriaBuilder.lower(root.get("name")), "%" + name.toLowerCase() + "%");
     }
 
-    public static Specification<Product> hasRating(Float rating) {
-        return (root, query, criteriaBuilder) ->
-                rating == null ? null : criteriaBuilder.greaterThanOrEqualTo(root.get("rating"), rating);
+    public static Specification<Product> hasRating(Double minRating) {
+        return (root, query, criteriaBuilder) -> {
+            if (minRating == null) {
+                return null;
+            }
+
+            Subquery<Double> subquery = query.subquery(Double.class);
+            Root<Review> reviewRoot = subquery.from(Review.class);
+
+            subquery.select(criteriaBuilder.avg(reviewRoot.get("rating")))
+                    .where(criteriaBuilder.equal(reviewRoot.get("product").get("id"), root.get("id")));
+
+            return criteriaBuilder.greaterThanOrEqualTo(subquery, minRating);
+        };
     }
 
     public static Specification<Product> hasCategory(List<String> categories) {

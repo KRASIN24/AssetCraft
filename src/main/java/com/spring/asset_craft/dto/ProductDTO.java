@@ -9,14 +9,14 @@ public class ProductDTO {
     private Long id;
     private String name;
     private float price;
-    private float rating;
+    private Double rating;
     private String ownerUsername;
     private String description;
     private String category;
     private List<ReviewDTO> reviews;
     private List<ProductImage> productImages;
 
-    public ProductDTO(Long id, String name, float price, float rating, String category, List<ProductImage> productImages, String ownerUsername) {
+    public ProductDTO(Long id, String name, float price, Double rating, String category, List<ProductImage> productImages, String ownerUsername) {
         this.id = id;
         this.name = name;
         this.price = price;
@@ -26,7 +26,7 @@ public class ProductDTO {
         this.ownerUsername = ownerUsername;
     }
 
-    public ProductDTO(Long id, String name, float price, String ownerUsername, float rating, String category, String description) {
+    public ProductDTO(Long id, String name, float price, String ownerUsername, Double rating, String category, String description) {
         this.id = id;
         this.name = name;
         this.price = price;
@@ -36,7 +36,7 @@ public class ProductDTO {
         this.description = description;
     }
 
-    public ProductDTO(Long id, String name, float price, float rating, String ownerUsername, String description, String category, List<ReviewDTO> reviews, List<ProductImage> productImages) {
+    public ProductDTO(Long id, String name, float price, Double rating, String ownerUsername, String description, String category, List<ReviewDTO> reviews, List<ProductImage> productImages) {
         this.id = id;
         this.name = name;
         this.price = price;
@@ -72,11 +72,11 @@ public class ProductDTO {
         this.price = price;
     }
 
-    public float getRating() {
+    public Double getRating() {
         return rating;
     }
 
-    public void setRating(float rating) {
+    public void setRating(Double rating) {
         this.rating = rating;
     }
 
