@@ -15,8 +15,13 @@ public class ProductDTO {
     private String category;
     private List<ReviewDTO> reviews;
     private List<ProductImage> productImages;
+    private boolean isOwner;
+    private boolean inCart;
+    private boolean isBought;
 
-    public ProductDTO(Long id, String name, float price, Double rating, String category, List<ProductImage> productImages, String ownerUsername) {
+    // Small DTO
+    public ProductDTO(Long id, String name, float price, Double rating, String category, List<ProductImage> productImages,
+                      String ownerUsername, boolean isOwner, boolean inCart, boolean isBought) {
         this.id = id;
         this.name = name;
         this.price = price;
@@ -24,6 +29,9 @@ public class ProductDTO {
         this.category = category;
         this.productImages = productImages;
         this.ownerUsername = ownerUsername;
+        this.isOwner = isOwner;
+        this.inCart = inCart;
+        this.isBought = isBought;
     }
 
     public ProductDTO(Long id, String name, float price, String ownerUsername, Double rating, String category, String description) {
@@ -36,6 +44,7 @@ public class ProductDTO {
         this.description = description;
     }
 
+    // Big DTO
     public ProductDTO(Long id, String name, float price, Double rating, String ownerUsername, String description, String category, List<ReviewDTO> reviews, List<ProductImage> productImages) {
         this.id = id;
         this.name = name;
@@ -118,5 +127,29 @@ public class ProductDTO {
 
     public void setProductImages(List<ProductImage> productImages) {
         this.productImages = productImages;
+    }
+
+    public boolean isOwner() {
+        return isOwner;
+    }
+
+    public void setOwner(boolean owner) {
+        isOwner = owner;
+    }
+
+    public boolean isInCart() {
+        return inCart;
+    }
+
+    public void setInCart(boolean inCart) {
+        this.inCart = inCart;
+    }
+
+    public boolean isBought() {
+        return isBought;
+    }
+
+    public void setBought(boolean bought) {
+        isBought = bought;
     }
 }

@@ -44,11 +44,27 @@ public class Controller {
 
     //TODO: Make it better
     @GetMapping("/")
-    public String showIndex(Model model){
+    public String showIndex(Model model,Principal principal){
 
         List<ProductDTO> ProductDTOs = productService.getAllSmallProductsDTO();
 
+        if (principal != null) {
+            // FIXME: !!! Change this monstrosity
+            User user = userService.getUserByUsername(principal.getName());
+            for (ProductDTO product : ProductDTOs) {
+                ProductUser productUser = new ProductUser(
+                        productService.getProductById(product.getId()),
+                        user,
+                        CART
+                );
+                product.setOwner(productService.isOwner(productUser));
+                product.setInCart(productService.isInCart(productUser));
+                product.setBought(productService.isBought(productUser));
+            }
+        }
+
         model.addAttribute("products", ProductDTOs);
+
         return "index";
     }
 
@@ -59,9 +75,26 @@ public class Controller {
                            @RequestParam(required = false) Float maxPrice,
                            @RequestParam(required = false) Double rating,
                            @RequestParam(required = false) List<String> categories,
+                           Principal principal,
                            Model model){
 
         List<ProductDTO> ProductDTOs = productService.searchProducts(name, minPrice, maxPrice, rating, categories);
+
+        if (principal != null) {
+            // FIXME: !!! Change this monstrosity
+            User user = userService.getUserByUsername(principal.getName());
+            for (ProductDTO product : ProductDTOs) {
+                ProductUser productUser = new ProductUser(
+                        productService.getProductById(product.getId()),
+                        user,
+                        CART
+                );
+                product.setOwner(productService.isOwner(productUser));
+                product.setInCart(productService.isInCart(productUser));
+                product.setBought(productService.isBought(productUser));
+            }
+        }
+
         model.addAttribute("products", ProductDTOs);
 
         List<ProductDTO> priceProductDTOs = productService.getAllSmallProductsDTO();
@@ -157,9 +190,23 @@ public class Controller {
     }
 
     @GetMapping("/productPage/{productId}")
-    public String showProductPage(@PathVariable("productId") Long productId, Model model) {
+    public String showProductPage(@PathVariable("productId") Long productId, Principal principal, Model model) {
 
         ProductDTO ProductDTO = productService.getBigProductDTO(productId);
+
+        if (principal != null) {
+            // FIXME: !!! Change this monstrosity
+            User user = userService.getUserByUsername(principal.getName());
+                ProductUser productUser = new ProductUser(
+                        productService.getProductById(ProductDTO.getId()),
+                        user,
+                        CART
+                );
+            ProductDTO.setOwner(productService.isOwner(productUser));
+            ProductDTO.setInCart(productService.isInCart(productUser));
+            ProductDTO.setBought(productService.isBought(productUser));
+            }
+
         model.addAttribute("product", ProductDTO);
         return "productPage";
     }

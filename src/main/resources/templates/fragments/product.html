@@ -8,7 +8,9 @@
             <img th:src="@{${product.productImages[0].path}}" alt="Product Image">
         </div>
         <p class="product-card__owner">
-                <span th:text="${product.ownerUsername}">Owner Username</span>
+                <span th:text="${product.ownerUsername}">Owner Username
+                    <div th:if="${product.isOwner}"><p>(YOU)</p></div>
+                </span>
             </p>
             <h2 class="product-card__title" th:text="${product.name}">Product Name</h2>
         </header>
@@ -20,7 +22,11 @@
                 <p class="product-card__price">
                     <span>$</span><span th:text="${product.price}">$0.00</span>
                 </p>
-                <div class="product-card-cart-button">
+
+                <div th:if="${product.isBought}"><p>Already Bought</p></div>
+                <div th:if="${product.isOwner}"><p>You are the Owner</p></div>
+                <div th:if="${product.inCart}"><p>Asset already in cart</p></div>
+                <div class="product-card-cart-button" th:if="${!product.isBought} and ${!product.isOwner} and ${!product.inCart}">
                     <form th:action="@{cart/add}" method="POST">
                         <input type="hidden" name="_csrf" th:value="${_csrf.token}">
                         <input type="hidden" name="productId" th:value="${product.id}">

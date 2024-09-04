@@ -54,6 +54,9 @@ public interface ProductUserRepository extends JpaRepository<ProductUser, Long> 
             "JOIN pu.user u " +
             "WHERE pu.status = 'BUYER' AND u.username = :username")
     List<Product> findProductsBoughtByUser(String username);
+
+    @Query("SELECT COUNT(pu)>0 FROM ProductUser pu WHERE pu.product.id = :productId AND pu.user.id = :userId AND pu.status = com.spring.asset_craft.entity.ProductUser.ProductUserStatus.BUYER")
+    boolean inBought(Long productId, Long userId);
 }
 
 

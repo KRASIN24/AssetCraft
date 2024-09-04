@@ -59,7 +59,10 @@ public class ProductService {
                 getProductRating(product.getId()),
                 product.getCategory(),
                 product.getProductImages(),
-                getOwnerUsername(product.getId())
+                getOwnerUsername(product.getId()),
+                false,
+                false,
+                false
         );
     }
 
@@ -152,8 +155,7 @@ public class ProductService {
 
     public void addToCart(ProductUser productUser) {
 
-    // TODO: Make it check if user and product have any relation other then WHISHLIST rather then those 2
-        if(!isInCart(productUser) && !isOwner(productUser))
+        if(!isInCart(productUser) && !isOwner(productUser) && !isBought(productUser))
             productUserRepository.save(productUser);
     }
     public boolean isInCart(ProductUser productUser){
@@ -164,7 +166,12 @@ public class ProductService {
     public boolean isOwner(ProductUser productUser){
         Long userId = productUser.getUser().getId();
         Long ownerId = getOwnerId(productUser.getProduct().getId());
-        return ownerId == userId;
+        return ownerId.equals(userId);
+    }
+    public boolean isBought(ProductUser productUser){
+        Long userId = productUser.getUser().getId();
+        Long productId = productUser.getProduct().getId();
+        return productUserRepository.inBought(productId,userId);
     }
 
     public void deleteFromCart(Long productId, String username){
