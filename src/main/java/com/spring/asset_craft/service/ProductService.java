@@ -1,7 +1,9 @@
 package com.spring.asset_craft.service;
 
+import com.spring.asset_craft.entity.ProductImage;
 import com.spring.asset_craft.entity.ProductUser;
 import com.spring.asset_craft.entity.Review;
+import com.spring.asset_craft.repository.ProductImageRepository;
 import com.spring.asset_craft.repository.ProductUserRepository;
 import com.spring.asset_craft.repository.ProductRepository;
 import com.spring.asset_craft.repository.ReviewRepository;
@@ -14,8 +16,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
+import java.nio.file.Path;
+import java.security.Principal;
 import java.util.List;
 import java.util.stream.Collectors;
+
+import static com.spring.asset_craft.entity.ProductUser.ProductUserStatus.*;
+
 
 @Service
 public class ProductService {
@@ -26,6 +33,8 @@ public class ProductService {
     private ProductUserRepository productUserRepository;
     @Autowired
     private ReviewRepository reviewRepository;
+    @Autowired
+    private ProductImageRepository productImageRepository;
 
     @Autowired
     private UserService userService;
@@ -33,11 +42,13 @@ public class ProductService {
     private AppDAO appDAO;
 
     @Autowired
-    public ProductService(ProductRepository productRepository, ProductUserRepository productUserRepository, ReviewRepository reviewRepository, UserService userService, AppDAO appDAO) {
+    public ProductService(ProductRepository productRepository, ProductUserRepository productUserRepository, ReviewRepository reviewRepository,
+                          UserService userService, ProductImageRepository productImageRepository, AppDAO appDAO) {
         this.productRepository = productRepository;
         this.productUserRepository = productUserRepository;
         this.reviewRepository = reviewRepository;
         this.userService = userService;
+        this.productImageRepository = productImageRepository;
         this.appDAO = appDAO;
     }
 
@@ -186,5 +197,30 @@ public class ProductService {
 
     public Double getProductRating(Long productId) {
         return reviewRepository.findProductRatingById(productId);
+    }
+
+    public void addProduct(List<String> paths, String name, String category, float price, String description, Principal principal) {
+        Product product = new Product(
+                name,
+                price,
+                category,
+                description
+        );
+        Product savedProduct = productRepository.save(product);
+
+        for (String path : paths) {
+            ProductImage productImage = new ProductImage(
+                    path,
+                    savedProduct
+            );
+            productImageRepository.save(productImage);
+        }
+
+        ProductUser productUser = new ProductUser(
+                savedProduct,
+                userService.getUserByUsername(principal.getName()),
+                OWNER
+        );
+        productUserRepository.save(productUser);
     }
 }

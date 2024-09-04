@@ -414,10 +414,13 @@ body{
 }
 
 .img-container img{
-    width: 260px;
+    
 }
 
 .img-container{
+    overflow: hidden;
+    width: 260px;
+    height: 130px;
     margin: -10px;
     margin-bottom: 10px;
     text-align: center;

@@ -21,7 +21,11 @@ public class ProductUser {
     @Column(name = "status")
     private ProductUserStatus status;
 
-    public ProductUser() {
+    public ProductUser(Long id, Product product, User user, ProductUserStatus status) {
+        this.id = id;
+        this.product = product;
+        this.user = user;
+        this.status = status;
     }
 
     public ProductUser(Product product, User user, ProductUserStatus status) {

@@ -22,8 +22,7 @@ public class ProductImage {
     public ProductImage() {
     }
 
-    public ProductImage(Long id, String path, Product product) {
-        this.id = id;
+    public ProductImage(String path, Product product) {
         this.path = path;
         this.product = product;
     }

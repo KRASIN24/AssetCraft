@@ -16,7 +16,6 @@ CREATE TABLE `product` (
   -- TODO: (LONG) (HARD) (stashed as stash@{0}) change to ENUM
   `category` varchar(45) DEFAULT NULL,
   `description` varchar(250) DEFAULT NULL,
-  -- `rating` decimal(2, 1) DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=latin1;
 
@@ -41,7 +40,7 @@ INSERT INTO `product` VALUES
 
 CREATE TABLE `product_image` (
   `id` BIGINT NOT NULL AUTO_INCREMENT,
-  `path` varchar(45) DEFAULT NULL,
+  `path` varchar(255) DEFAULT NULL,
   `product_id` BIGINT NOT NULL,
   FOREIGN KEY (`product_id`) REFERENCES product(`id`),
   PRIMARY KEY (`id`)
