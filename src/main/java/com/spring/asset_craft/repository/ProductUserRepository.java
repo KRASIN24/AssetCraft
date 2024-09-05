@@ -3,9 +3,11 @@ package com.spring.asset_craft.repository;
 import com.spring.asset_craft.entity.Product;
 import com.spring.asset_craft.entity.ProductUser;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Optional;
@@ -57,6 +59,12 @@ public interface ProductUserRepository extends JpaRepository<ProductUser, Long> 
 
     @Query("SELECT COUNT(pu)>0 FROM ProductUser pu WHERE pu.product.id = :productId AND pu.user.id = :userId AND pu.status = com.spring.asset_craft.entity.ProductUser.ProductUserStatus.BUYER")
     boolean inBought(Long productId, Long userId);
+
+    @Modifying
+    @Transactional
+    @Query("UPDATE ProductUser pu SET pu.status = com.spring.asset_craft.entity.ProductUser.ProductUserStatus.BUYER "+
+            "WHERE pu.product.id IN :productsIds AND pu.status = com.spring.asset_craft.entity.ProductUser.ProductUserStatus.CART")
+    void updateProductStatus(List<Long> productsIds);
 }
 
 

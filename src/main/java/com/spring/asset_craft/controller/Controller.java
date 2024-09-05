@@ -147,20 +147,20 @@ public class Controller {
     }
     @GetMapping("/account/addProduct")
     public String showAddProductForm(Model model, Principal principal) {
-
-
-
         return "add-product-form";
     }
 
+    // TODO: make logic responsible for adding products more readable
     @Value("${file.upload-dir}")
     private String uploadDir;
-
     @PostMapping("/account/addProduct")
     public String addProduct(@RequestParam("files") MultipartFile[] files,
                              String name, String category, float price, String description, Model model, Principal principal) {
 
+
+
         List<String> dbPaths = new ArrayList<>();
+
         for (MultipartFile file : files) {
             try {
                 Path uploadPath = Paths.get(uploadDir);
@@ -215,13 +215,6 @@ public class Controller {
             productService.addToCart(productUser);
 
         return "redirect:/shop";
-    }
-
-    @PostMapping("/cart/remove")
-    public String removeFromCart(@RequestParam("productId") Long productId, Principal principal){
-
-        productService.deleteFromCart(productId, principal.getName());
-        return "redirect:/cart";
     }
 
     @GetMapping("/contact")

@@ -223,4 +223,8 @@ public class ProductService {
         );
         productUserRepository.save(productUser);
     }
+
+    public void userBought(List<Long> productsIds){
+        productUserRepository.updateProductStatus(productsIds);
+    }
 }

@@ -42,11 +42,13 @@
               </label>  
         </div>
 
+        <form id="cartForm" action="/updateCart" method="POST">
+            <input type="hidden" name="_csrf" th:value="${_csrf.token}" id="_csrf">
         <div  th:unless="${products.isEmpty()}"> 
                 <div th:each="product : ${products}" class="incart">
-                   
+                      
                     <div>
-                        <input type="checkbox" checked>
+                        <input type="checkbox" name="checks" th:value="${product.id}" class="product-checkbox" th:data-price="${product.price}">
                         <span class="checkmark"></span>
                     </div>
 
@@ -60,19 +62,17 @@
                         <span th:text="${product.description}">Description</span>
                     </p>
                 </a>
-                <form th:action="@{cart/remove}" method="POST">
-                    <input type="hidden" name="_csrf" th:value="${_csrf.token}">
-                    <input type="hidden" name="productId" th:value="${product.id}">
-                    <button type="submit">
-                        <div class="bin">
-                            <img src="icons/binclose.png" class="img-bottom">
-                            <img src="icons/binopen.png" class="img-top">
-                        </div>
-                    </button>
-                </form>
+
+                <button type="button" th:attr="onclick='removeProduct('+${product.id}+')'">
+                    <div class="bin">
+                        <img src="icons/binclose.png" class="img-bottom">
+                        <img src="icons/binopen.png" class="img-top">
+                    </div>
+                </button>
+
                 </div>
         </div>
-
+ 
         <a class="more" th:href="@{/shop}">
                   <p>ADD MORE</p>
                   <P>></P>
@@ -85,22 +85,19 @@
 
     </div>
 
-    <!-- TODO: Make cart responsive -->
     <div class="rightside">
         <div class="order">
             <h1>To pay</h1>
-            <div class="sumary">
+            <div class="sumary" >
                 <p>Sumary cost:</p>
-                <p>€53.60</p>
+                <span id="totalPrice" style="color: white;">€53.60</span>
             </div>
-            <div class="paybut">
-                <p>Pay</p>
-            </div>
+            <input type="submit" class="paybut" value="PAY">
             <div class="continue">
                 <a th:href="@{/shop}">Continue shoping</a>
             </div>
         </div>
-
+    
         <div class="discount">
             <h1>Place discount code</h1>
             <p>Type in or paste your discount code HERE</p>
@@ -109,9 +106,12 @@
             </div>
         </div>
     </div>
+</form> 
 
     </div>
 
     <div th:replace="~{fragments/footer.html :: footer}" id="footer-placeholder"></div>
+
+    <script th:src="@{/js/scriptCart.js}"></script>
 </body>
 </html>
