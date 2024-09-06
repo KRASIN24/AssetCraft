@@ -138,17 +138,15 @@ INSERT INTO `user_image` VALUES
     
     
     CREATE TABLE `users_roles` (
-    `id` BIGINT NOT NULL AUTO_INCREMENT,
     `user_id` BIGINT NOT NULL,
     `role_id` BIGINT NOT NULL,
 	FOREIGN KEY (`user_id`) REFERENCES `user` (`id`),
-    FOREIGN KEY (`role_id`) REFERENCES `role` (`id`),
-    PRIMARY KEY (`id`)
+    FOREIGN KEY (`role_id`) REFERENCES `role` (`id`)
     )ENGINE=InnoDB DEFAULT CHARSET=latin1;
     
     -- TODO: Populate role
     INSERT INTO `users_roles` VALUES
-    (1, 1, 1);
+    (1, 1);
     
     
 CREATE TABLE `product_user` (

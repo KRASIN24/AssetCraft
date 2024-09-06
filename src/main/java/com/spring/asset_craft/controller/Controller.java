@@ -1,6 +1,7 @@
 package com.spring.asset_craft.controller;
 
 import com.spring.asset_craft.dao.AppDAO;
+import com.spring.asset_craft.dto.FormProductDTO;
 import com.spring.asset_craft.dto.ProductDTO;
 import com.spring.asset_craft.entity.ProductUser;
 import com.spring.asset_craft.entity.User;
@@ -10,14 +11,14 @@ import com.spring.asset_craft.repository.UserRepository;
 import com.spring.asset_craft.security.WebUser;
 import com.spring.asset_craft.service.ProductService;
 import com.spring.asset_craft.service.UserService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.io.IOException;
 import java.nio.file.Files;
@@ -151,17 +152,51 @@ public class Controller {
     }
     @GetMapping("/account/addProduct")
     public String showAddProductForm(Model model, Principal principal) {
+
+        model.addAttribute("productForm", new FormProductDTO());
         return "add-product-form";
     }
 
     // TODO: make logic responsible for adding products more readable
     @Value("${file.upload-dir}")
     private String uploadDir;
+    private static final long MAX_FILE_SIZE = 2 * 1024 * 1024; // 2MB
     @PostMapping("/account/addProduct")
-    public String addProduct(@RequestParam("files") MultipartFile[] files,
-                             String name, String category, float price, String description, Model model, Principal principal) {
+    public String addProduct(
+            //@RequestParam("files") MultipartFile[] files, String name, String category, float price, String description, Model model, Principal principal
+            @Valid @ModelAttribute("productForm") FormProductDTO productForm,
+            BindingResult bindingResult, Model model, Principal principal,
+            RedirectAttributes redirectAttributes) {
 
+        if (bindingResult.hasErrors()) {
+            model.addAttribute("productForm", productForm);
+            return "add-product-form";
+        }
 
+        // Validate file uploads
+        if (productForm.getFiles().isEmpty()) {
+            bindingResult.rejectValue("files", "error.files", "At least one file is required.");
+            return "add-product-form";
+        }
+
+        for (MultipartFile file : productForm.getFiles()) {
+            if (file.getSize() > MAX_FILE_SIZE) {
+                bindingResult.rejectValue("files", "error.files", "File size exceeds the 2MB limit.");
+                return "add-product-form";
+            }
+
+            // Additional checks for file type, if needed
+            if (!file.getContentType().equals("image/jpeg") && !file.getContentType().equals("image/png")) {
+                bindingResult.rejectValue("files", "error.files", "Only JPEG or PNG images are allowed.");
+                return "add-product-form";
+            }
+        }
+
+        List<MultipartFile> files = productForm.getFiles();
+        String name = productForm.getName();
+        String category = productForm.getCategory();
+        Double price = productForm.getPrice();
+        String description = productForm.getDescription();
 
         List<String> dbPaths = new ArrayList<>();
 
@@ -183,8 +218,15 @@ public class Controller {
                 System.out.println("ERRRRRORRRRRR");
             }
         }
-        productService.addProduct(dbPaths,name,category,price,description,principal);
 
+        try {
+        productService.addProduct(dbPaths,name,category,price.floatValue(),description,principal);
+
+        } catch (Exception e) {
+            bindingResult.rejectValue("files", "error.files", "Failed to upload files.");
+            return "add-product-form";
+        }
+        redirectAttributes.addFlashAttribute("successMessage", "Product added successfully!");
         return "redirect:/account/sold";
     }
 
