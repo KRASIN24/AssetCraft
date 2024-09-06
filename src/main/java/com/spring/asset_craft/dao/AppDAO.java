@@ -10,5 +10,6 @@ import java.util.List;
  public interface AppDAO {
 
      //Product findProductById(int id);
+     User findByUserName(String userName);
 
-}
+ }

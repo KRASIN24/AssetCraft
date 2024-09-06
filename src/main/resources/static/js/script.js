@@ -114,11 +114,20 @@ function resetRating() {
 }
 
 function resetCategories() {
+  
   const checkboxes = document.querySelectorAll('.checkbox');
       checkboxes.forEach(function(checkbox) {
         checkbox.checked = false;
+       // alert(checkbox.value);
       });
     }
+
+    function resetFilter(){
+      // FIXME: resetCategories() work on their own but not in this function 
+        resetCost();
+        resetRating();
+        resetCategories();
+     }
 
  document.getElementById('filterForm').addEventListener('submit',function(event){
     const ratingInput = document.getElementById('ratingRange');
@@ -141,10 +150,3 @@ function resetCategories() {
       searchBar.name = '';
  });
 
- 
- function resetFilter(){
-  // FIXME: resetCategories() work on their own but not in this function
-    resetCategories();  
-    resetRating();
-    resetCost();
- }

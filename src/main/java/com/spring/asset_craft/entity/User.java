@@ -28,6 +28,9 @@ public class User {
     @OneToMany(cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
     private List<ProductUser> productUsers;
 
+    @OneToMany(cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
+    private List<Role> roles;
+
 
     public User() {
     }
@@ -102,6 +105,14 @@ public class User {
 
     public void setAssociationProductUsers(List<ProductUser> productUsers) {
         this.productUsers = productUsers;
+    }
+
+    public List<Role> getRoles() {
+        return roles;
+    }
+
+    public void setRoles(List<Role> roles) {
+        this.roles = roles;
     }
 
     @Override

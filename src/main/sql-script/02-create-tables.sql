@@ -5,6 +5,7 @@ DROP TABLE IF EXISTS `review`;
 DROP TABLE IF EXISTS `product_user`;
 DROP TABLE IF EXISTS `product_image`;
 DROP TABLE IF EXISTS `product`;
+DROP TABLE IF EXISTS `users_roles`;
 DROP TABLE IF EXISTS `role`;
 DROP TABLE IF EXISTS `user_image`;
 DROP TABLE IF EXISTS `user`;
@@ -126,15 +127,28 @@ INSERT INTO `user_image` VALUES
     
     
 	CREATE TABLE `role` (
-    `user_id` BIGINT NOT NULL,
-    `role_name` varchar(50) NOT NULL,
-    UNIQUE KEY `autorieties5_idx_1` (`user_id`, `role_name`),
-    CONSTRAINT `autorieties5_idx_1` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`)
+    `id` BIGINT NOT NULL,
+    `name` varchar(50) NOT NULL,
+    UNIQUE KEY `autorieties5_idx_1` (`id`)
     )ENGINE=InnoDB DEFAULT CHARSET=latin1;
     
     -- TODO: Populate role
     INSERT INTO `role` VALUES
     (1, 'USER');
+    
+    
+    CREATE TABLE `users_roles` (
+    `id` BIGINT NOT NULL AUTO_INCREMENT,
+    `user_id` BIGINT NOT NULL,
+    `role_id` BIGINT NOT NULL,
+	FOREIGN KEY (`user_id`) REFERENCES `user` (`id`),
+    FOREIGN KEY (`role_id`) REFERENCES `role` (`id`),
+    PRIMARY KEY (`id`)
+    )ENGINE=InnoDB DEFAULT CHARSET=latin1;
+    
+    -- TODO: Populate role
+    INSERT INTO `users_roles` VALUES
+    (1, 1, 1);
     
     
 CREATE TABLE `product_user` (

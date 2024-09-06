@@ -30,5 +30,19 @@ public class AppDAOImpl implements AppDAO {
 //    }
 
 
+    @Override
+    public User findByUserName(String theUserName) {
 
+        // retrieve/read from database using username
+        TypedQuery<User> theQuery = entityManager.createQuery("from User where username=:uName and active=true ", User.class);
+        theQuery.setParameter("uName", theUserName);
+
+        User theUser = null;
+        try {
+            theUser = theQuery.getSingleResult();
+        } catch (Exception e) {
+            theUser = null;
+        }
+        return theUser;
+    }
 }

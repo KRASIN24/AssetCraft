@@ -26,16 +26,16 @@
             <span class="logout-message">You have been loged out.</span>
         </div>
         
-        <form th:action="@{/authenticateTheUser}" method="POST">
-            <p><input type="text" name="username" placeholder="Username" id="" class="username-input"></p>
-            <p><input type="text" name="email" placeholder="Email" id="" class="email-input"></p>
-            <p><input type="password" name="password" placeholder="Password" id="" class="password-input"></p>
-            <p><input type="password" name="password" placeholder="Repeat Password" id="" class="password-input"></p>
+        <form th:action="@{/register/processRegistrationForm}" method="POST" th:object="${webUser}">
+            <p><input type="text"  th:field="*{username}" placeholder="Username" id="" class="username-input"></p>
+            <p><input type="text" th:field="*{email}" placeholder="Email" id="" class="email-input"></p>
+            <p><input type="password" th:field="*{password}" placeholder="Password" id="" class="password-input"></p>
+            <p><input type="password"  placeholder="Repeat Password" id="" class="password-input"></p>
             
             
             <div class="forgot-password-link-holder">
                 <h3 class="sign-up"> Have account already?
-                    <a href="@{/signIn}" class="sign-up-link"> Sign In</a>
+                    <a th:href="@{/signIn}" class="sign-up-link"> Sign In</a>
                 </h3>
             </div>
 

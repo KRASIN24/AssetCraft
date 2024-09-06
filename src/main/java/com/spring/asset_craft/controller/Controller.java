@@ -7,6 +7,7 @@ import com.spring.asset_craft.entity.User;
 import com.spring.asset_craft.repository.ProductRepository;
 import com.spring.asset_craft.repository.ProductUserRepository;
 import com.spring.asset_craft.repository.UserRepository;
+import com.spring.asset_craft.security.WebUser;
 import com.spring.asset_craft.service.ProductService;
 import com.spring.asset_craft.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -134,7 +135,10 @@ public class Controller {
     public String showSignIn(){  return "signIn";}
 
     @GetMapping("/signUp")
-    public String showSignUp(){  return "signUp";}
+    public String showSignUp(Model theModel){
+        theModel.addAttribute("webUser", new WebUser());
+        return "signUp";
+    }
 
     @GetMapping("/account")
     public String showAccount(Model model, Principal principal){
@@ -254,7 +258,7 @@ public class Controller {
         return "redirect:/productPage/" + productId;
     }
 
-//    TODO: Add user registration and verification
+    //    TODO: Add user registration and verification
     // TODO: (MAYBE) change user login to JPA/Hibernate instead of JDBC
 
     // -------------------------------------
