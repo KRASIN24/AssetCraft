@@ -18,74 +18,11 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.stream.Collectors;
 
-@Service
-@Transactional
-public class UserService implements UserServiceIF{
 
+public interface UserService extends UserDetailsService{
 
-    private UserRepository userRepository;
-    private AppDAO appDAO;
-
-    @Autowired
-    public UserService(UserRepository userRepository, AppDAO appDAO) {
-        this.userRepository = userRepository;
-        this.appDAO = appDAO;
-    }
-
-
-
-
-    public User getUserByUsername(String username){
-        return userRepository.findByUsername(username)
-                .orElse(null);
-    }
-
-    public String getUserEmail(String username){
-        return userRepository.findByUsername(username)
-                .map(User::getEmail)
-                .orElse(null);
-    }
-
-    @Override
-    public void save(WebUser theWebUser) {
-        User user = new User();
-// assign user details to the user object
-        user.setUsername(theWebUser.getUsername());
-        //user.setPassword(passwordEncoder.encode(theWebUser.getPassword()));
-        String password = "{noop}" + theWebUser.getPassword();
-        user.setPassword(password);
-        user.setEmail(theWebUser.getEmail());
-        user.setActive(true);
-        User savedUser = userRepository.save(user);
-        userRepository.insertUserRole(savedUser.getId());
-
-    }
-
-
-    @Override
-    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-            User user = appDAO.findByUserName(username);
-            if (user == null) {
-                throw new UsernameNotFoundException("Invalid username or password.");
-            }
-            return new org.springframework.security.core.userdetails.User(
-                    user.getUsername(),
-                    user.getPassword(),
-                    getAthority()
-                    );
-                    //mapRolesToAuthorities(user.getRoles()));
-        }
-
-//        private Collection<? extends GrantedAuthority> mapRolesToAuthorities(Collection<Role> roles) {
-//
-//
-//            return //roles.stream().map(role -> new
-//                    //SimpleGrantedAuthority(role.getName())).collect(Collectors.toList());
-//        }
-
-        private Collection<? extends GrantedAuthority> getAthority(){
-
-        return Collections.singleton(new SimpleGrantedAuthority("USER"));
-        }
+    User getUserByUsername(String username);
+    String getUserEmail(String username);
+    void save(WebUser theWebUser);
 
 }

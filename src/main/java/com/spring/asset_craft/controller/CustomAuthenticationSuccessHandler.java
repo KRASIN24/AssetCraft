@@ -1,7 +1,7 @@
 package com.spring.asset_craft.controller;
 
 import com.spring.asset_craft.entity.User;
-import com.spring.asset_craft.service.UserServiceIF;
+import com.spring.asset_craft.service.UserService;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
@@ -17,11 +17,11 @@ import java.io.IOException;
 @Controller
 public class CustomAuthenticationSuccessHandler implements AuthenticationSuccessHandler {
 
-    private UserServiceIF userServiceIF;
+    private UserService userService;
 
     @Autowired
-    public CustomAuthenticationSuccessHandler(UserServiceIF userServiceIF) {
-        this.userServiceIF = userServiceIF;
+    public CustomAuthenticationSuccessHandler(UserService userService) {
+        this.userService = userService;
     }
 
     @Override
@@ -29,7 +29,7 @@ public class CustomAuthenticationSuccessHandler implements AuthenticationSuccess
         System.out.println("In customAuthenticationSuccessHandler");
         String username = authentication.getName();
         System.out.println("username=" + username);
-        User theUser = userServiceIF.getUserByUsername(username);
+        User theUser = userService.getUserByUsername(username);
 // now place in the session
         HttpSession session = request.getSession();
         session.setAttribute("user", theUser);

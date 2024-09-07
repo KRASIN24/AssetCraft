@@ -2,7 +2,7 @@ package com.spring.asset_craft.controller;
 
 import com.spring.asset_craft.entity.User;
 import com.spring.asset_craft.security.WebUser;
-import com.spring.asset_craft.service.UserServiceIF;
+import com.spring.asset_craft.service.UserService;
 import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,11 +17,11 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/register")
 public class RegistrationController {
 
-    private UserServiceIF userServiceIF;
+    private UserService userService;
 
     @Autowired
-    public RegistrationController(UserServiceIF userServiceIF) {
-        this.userServiceIF = userServiceIF;
+    public RegistrationController(UserService userService) {
+        this.userService = userService;
     }
 
     @InitBinder
@@ -45,7 +45,7 @@ public class RegistrationController {
         }
 
         // check the database if user already exists
-        User existing = userServiceIF.getUserByUsername(userName);
+        User existing = userService.getUserByUsername(userName);
         if (existing != null){
             theModel.addAttribute("webUser", new WebUser());
             theModel.addAttribute("registrationError", "User name already exists.");
@@ -55,7 +55,7 @@ public class RegistrationController {
         }
 
         // create user account and store in the databse
-        userServiceIF.save(theWebUser);
+        userService.save(theWebUser);
 
         System.out.println("Successfully created user: " + userName);
 

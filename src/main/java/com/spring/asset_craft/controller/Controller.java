@@ -9,7 +9,7 @@ import com.spring.asset_craft.repository.ProductRepository;
 import com.spring.asset_craft.repository.ProductUserRepository;
 import com.spring.asset_craft.repository.UserRepository;
 import com.spring.asset_craft.security.WebUser;
-import com.spring.asset_craft.service.ProductService;
+import com.spring.asset_craft.service.impl.ProductServiceImpl;
 import com.spring.asset_craft.service.UserService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,7 +37,7 @@ public class Controller {
     @Autowired
     private ProductUserRepository productUserRepository;
     @Autowired
-    private ProductService productService;
+    private ProductServiceImpl productService;
     @Autowired
     private UserService userService;
     @Autowired

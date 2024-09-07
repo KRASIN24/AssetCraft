@@ -1,7 +1,6 @@
 package com.spring.asset_craft.security;
 
 import com.spring.asset_craft.service.UserService;
-import com.spring.asset_craft.service.UserServiceIF;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
@@ -28,7 +27,7 @@ public class SecurityConfig {
 //    }
 
     @Bean
-    public DaoAuthenticationProvider authenticationProvider(UserServiceIF userService) {
+    public DaoAuthenticationProvider authenticationProvider(UserService userService) {
         DaoAuthenticationProvider auth = new DaoAuthenticationProvider();
         auth.setUserDetailsService(userService); //set the custom user details service
         //auth.setPasswordEncoder(passwordEncoder()); //set the password encoder - bcrypt

@@ -1,7 +1,7 @@
 package com.spring.asset_craft.controller;
 
 import com.spring.asset_craft.pojo.CartUpdateRequest;
-import com.spring.asset_craft.service.ProductService;
+import com.spring.asset_craft.service.impl.ProductServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -14,7 +14,7 @@ import java.util.Map;
 public class RestController {
 
     @Autowired
-    private ProductService productService;
+    private ProductServiceImpl productService;
 
     @PostMapping("/updateCart")
     public String updateCart(@RequestBody CartUpdateRequest request){
