@@ -21,7 +21,7 @@
         </div>
         <p><strong>Description:</strong> <span th:text="${product.description}">Description</span></p>
         
-        <div th:if="${product.isBought}">
+        <!-- <div th:if="${product.isBought}">
         <form th:action="@{/productPage/{productId}(productId=${product.id})}" method="POST" >
             <input type="hidden" name="_csrf" th:value="${_csrf.token}">
             <div class="rating-holder">
@@ -40,7 +40,7 @@
             <textarea name="review" rows="4" class="left-review" spellcheck="true" placeholder="Review"></textarea>
             <input type="submit" value="Submit" class="submit-review-button">
         </form>
-        </div>
+        </div> -->
 
         <h2>Reviews:</h2>
         <div th:each="review : ${product.reviews}">
@@ -56,10 +56,11 @@
         <p><strong>Rating:</strong> <span th:text="${product.rating}">0.0</span></p>
         <div><h2><span>$</span><span th:text="${product.price}">$0.00</span></h2></div>
         
-        <input type="submit" value="Edit" th:if="${product.isOwner}">
+        <form th:action="@{/editProduct/{id}(id=${product.id})}" method="GET" >
+            <button type="submit" th:if="${product.isOwner}">Edit</button>
+        </form>
+
         <div th:if="${!product.isBought} and ${!product.isOwner} and ${!product.inCart}">
-           
-            
             <input type="hidden" name="_csrf" th:value="${_csrf.token}" id="_csrf">
             <button type="submit" th:attr="onclick='addProduct('+${product.id}+')'">
                 <div class="cart-img-holder">

@@ -13,8 +13,8 @@
     </head>
 <body>
     <div th:replace="~{fragments/nav.html :: nav}" id="nav-placeholder"></div>
-    <!-- ${productForm.id == null ? @{/account/addProduct} : @{/editProduct/{id}(id=${productForm.id})}} -->
-    <form th:action="@{/account/addProduct}" 
+    <!-- ${productForm.id == null} ? @{/account/addProduct} : @{/editProduct/{id}(id=${productForm.id}) -->
+    <form th:action="${productForm.id == null} ? @{/account/addProduct} : @{/editProduct/{id}(id=${productForm.id})}" 
     method="POST" th:object="${productForm}" enctype="multipart/form-data" class="add-product-form">
 
         <input type="hidden" th:field="*{id}">
@@ -45,8 +45,8 @@
         </div>
 
         <div class="input-field">
-            <input type="submit" value="Sell" class="add-product-button">
-            <button> <span text="${productForm.id == null ? 'Add Product' : 'Edit Product'}"></span></button>
+            <!-- <input type="submit" value="Sell" class="add-product-button"> -->
+            <button type="submit"> <span th:text="${productForm.id == null} ? 'Add Product' : 'Edit Product'"></span></button>
             <!-- <input type="submit" value="Save as Draft"> -->
             <button class="add-product-button">Discard</button>
         </div>

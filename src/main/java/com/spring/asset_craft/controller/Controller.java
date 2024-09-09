@@ -305,8 +305,33 @@ public class Controller {
         return "redirect:/productPage/" + productId;
     }
 
+    @GetMapping("/editProduct/{id}")
+    public String editProductForm(@PathVariable("id") Long id, Principal principal, Model model) {
+
+        FormProductDTO formProductDTO = productService.getFormProductById(id);
+
+        model.addAttribute("productForm", formProductDTO);
+        return "add-product-form";
+    }
+
+    @PostMapping("/editProduct/{id}")
+    public String editProduct(@PathVariable("id") Long id,
+                              @Valid @ModelAttribute("productForm") FormProductDTO productForm, BindingResult bindingResult,
+                              Principal principal, Model model, RedirectAttributes redirectAttributes) {
+
+        if (bindingResult.hasErrors()) {
+            model.addAttribute("productForm", productForm);
+            return "add-product-form";
+        }
+
+        productService.updateProduct(productForm);
+
+        redirectAttributes.addFlashAttribute("successMessage", "Product added successfully!");
+        return "redirect:/shop";
+    }
+
     //    TODO: Add user registration and verification
     // TODO: (MAYBE) change user login to JPA/Hibernate instead of JDBC
-    
+
 
 }

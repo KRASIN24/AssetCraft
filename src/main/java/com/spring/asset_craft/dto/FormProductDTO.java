@@ -10,6 +10,7 @@ import java.util.List;
 
 public class FormProductDTO {
 
+    private Long id;
 
     private List<MultipartFile> files;
     @NotBlank(message = "Name is required")
@@ -31,6 +32,14 @@ public class FormProductDTO {
         this.category = category;
         this.price = price;
         this.description = description;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public List<MultipartFile> getFiles() {

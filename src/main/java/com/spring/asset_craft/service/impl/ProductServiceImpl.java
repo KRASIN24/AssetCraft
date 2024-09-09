@@ -1,5 +1,6 @@
 package com.spring.asset_craft.service.impl;
 
+import com.spring.asset_craft.dto.FormProductDTO;
 import com.spring.asset_craft.entity.ProductImage;
 import com.spring.asset_craft.entity.ProductUser;
 import com.spring.asset_craft.entity.Review;
@@ -248,5 +249,23 @@ public class ProductServiceImpl implements ProductService {
     @Override
     public List<ProductImage> getImagesPath(Long productId) {
         return productImageRepository.findImagesPathByProductId(productId);
+    }
+
+    @Override
+    public void updateProduct(FormProductDTO productForm) {
+        productRepository.updateProduct(productForm.getId(),productForm.getName(),productForm.getCategory(),productForm.getDescription(),productForm.getPrice());
+    }
+
+    @Override
+    public FormProductDTO getFormProductById(Long id) {
+        Product product = getProductById(id);
+        Double price = (double) product.getPrice();
+        FormProductDTO formProductDTO = new FormProductDTO();
+        formProductDTO.setId(id);
+        formProductDTO.setName(product.getName());
+        formProductDTO.setCategory(product.getCategory());
+        formProductDTO.setDescription(product.getDescription());
+        formProductDTO.setPrice(price);
+        return formProductDTO;
     }
 }

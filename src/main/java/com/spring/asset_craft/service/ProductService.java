@@ -1,5 +1,6 @@
 package com.spring.asset_craft.service;
 
+import com.spring.asset_craft.dto.FormProductDTO;
 import com.spring.asset_craft.dto.ProductDTO;
 import com.spring.asset_craft.dto.ReviewDTO;
 import com.spring.asset_craft.entity.Product;
@@ -60,7 +61,7 @@ public interface ProductService {
     List<ProductImage> getImagesPath(Long productId);
 
 
+    void updateProduct(FormProductDTO productForm);
 
-
-
+    FormProductDTO getFormProductById(Long id);
 }
