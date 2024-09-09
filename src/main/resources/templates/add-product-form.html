@@ -13,26 +13,43 @@
     </head>
 <body>
     <div th:replace="~{fragments/nav.html :: nav}" id="nav-placeholder"></div>
+    <!-- ${productForm.id == null ? @{/account/addProduct} : @{/editProduct/{id}(id=${productForm.id})}} -->
+    <form th:action="@{/account/addProduct}" 
+    method="POST" th:object="${productForm}" enctype="multipart/form-data" class="add-product-form">
 
-    <form th:action="@{/account/addProduct}" method="POST" th:object="${productForm}" enctype="multipart/form-data">
-        <h2>Images</h2><input type="file" th:field="*{files}" accept="image/**" multiple> 
-        <div th:if="${#fields.hasErrors('files')}" th:errors="*{files}">File Upload Error</div>
+        <input type="hidden" th:field="*{id}">
 
-        <h2>Name</h2><input type="text" th:field="*{name}" id="">
-        <div th:if="${#fields.hasErrors('name')}" th:errors="*{name}">Name Error</div>
+        <div class="input-field">
+            <h2>Images</h2><input type="file" th:field="*{files}" accept="image/**" multiple> 
+            <div th:if="${#fields.hasErrors('files')}" th:errors="*{files}" class="error-message">File Upload Error</div>
+        </div>
 
-        <h2>Category</h2><input type="text" th:field="*{category}" id="">
-        <div th:if="${#fields.hasErrors('category')}" th:errors="*{category}">Name Error</div>
+        <div class="input-field">
+            <h2>Name</h2><input type="text" th:field="*{name}" id="">
+            <div th:if="${#fields.hasErrors('name')}" th:errors="*{name}" class="error-message">Name Error</div>
+        </div>
 
-        <h2>Price</h2><input type="number" step="0.01" th:field="*{price}" id="">
-        <div th:if="${#fields.hasErrors('price')}" th:errors="*{price}">Name Error</div>
+        <div class="input-field">
+            <h2>Category</h2><input type="text" th:field="*{category}" id="">
+            <div th:if="${#fields.hasErrors('category')}" th:errors="*{category}" class="error-message">Name Error</div>
+        </div>
 
-        <h2>Description</h2><textarea th:field="*{description}" id=""></textarea>
-        <div th:if="${#fields.hasErrors('description')}" th:errors="*{description}">Name Error</div>
+        <div class="input-field">
+            <h2>Price</h2><input type="number" step="0.01" th:field="*{price}" id="">
+            <div th:if="${#fields.hasErrors('price')}" th:errors="*{price}" class="error-message">Name Error</div>
+        </div>
 
-        <input type="submit" value="Sell">
-        <!-- <input type="submit" value="Save as Draft"> -->
-        <input type="submit" value="Discard">
+        <div class="input-field">
+            <h2>Description</h2><textarea th:field="*{description}" id=""></textarea>
+            <div th:if="${#fields.hasErrors('description')}" th:errors="*{description}" class="error-message">Name Error</div>
+        </div>
+
+        <div class="input-field">
+            <input type="submit" value="Sell" class="add-product-button">
+            <button> <span text="${productForm.id == null ? 'Add Product' : 'Edit Product'}"></span></button>
+            <!-- <input type="submit" value="Save as Draft"> -->
+            <button class="add-product-button">Discard</button>
+        </div>
     </form>
 
     <div th:replace="~{fragments/footer.html :: footer}" id="footer-placeholder"></div>

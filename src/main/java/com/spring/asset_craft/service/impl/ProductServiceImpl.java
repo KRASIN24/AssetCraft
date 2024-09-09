@@ -66,7 +66,7 @@ public class ProductServiceImpl implements ProductService {
                 product.getPrice(),
                 getProductRating(product.getId()),
                 product.getCategory(),
-                product.getProductImages(),
+                getImagesPath(product.getId()),
                 getOwnerUsername(product.getId()),
                 false,
                 false,
@@ -116,7 +116,7 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public List<ProductDTO> searchProducts(String name, Float minPrice, Float maxPrice, Double rating, List<String> categories) {
+    public List<ProductDTO>  searchProducts(String name, Float minPrice, Float maxPrice, Double rating, List<String> categories) {
         Specification<Product> spec = Specification.where(null);  // Start with an empty specification
 
         if (name != null && !name.isEmpty()) {
@@ -243,5 +243,10 @@ public class ProductServiceImpl implements ProductService {
     @Override
     public void userBought(List<Long> productsIds){
         productUserRepository.updateProductStatus(productsIds);
+    }
+
+    @Override
+    public List<ProductImage> getImagesPath(Long productId) {
+        return productImageRepository.findImagesPathByProductId(productId);
     }
 }

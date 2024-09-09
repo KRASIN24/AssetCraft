@@ -152,4 +152,22 @@ public class ProductDTO {
     public void setBought(boolean bought) {
         isBought = bought;
     }
+
+    @Override
+    public String toString() {
+        return "ProductDTO{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", price=" + price +
+                ", rating=" + rating +
+                ", ownerUsername='" + ownerUsername + '\'' +
+                ", description='" + description + '\'' +
+                ", category='" + category + '\'' +
+                ", reviews=" + reviews +
+                ", productImages=" + productImages +
+                ", isOwner=" + isOwner +
+                ", inCart=" + inCart +
+                ", isBought=" + isBought +
+                '}';
+    }
 }

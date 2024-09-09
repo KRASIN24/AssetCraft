@@ -45,11 +45,15 @@
         <form id="cartForm" action="/updateCart" method="POST">
             <input type="hidden" name="_csrf" th:value="${_csrf.token}" id="_csrf">
         <div  th:unless="${products.isEmpty()}"> 
-                <div th:each="product : ${products}" class="incart">
+                <div th:each="product : ${products}" class="incart-main">
                       
                     <div>
                         <input type="checkbox" name="checks" th:value="${product.id}" class="product-checkbox" th:data-price="${product.price}">
                         <span class="checkmark"></span>
+                    </div>
+
+                    <div class="cart-img-holder">
+                        <img th:src="@{${product.productImages[0].path}}">
                     </div>
 
                     <a th:href="@{/productPage/{id}(id=${product.id})}" class="product-card-link">
@@ -63,7 +67,7 @@
                     </p>
                 </a>
 
-                <button type="button" th:attr="onclick='removeProduct('+${product.id}+')'">
+                <button type="button" class="bin-button" th:attr="onclick='removeProduct('+${product.id}+')'">
                     <div class="bin">
                         <img src="icons/binclose.png" class="img-bottom">
                         <img src="icons/binopen.png" class="img-top">
@@ -95,7 +99,11 @@
 
                 </p>
             </div>
-            <input type="submit" class="paybut" value="PAY">
+
+            <div class="buy">
+                <input type="submit" class="paybut" value="PAY">
+            </div>
+
             <div class="continue">
                 <a th:href="@{/shop}">Continue shoping</a>
             </div>

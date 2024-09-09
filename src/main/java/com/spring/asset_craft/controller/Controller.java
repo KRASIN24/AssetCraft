@@ -245,6 +245,11 @@ public class Controller {
     @GetMapping("/cart")
     public String showCart(Model model, Principal principal){
 
+//        List<ProductDTO>  products = productService.getProductsInCart(principal.getName());
+//        for (ProductDTO product : products
+//             ) {
+//            System.out.println(product.toString());
+//        }
         model.addAttribute("products", productService.getProductsInCart(principal.getName()));
         return "cart";
     }
@@ -302,12 +307,6 @@ public class Controller {
 
     //    TODO: Add user registration and verification
     // TODO: (MAYBE) change user login to JPA/Hibernate instead of JDBC
-
-    // -------------------------------------
-
-    @GetMapping("/admin")
-    public String showAdmin(){
-        return "admin";
-    }
+    
 
 }

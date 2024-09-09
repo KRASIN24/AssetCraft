@@ -58,7 +58,16 @@
         
         <input type="submit" value="Edit" th:if="${product.isOwner}">
         <div th:if="${!product.isBought} and ${!product.isOwner} and ${!product.inCart}">
-            <input type="submit" value="Add to Cart" class="cart-button">
+           
+            
+            <input type="hidden" name="_csrf" th:value="${_csrf.token}" id="_csrf">
+            <button type="submit" th:attr="onclick='addProduct('+${product.id}+')'">
+                <div class="cart-img-holder">
+                    <img th:src="@{/icons/cart.png}">
+                </div>
+                Add to Cart
+             </button>
+
             <input type="submit" value="Heart" class="whishlist-button">
         </div>
     </div>

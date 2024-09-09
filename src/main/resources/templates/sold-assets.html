@@ -18,6 +18,10 @@
     <div  th:unless="${products.isEmpty()}"> 
         <div th:each="product : ${products}" class="incart">
 
+            <div class="cart-img-holder">
+                <img th:src="@{${product.productImages[0].path}}">
+            </div>
+
             <a th:href="@{/productPage/{id}(id=${product.id})}" class="product-card-link">
             <p class="product-card__owner">
                 <span th:text="${product.ownerUsername}">Owner Username</span>
@@ -28,6 +32,8 @@
                 <span th:text="${product.description}">Description</span>
             </p>
         </a>
+
+        <button>EDIT</button>
         </div>
     </div>
 

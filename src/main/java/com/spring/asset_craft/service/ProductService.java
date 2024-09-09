@@ -3,6 +3,7 @@ package com.spring.asset_craft.service;
 import com.spring.asset_craft.dto.ProductDTO;
 import com.spring.asset_craft.dto.ReviewDTO;
 import com.spring.asset_craft.entity.Product;
+import com.spring.asset_craft.entity.ProductImage;
 import com.spring.asset_craft.entity.ProductUser;
 
 import java.security.Principal;
@@ -55,6 +56,8 @@ public interface ProductService {
     void addProduct(List<String> paths, String name, String category, float price, String description, Principal principal);
 
     void userBought(List<Long> productsIds);
+
+    List<ProductImage> getImagesPath(Long productId);
 
 
 

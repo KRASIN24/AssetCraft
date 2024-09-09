@@ -5,6 +5,8 @@ import jakarta.validation.constraints.Size;
 
 public class WebUser {
 
+    private Long id;
+
     @NotNull(message="is required")
     @Size(min=1, message="is required")
     private String username;
@@ -29,6 +31,14 @@ public class WebUser {
         this.username = username;
         this.email = email;
         this.password = password;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public String getUsername() {
