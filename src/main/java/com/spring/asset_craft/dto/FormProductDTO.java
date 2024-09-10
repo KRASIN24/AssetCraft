@@ -1,6 +1,7 @@
 package com.spring.asset_craft.dto;
 
 
+import com.spring.asset_craft.entity.ProductImage;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
@@ -12,6 +13,7 @@ public class FormProductDTO {
 
     private Long id;
 
+    private List<ProductImage> images;
     private List<MultipartFile> files;
     @NotBlank(message = "Name is required")
     private String name;
@@ -40,6 +42,14 @@ public class FormProductDTO {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public List<ProductImage> getImages() {
+        return images;
+    }
+
+    public void setImages(List<ProductImage> images) {
+        this.images = images;
     }
 
     public List<MultipartFile> getFiles() {

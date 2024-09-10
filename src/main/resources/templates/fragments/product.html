@@ -6,6 +6,7 @@
         <header class="product-card__header">
             <div class="img-container">
             <img th:src="@{${product.productImages[0].path}}" alt="Product Image">
+            <!-- '/uploads/' +  -->
         </div>
         <p class="product-card__owner">
                 <span th:text="${product.ownerUsername}">Owner Username

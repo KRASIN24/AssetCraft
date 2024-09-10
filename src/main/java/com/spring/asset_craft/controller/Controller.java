@@ -199,10 +199,11 @@ public class Controller {
         String description = productForm.getDescription();
 
         List<String> dbPaths = new ArrayList<>();
+        String savePath = uploadDir + "products/";
 
         for (MultipartFile file : files) {
             try {
-                Path uploadPath = Paths.get(uploadDir);
+                Path uploadPath = Paths.get(savePath);
                 if(!Files.exists(uploadPath)){
                     Files.createDirectories(uploadPath);
                 }
@@ -211,8 +212,7 @@ public class Controller {
 
                 Path filePath = uploadPath.resolve(fileName);
                 Files.copy(file.getInputStream(), filePath, StandardCopyOption.REPLACE_EXISTING);
-
-                String dbPath = "/images/temp/" + fileName;
+                String dbPath ="/images/products/" + fileName;
                 dbPaths.add(dbPath);
             }catch (IOException e){
                 System.out.println("ERRRRRORRRRRR");

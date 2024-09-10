@@ -10,5 +10,8 @@ import java.util.List;
 public interface ProductImageRepository extends JpaRepository<ProductImage, Long> {
 
     @Query("SELECT i FROM ProductImage i WHERE i.product.id = :productId")
-    List<ProductImage> findImagesPathByProductId(@Param("productId") Long productId);
+    List<ProductImage> findImagesByProductId(@Param("productId") Long productId);
+
+    @Query("SELECT i FROM ProductImage i WHERE i.id = :imageId")
+    ProductImage findImagesById(@Param("imageId") Long imageId);
 }

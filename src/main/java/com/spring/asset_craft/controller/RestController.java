@@ -55,4 +55,14 @@ public class RestController {
 
         return "redirect:/shop";
     }
+
+    @PostMapping("/removeImage")
+    public ResponseEntity<?> removeImage(@RequestBody Map<String, Long> request, Principal principal){
+
+        Long imageId = request.get("imageId");
+        String username = principal.getName();
+
+        productService.deleteImage(imageId);
+        return ResponseEntity.ok().build();
+    }
 }

@@ -13,11 +13,22 @@
     </head>
 <body>
     <div th:replace="~{fragments/nav.html :: nav}" id="nav-placeholder"></div>
-    <!-- ${productForm.id == null} ? @{/account/addProduct} : @{/editProduct/{id}(id=${productForm.id}) -->
+   
     <form th:action="${productForm.id == null} ? @{/account/addProduct} : @{/editProduct/{id}(id=${productForm.id})}" 
     method="POST" th:object="${productForm}" enctype="multipart/form-data" class="add-product-form">
 
+        <input type="hidden" name="_csrf" th:value="${_csrf.token}" id="_csrf">
         <input type="hidden" th:field="*{id}">
+
+        <div th:each="image : ${productForm.images}">
+            <img th:src="@{${image.path}}" alt="Image">
+            <button type="button" class="bin-button" th:attr="onclick='removeImage('+${image.id}+')'">
+                <div class="bin">
+                    <img src="/icons/binclose.png" class="img-bottom">
+                    <img src="/icons/binopen.png" class="img-top">
+                </div>
+            </button>
+        </div>
 
         <div class="input-field">
             <h2>Images</h2><input type="file" th:field="*{files}" accept="image/**" multiple> 
@@ -53,5 +64,6 @@
     </form>
 
     <div th:replace="~{fragments/footer.html :: footer}" id="footer-placeholder"></div>
+    <script th:src="@{/js/scriptProductForm.js}"></script>
 </body>
 </html>

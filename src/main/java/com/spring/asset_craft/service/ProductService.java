@@ -58,10 +58,12 @@ public interface ProductService {
 
     void userBought(List<Long> productsIds);
 
-    List<ProductImage> getImagesPath(Long productId);
+    List<ProductImage> getImages(Long productId);
 
 
     void updateProduct(FormProductDTO productForm);
 
     FormProductDTO getFormProductById(Long id);
+
+    void deleteImage(Long imageId);
 }

@@ -16,9 +16,14 @@ import com.spring.asset_craft.entity.Product;
 import com.spring.asset_craft.service.ProductService;
 import com.spring.asset_craft.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.security.Principal;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -67,7 +72,7 @@ public class ProductServiceImpl implements ProductService {
                 product.getPrice(),
                 getProductRating(product.getId()),
                 product.getCategory(),
-                getImagesPath(product.getId()),
+                getImages(product.getId()),
                 getOwnerUsername(product.getId()),
                 false,
                 false,
@@ -230,6 +235,7 @@ public class ProductServiceImpl implements ProductService {
                     path,
                     savedProduct
             );
+            System.out.println(path);
             productImageRepository.save(productImage);
         }
 
@@ -247,8 +253,8 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public List<ProductImage> getImagesPath(Long productId) {
-        return productImageRepository.findImagesPathByProductId(productId);
+    public List<ProductImage> getImages(Long productId) {
+        return productImageRepository.findImagesByProductId(productId);
     }
 
     @Override
@@ -266,6 +272,25 @@ public class ProductServiceImpl implements ProductService {
         formProductDTO.setCategory(product.getCategory());
         formProductDTO.setDescription(product.getDescription());
         formProductDTO.setPrice(price);
+        formProductDTO.setImages(getImages(id));
         return formProductDTO;
+    }
+
+    @Value("${file.upload-dir}")
+    private String uploadDir;
+    @Override
+    public void deleteImage(Long imageId) {
+        ProductImage productImage = productImageRepository.findImagesById(imageId);
+        //System.out.println(productImage.toString());
+        String upload = "./src/main/resources/static/";
+        String pathS = upload + productImage.getPath();
+        Path path = Paths.get(pathS);
+        System.out.println(path);
+        try {
+            Files.deleteIfExists(path);
+            productImageRepository.delete(productImage);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
     }
 }
