@@ -11,6 +11,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.security.Principal;
 
+import static com.spring.asset_craft.entity.ProductUser.ProductUserStatus.BUYER;
+import static com.spring.asset_craft.entity.ProductUser.ProductUserStatus.OWNER;
+
 @Controller
 @RequestMapping("/account")
 public class AccountController {
@@ -36,13 +39,13 @@ public class AccountController {
 
     @GetMapping("/sold")
     public String showSoldAssets(Model model, Principal principal) {
-        model.addAttribute("products", productService.getSoldProducts(principal.getName()));
+        model.addAttribute("products", productService.getProductsWithStatus(principal.getName(), OWNER));
         return "sold-assets";
     }
 
     @GetMapping("/bought")
     public String showBoughtAssets(Model model, Principal principal) {
-        model.addAttribute("products", productService.getBoughtProducts(principal.getName()));
+        model.addAttribute("products", productService.getProductsWithStatus(principal.getName(), BUYER));
         return "bought-assets";
     }
 }

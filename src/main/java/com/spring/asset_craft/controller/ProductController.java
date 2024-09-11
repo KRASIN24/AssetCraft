@@ -25,7 +25,7 @@ import java.security.Principal;
 import java.util.ArrayList;
 import java.util.List;
 
-import static com.spring.asset_craft.entity.ProductUser.ProductUserStatus.CART;
+import static com.spring.asset_craft.entity.ProductUser.ProductUserStatus.*;
 
 @Controller
 @RequestMapping("/product")
@@ -40,42 +40,35 @@ public class ProductController {
         this.userService = userService;
     }
 
-    // /productPage/{productId}
     @GetMapping("/{productId}")
     public String showProduct(@PathVariable("productId") Long productId, Principal principal, Model model) {
 
         ProductDTO ProductDTO = productService.getBigProductDTO(productId);
 
         if (principal != null) {
-            // FIXME: !!! Change this monstrosity
-            User user = userService.getUserByUsername(principal.getName());
-            ProductUser productUser = new ProductUser(
-                    productService.getProductById(ProductDTO.getId()),
-                    user,
-                    CART
-            );
-            ProductDTO.setOwner(productService.isOwner(productUser));
-            ProductDTO.setInCart(productService.isInCart(productUser));
-            ProductDTO.setBought(productService.isBought(productUser));
+            String username = principal.getName();
+            Long userId = userService.getUserByUsername(username).getId();
+            ProductDTO.setInCart(productService.hasStatus(productId, userId, CART));
+            ProductDTO.setOwner(productService.hasStatus(productId, userId, OWNER));
+            ProductDTO.setBought(productService.hasStatus(productId, userId, BUYER));
         }
 
         model.addAttribute("product", ProductDTO);
         return "productPage";
     }
 
-    // TODO: Maybe rest
-    // /productPage/{productId}
+    // TODO: Maybe rest api
     @PostMapping("/{productId}")
     public String addReview(@PathVariable("productId") Long productId,
                             @RequestParam("review") String review,
                             @RequestParam("rating") Float rating,
                             Principal principal){
+
         productService.addReview(productId, review, rating, principal.getName());
 
         return "redirect:/productPage/" + productId;
     }
 
-    // /account/addProduct
 
     @GetMapping("/add")
     public String showAddProductForm(Model model, Principal principal) {
@@ -83,6 +76,7 @@ public class ProductController {
         model.addAttribute("productForm", new FormProductDTO());
         return "add-product-form";
     }
+    
 
     // TODO: make logic responsible for adding products more readable
     @Value("${file.upload-dir}")
@@ -157,7 +151,6 @@ public class ProductController {
         return "redirect:/account/sold";
     }
 
-    // /editProduct/{id}
 
     @GetMapping("/edit/{productId}")
     public String editProductForm(@PathVariable("productId") Long id, Principal principal, Model model) {

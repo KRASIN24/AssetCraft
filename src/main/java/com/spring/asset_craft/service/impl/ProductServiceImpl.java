@@ -3,6 +3,7 @@ package com.spring.asset_craft.service.impl;
 import com.spring.asset_craft.dto.FormProductDTO;
 import com.spring.asset_craft.entity.ProductImage;
 import com.spring.asset_craft.entity.ProductUser;
+import com.spring.asset_craft.entity.ProductUser.ProductUserStatus;
 import com.spring.asset_craft.entity.Review;
 import com.spring.asset_craft.repository.ProductImageRepository;
 import com.spring.asset_craft.repository.ProductUserRepository;
@@ -158,50 +159,30 @@ public class ProductServiceImpl implements ProductService {
                 .orElse(0.0f);
     }
 
+
     @Override
-    public List<ProductDTO> getSoldProducts(String username) {
-        List<Product> products = productUserRepository.findProductsSoldByUser(username);
+    public List<ProductDTO> getProductsWithStatus(String username, ProductUserStatus status) {
+        List<Product> products = productUserRepository.findProductsWithStatusByUser(username, status);
         return populateSmallProductDTOS(products);
     }
 
     @Override
-    public List<ProductDTO> getBoughtProducts(String username) {
-        List<Product> products = productUserRepository.findProductsBoughtByUser(username);
-        return populateSmallProductDTOS(products);
+    public void addToCart(Long productId, Long userId) {
+
+        if(!hasStatus(productId, userId, CART) && !hasStatus(productId, userId, OWNER) && !hasStatus(productId, userId, BUYER))
+            productUserRepository.save(new ProductUser(getProductById(productId), userService.getUserById(userId), CART));
+
     }
 
-
-    @Override
-    public List<ProductDTO> getProductsInCart(String username) {
-        List<Product> products = productUserRepository.findProductsInCartByUser(username);
-        return populateSmallProductDTOS(products);
+    public boolean hasStatus(Long productId, Long userId, ProductUserStatus status) {
+        return switch (status) {
+            case CART -> productUserRepository.hasStatus(productId, userId, CART);
+            case BUYER -> productUserRepository.hasStatus(productId, userId, BUYER);
+            case OWNER -> getOwnerId(productId).equals(userId);
+            default -> false;
+        };
     }
 
-
-    @Override
-    public void addToCart(ProductUser productUser) {
-
-        if(!isInCart(productUser) && !isOwner(productUser) && !isBought(productUser))
-            productUserRepository.save(productUser);
-    }
-    @Override
-    public boolean isInCart(ProductUser productUser) {
-        Long productId = productUser.getProduct().getId();
-        Long userId = productUser.getUser().getId();
-        return productUserRepository.inCart(productId, userId);
-    }
-    @Override
-    public boolean isOwner(ProductUser productUser) {
-        Long userId = productUser.getUser().getId();
-        Long ownerId = getOwnerId(productUser.getProduct().getId());
-        return ownerId.equals(userId);
-    }
-    @Override
-    public boolean isBought(ProductUser productUser) {
-        Long userId = productUser.getUser().getId();
-        Long productId = productUser.getProduct().getId();
-        return productUserRepository.inBought(productId,userId);
-    }
 
     @Override
     public void deleteFromCart(Long productId, String username) {

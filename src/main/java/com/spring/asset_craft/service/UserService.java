@@ -21,6 +21,7 @@ import java.util.stream.Collectors;
 
 public interface UserService extends UserDetailsService{
 
+    User getUserById(Long userId);
     User getUserByUsername(String username);
     String getUserEmail(String username);
     void save(WebUser theWebUser);

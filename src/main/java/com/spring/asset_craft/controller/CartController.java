@@ -36,20 +36,18 @@ public class CartController {
 //             ) {
 //            System.out.println(product.toString());
 //        }
-        model.addAttribute("products", productService.getProductsInCart(principal.getName()));
+        model.addAttribute("products", productService.getProductsWithStatus(principal.getName(), CART));
         return "cart";
     }
 
     @PostMapping("/add")
     public String addToCart(@RequestParam("productId") Long productId, Principal principal){
 
-        ProductUser productUser = new ProductUser(
-                productService.getProductById(productId),
-                userService.getUserByUsername(principal.getName()),
-                CART
-        );
+        String username = principal.getName();
+        Long userId = userService.getUserByUsername(username).getId();
 
-        productService.addToCart(productUser);
+
+        productService.addToCart(productId,userId);
 
         return "redirect:/shop";
     }

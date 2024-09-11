@@ -29,7 +29,7 @@ import java.security.Principal;
 import java.util.ArrayList;
 import java.util.List;
 
-import static com.spring.asset_craft.entity.ProductUser.ProductUserStatus.CART;
+import static com.spring.asset_craft.entity.ProductUser.ProductUserStatus.*;
 
 @org.springframework.stereotype.Controller
 public class Controller {
@@ -52,17 +52,12 @@ public class Controller {
         List<ProductDTO> ProductDTOs = productService.getAllSmallProductsDTO();
 
         if (principal != null) {
-            // FIXME: !!! Change this monstrosity
-            User user = userService.getUserByUsername(principal.getName());
+            String username = principal.getName();
+            Long userId = userService.getUserByUsername(username).getId();
             for (ProductDTO product : ProductDTOs) {
-                ProductUser productUser = new ProductUser(
-                        productService.getProductById(product.getId()),
-                        user,
-                        CART
-                );
-                product.setOwner(productService.isOwner(productUser));
-                product.setInCart(productService.isInCart(productUser));
-                product.setBought(productService.isBought(productUser));
+                product.setOwner(productService.hasStatus(product.getId(),userId,OWNER));
+                product.setInCart(productService.hasStatus(product.getId(),userId,CART));
+                product.setBought(productService.hasStatus(product.getId(),userId,BUYER));
             }
         }
 
@@ -84,19 +79,15 @@ public class Controller {
         List<ProductDTO> ProductDTOs = productService.searchProducts(name, minPrice, maxPrice, rating, categories);
 
         if (principal != null) {
-            // FIXME: !!! Change this monstrosity
-            User user = userService.getUserByUsername(principal.getName());
+            String username = principal.getName();
+            Long userId = userService.getUserByUsername(username).getId();
             for (ProductDTO product : ProductDTOs) {
-                ProductUser productUser = new ProductUser(
-                        productService.getProductById(product.getId()),
-                        user,
-                        CART
-                );
-                product.setOwner(productService.isOwner(productUser));
-                product.setInCart(productService.isInCart(productUser));
-                product.setBought(productService.isBought(productUser));
+                product.setOwner(productService.hasStatus(product.getId(),userId,OWNER));
+                product.setInCart(productService.hasStatus(product.getId(),userId,CART));
+                product.setBought(productService.hasStatus(product.getId(),userId,BUYER));
             }
         }
+
 
         model.addAttribute("products", ProductDTOs);
 

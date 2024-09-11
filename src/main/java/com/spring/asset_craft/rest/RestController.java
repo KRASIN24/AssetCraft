@@ -47,13 +47,11 @@ public class RestController {
 
         Long productId = request.get("productId");
 
-        ProductUser productUser = new ProductUser(
-                productService.getProductById(productId),
-                userService.getUserByUsername(principal.getName()),
-                CART
-        );
+        String username = principal.getName();
+        Long userId = userService.getUserByUsername(username).getId();
 
-        productService.addToCart(productUser);
+
+        productService.addToCart(productId,userId);
 
         return "redirect:/shop";
     }
