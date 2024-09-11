@@ -22,7 +22,7 @@
                 <img th:src="@{${product.productImages[0].path}}">
             </div>
 
-            <a th:href="@{/productPage/{id}(id=${product.id})}" class="product-card-link">
+            <a th:href="@{/product/{productId}(productId=${product.id})}" class="product-card-link">
             <p class="product-card__owner">
                 <span th:text="${product.ownerUsername}">Owner Username</span>
                 <h2 class="product-card__title" th:text="${product.name}">Product Name</h2>

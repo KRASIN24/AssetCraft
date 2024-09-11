@@ -14,7 +14,7 @@
 <body>
     <div th:replace="~{fragments/nav.html :: nav}" id="nav-placeholder"></div>
    
-    <form th:action="${productForm.id == null} ? @{/account/addProduct} : @{/editProduct/{id}(id=${productForm.id})}" 
+    <form th:action="${productForm.id == null} ? @{/product/add} : @{/product/edit/{productId}(productId=${productForm.id})}"
     method="POST" th:object="${productForm}" enctype="multipart/form-data" class="add-product-form">
 
         <input type="hidden" name="_csrf" th:value="${_csrf.token}" id="_csrf">

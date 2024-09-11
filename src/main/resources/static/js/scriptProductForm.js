@@ -1,6 +1,6 @@
 function removeImage(imageId){
 
-    fetch('/removeImage', {
+    fetch('/api/product/removeImage', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',

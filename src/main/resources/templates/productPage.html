@@ -21,8 +21,10 @@
         </div>
         <p><strong>Description:</strong> <span th:text="${product.description}">Description</span></p>
         
+        <!-- FIXME: Add review back to page -->
+
         <!-- <div th:if="${product.isBought}">
-        <form th:action="@{/productPage/{productId}(productId=${product.id})}" method="POST" >
+        <form th:action="@{/product/{productId}(productId=${product.id})}" method="POST" >
             <input type="hidden" name="_csrf" th:value="${_csrf.token}">
             <div class="rating-holder">
                 <h3>Rating</h3>
@@ -56,7 +58,7 @@
         <p><strong>Rating:</strong> <span th:text="${product.rating}">0.0</span></p>
         <div><h2><span>$</span><span th:text="${product.price}">$0.00</span></h2></div>
         
-        <form th:action="@{/editProduct/{id}(id=${product.id})}" method="GET" >
+        <form th:action="@{/product/edit/{productId}(productId=${product.id})}" method="GET" >
             <button type="submit" th:if="${product.isOwner}">Edit</button>
         </form>
 

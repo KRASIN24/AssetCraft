@@ -37,7 +37,7 @@ document.getElementById('cartForm').addEventListener('submit', function(event){
         return;
     }
 
-    fetch('/updateCart', {
+    fetch('/api/cart/update', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
@@ -59,7 +59,7 @@ document.getElementById('cartForm').addEventListener('submit', function(event){
 
 function removeProduct(productId){
 
-    fetch('/cart/remove', {
+    fetch('/api/cart/remove', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',

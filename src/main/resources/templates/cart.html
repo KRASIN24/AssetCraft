@@ -42,7 +42,7 @@
               </label>  
         </div>
 
-        <form id="cartForm" action="/updateCart" method="POST">
+        <form id="cartForm" th:action="@{/api/cart/update}" method="POST">
             <input type="hidden" name="_csrf" th:value="${_csrf.token}" id="_csrf">
         <div  th:unless="${products.isEmpty()}"> 
                 <div th:each="product : ${products}" class="incart-main">

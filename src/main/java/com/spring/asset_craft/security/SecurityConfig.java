@@ -41,12 +41,13 @@ public class SecurityConfig {
         http
                 .authorizeHttpRequests(authorizeRequest -> authorizeRequest
 //                        .requestMatchers("/webPath").hasRole("UserRole")
-                        .requestMatchers("/", "/shop", "/contact", "/productPage/{id}", "/signUp", "/register/**",
+                        .requestMatchers("/", "/shop", "/contact",
+                                "/product/**", "/auth/**", "/register/**", "/api/**",
                                 "/css/**", "/js/**", "/images/**" ,"/icons/**").permitAll()
                         .anyRequest().authenticated()
                 )
                 .formLogin(form -> form
-                                .loginPage("/signIn")
+                                .loginPage("/auth/signIn")
                                 .loginProcessingUrl("/authenticateTheUser")
                                 //.defaultSuccessUrl("/account")
                                 .successHandler(customAuthenticationSuccessHandler)

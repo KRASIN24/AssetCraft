@@ -1,7 +1,7 @@
 <!-- TODO: Update froduct card visuals -->
 <!--    TODO: Whishlisting work-->
 <div th:fragment="product(product)" class="product-card__main">
-    <a th:href="@{/productPage/{productId}(productId=${product.id})}" class="product-card-link">
+    <a th:href="@{/product/{productId}(productId=${product.id})}" class="product-card-link">
     <article class="product-card">
         <header class="product-card__header">
             <div class="img-container">

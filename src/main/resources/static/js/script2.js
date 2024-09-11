@@ -185,7 +185,7 @@ POPUP.addEventListener("click", (e) => {
 
 
 function addProduct(productId){
-  fetch('/cart/add-api', {
+  fetch('/api/cart/add', {
       method: 'POST',
       headers: {
           'Content-Type': 'application/json',
@@ -205,7 +205,7 @@ function addProduct(productId){
 }
 
 function editProduct(productId){
-  fetch('/cart/add-api', {
+  fetch('/api/cart/add', {
       method: 'POST',
       headers: {
           'Content-Type': 'application/json',

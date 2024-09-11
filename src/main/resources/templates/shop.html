@@ -48,7 +48,7 @@
     <div class="nav-shop">
       <h1>Filter</h1>
 
-      <form id="filterForm" action="/shop" method="GET">
+      <form id="filterForm" th:action="@{/shop}" method="GET">
         <div class="button-holder-filter">
           <input type="submit"  class="filter-submit" value="Apply">
           <input type="reset" onclick="resetFilter()"  class="filter-clear" value="Clear"> 

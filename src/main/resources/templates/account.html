@@ -24,7 +24,7 @@
                 <p sec:authentication="principal.username"></p>
                 <p th:text="${email}">account@e-mail.com</p>
                 <!-- <span th:text="${#authentication.principal.email}"></span> -->
-                <a th:href="@{/account/addProduct}"><div><img src="icons/paying icon.png"> <p>Add Product</p></div></a>
+                <a th:href="@{/product/add}"><div><img src="icons/paying icon.png"> <p>Add Product</p></div></a>
                  <h2>Assets</h2>
                 <a th:href="@{/account/sold}"><div><img src="icons/security icon.png"> <p>Sold</p></div></a>
                 <a th:href="@{/account/bought}"><div><img src="icons/feedback icon.png"> <p>Bought</p></div></a>

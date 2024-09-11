@@ -1,4 +1,4 @@
-package com.spring.asset_craft.controller;
+package com.spring.asset_craft.rest;
 
 import com.spring.asset_craft.entity.ProductUser;
 import com.spring.asset_craft.pojo.CartUpdateRequest;
@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import java.security.Principal;
@@ -16,6 +17,7 @@ import java.util.Map;
 import static com.spring.asset_craft.entity.ProductUser.ProductUserStatus.CART;
 
 @org.springframework.web.bind.annotation.RestController
+@RequestMapping("/api")
 public class RestController {
 
     @Autowired
@@ -24,7 +26,7 @@ public class RestController {
     @Autowired
     private UserService userService;
 
-    @PostMapping("/updateCart")
+    @PostMapping("/cart/update")
     public String updateCart(@RequestBody CartUpdateRequest request){
         productService.userBought(request.getProductIds());
         return "redirect:/shop";
@@ -40,7 +42,7 @@ public class RestController {
         return ResponseEntity.ok().build();
     }
 
-    @PostMapping("/cart/add-api")
+    @PostMapping("/cart/add")
     public String addToCart(@RequestBody Map<String, Long> request, Principal principal){
 
         Long productId = request.get("productId");
@@ -56,7 +58,7 @@ public class RestController {
         return "redirect:/shop";
     }
 
-    @PostMapping("/removeImage")
+    @PostMapping("/product/removeImage")
     public ResponseEntity<?> removeImage(@RequestBody Map<String, Long> request, Principal principal){
 
         Long imageId = request.get("imageId");
