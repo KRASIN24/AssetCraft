@@ -324,7 +324,56 @@ public class Controller {
             return "add-product-form";
         }
 
-        productService.updateProduct(productForm);
+
+        for (MultipartFile file : productForm.getFiles()) {
+            if (file.getSize() > MAX_FILE_SIZE) {
+                bindingResult.rejectValue("files", "error.files", "File size exceeds the 2MB limit.");
+                return "add-product-form";
+            }
+        }
+
+        //FIXME: blocker from accepting edited products without images
+        if ( productForm.getFiles().isEmpty()){
+            //if (productForm.getImages() == null) {
+                bindingResult.rejectValue("files", "error.files", "At least one file is required.");
+                return "add-product-form";
+                }
+
+        List<MultipartFile> files = productForm.getFiles();
+        String name = productForm.getName();
+        String category = productForm.getCategory();
+        Double price = productForm.getPrice();
+        String description = productForm.getDescription();
+
+        List<String> dbPaths = new ArrayList<>();
+        String savePath = uploadDir + "products/";
+
+        for (MultipartFile file : files) {
+            try {
+                Path uploadPath = Paths.get(savePath);
+                if(!Files.exists(uploadPath)){
+                    Files.createDirectories(uploadPath);
+                }
+
+                String fileName = file.getOriginalFilename();
+
+                Path filePath = uploadPath.resolve(fileName);
+                Files.copy(file.getInputStream(), filePath, StandardCopyOption.REPLACE_EXISTING);
+                String dbPath ="/images/products/" + fileName;
+                dbPaths.add(dbPath);
+            }catch (IOException e){
+                System.out.println("ERRRRRORRRRRR");
+            }
+        }
+
+        try {
+            //productService.addProduct(dbPaths,name,category,price.floatValue(),description,principal);
+            productService.updateProduct(id, productForm, dbPaths);
+
+        } catch (Exception e) {
+            bindingResult.rejectValue("files", "error.files", "Failed to upload files.");
+            return "add-product-form";
+        }
 
         redirectAttributes.addFlashAttribute("successMessage", "Product added successfully!");
         return "redirect:/shop";

@@ -61,7 +61,7 @@ public interface ProductService {
     List<ProductImage> getImages(Long productId);
 
 
-    void updateProduct(FormProductDTO productForm);
+    void updateProduct(Long productId, FormProductDTO productForm, List<String> paths);
 
     FormProductDTO getFormProductById(Long id);
 

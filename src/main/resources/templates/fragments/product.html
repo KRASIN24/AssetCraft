@@ -16,9 +16,15 @@
             <h2 class="product-card__title" th:text="${product.name}">Product Name</h2>
         </header>
         <section class="product-card__body">
-            <div class="product-card__rating">
+
+            <div th:if="${product.rating}" class="product-card__rating">
                 <div class="stars" onload="this.style.setProperty('--stars', '${product.rating}')"></div> <span th:text="${product.rating}">Rating</span>
             </div>
+
+            <div th:unless="${product.rating}" class="product-card__rating">
+                <span>Not Rated Yet</span>
+            </div>
+            
             <div class="product-card-bottom">
                 <p class="product-card__price">
                     <span>$</span><span th:text="${product.price}">$0.00</span>

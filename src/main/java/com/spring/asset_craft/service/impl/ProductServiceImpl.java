@@ -258,7 +258,16 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public void updateProduct(FormProductDTO productForm) {
+    public void updateProduct(Long productId, FormProductDTO productForm, List<String> paths) {
+        Product product = getProductById(productId);
+        for (String path : paths) {
+            ProductImage productImage = new ProductImage(
+                    path,
+                    product
+            );
+            System.out.println(path);
+            productImageRepository.save(productImage);
+        }
         productRepository.updateProduct(productForm.getId(),productForm.getName(),productForm.getCategory(),productForm.getDescription(),productForm.getPrice());
     }
 
