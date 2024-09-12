@@ -11,13 +11,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public class AuthController {
 
     @GetMapping("/signIn")
-    public String showSignIn(){  return "signIn";}
+    public String showSignIn(){  return "user/signIn";}
 
 
     //    TODO: Finish user registration and Add verification
     @GetMapping("/signUp")
     public String showSignUp(Model theModel){
         theModel.addAttribute("webUser", new WebUser());
-        return "signUp";
+        return "user/signUp";
     }
 }

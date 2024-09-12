@@ -37,7 +37,7 @@ public class CartController {
 //            System.out.println(product.toString());
 //        }
         model.addAttribute("products", productService.getProductsWithStatus(principal.getName(), CART));
-        return "cart";
+        return "shop/cart";
     }
 
     @PostMapping("/add")

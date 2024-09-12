@@ -1,19 +1,10 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="/css/style.css">
-    <link rel="icon" type="image/png" href="icons/AC.png"/>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-    <link href="https://allfont.net/allfont.css?fonts=agency-fb" rel="stylesheet" type="text/css" />
-    <title>Document</title>
-</head>
+    
+    <th:block th:replace="~{fragments/head.html :: head}"></th:block>
+    <title>Bought Assets</title>
 <body>
-    <div th:replace="~{fragments/nav.html :: nav}" id="nav-placeholder"></div>
+    <div th:replace="~{layouts/nav.html :: nav}" id="nav-placeholder"></div>
 
     <div  th:unless="${products.isEmpty()}"> 
         <div th:each="product : ${products}" class="incart">
@@ -35,6 +26,6 @@
         </div>
     </div>
 
-    <div th:replace="~{fragments/footer.html :: footer}" id="footer-placeholder"></div>
+    <div th:replace="~{layouts/footer.html :: footer}" id="footer-placeholder"></div>
 </body>
 </html>

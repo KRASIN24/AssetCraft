@@ -114,7 +114,7 @@ public class Controller {
 
         model.addAttribute("name", name);
 
-        return "shop";
+        return "shop/shop";
     }
 
     @GetMapping("/contact")

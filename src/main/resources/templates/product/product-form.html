@@ -1,18 +1,10 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 
-    <head>
-        <meta charset="UTF-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <link rel="stylesheet" href="/css/style.css">
-        <link rel="icon" type="image/png" href="icons/AC.png"/>
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-        <link href="https://allfont.net/allfont.css?fonts=agency-fb" rel="stylesheet" type="text/css" />
-        <title>Add Product</title>
-    </head>
+    <th:block th:replace="~{fragments/head.html :: head}"></th:block>
+    <title th:text="${productForm.id == null} ? 'Add Product' : 'Edit Product'"></title>
 <body>
-    <div th:replace="~{fragments/nav.html :: nav}" id="nav-placeholder"></div>
+    <div th:replace="~{layouts/nav.html :: nav}" id="nav-placeholder"></div>
    
     <form th:action="${productForm.id == null} ? @{/product/add} : @{/product/edit/{productId}(productId=${productForm.id})}"
     method="POST" th:object="${productForm}" enctype="multipart/form-data" class="add-product-form">
@@ -24,8 +16,8 @@
             <img th:src="@{${image.path}}" alt="Image">
             <button type="button" class="bin-button" th:attr="onclick='removeImage('+${image.id}+')'">
                 <div class="bin">
-                    <img src="/icons/binclose.png" class="img-bottom">
-                    <img src="/icons/binopen.png" class="img-top">
+                    <img th:src="@{/icons/binclose.png}" class="img-bottom">
+                    <img th:src="@{/icons/binopen.png}" class="img-top">
                 </div>
             </button>
         </div> -->
@@ -40,8 +32,8 @@
                 <img th:src="@{${image.path}}" alt="Image" style="width: 250px; height: 250px">
                 <button type="button" class="bin-button" th:attr="onclick='removeImage('+${image.id}+')'">
                     <div class="bin">
-                        <img src="/icons/binclose.png" class="img-bottom">
-                        <img src="/icons/binopen.png" class="img-top">
+                        <img th:src="@{/icons/binclose.png}" class="img-bottom">
+                        <img th:src="@{/icons/binopen.png}" class="img-top">
                     </div>
                 </button>
             </li>
@@ -74,11 +66,11 @@
             <!-- <input type="submit" value="Sell" class="add-product-button"> -->
             <button type="submit"> <span th:text="${productForm.id == null} ? 'Add Product' : 'Edit Product'"></span></button>
             <!-- <input type="submit" value="Save as Draft"> -->
-            <button class="add-product-button">Discard</button>
+            <button type="button" class="add-product-button">Discard</button>
         </div>
     </form>
 
-    <div th:replace="~{fragments/footer.html :: footer}" id="footer-placeholder"></div>
+    <div th:replace="~{layouts/footer.html :: footer}" id="footer-placeholder"></div>
 
     <script th:src="@{/js/scriptProductForm.js}"></script>
     <script src="https://cdn.jsdelivr.net/npm/sortablejs@1.14.0/Sortable.min.js"></script>

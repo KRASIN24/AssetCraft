@@ -34,18 +34,18 @@ public class AccountController {
         String username = principal.getName();
         String email = userService.getUserEmail(username);
         model.addAttribute("email", email);
-        return "account";
+        return "account/account";
     }
 
     @GetMapping("/sold")
     public String showSoldAssets(Model model, Principal principal) {
         model.addAttribute("products", productService.getProductsWithStatus(principal.getName(), OWNER));
-        return "sold-assets";
+        return "account/sold-assets";
     }
 
     @GetMapping("/bought")
     public String showBoughtAssets(Model model, Principal principal) {
         model.addAttribute("products", productService.getProductsWithStatus(principal.getName(), BUYER));
-        return "bought-assets";
+        return "account/bought-assets";
     }
 }

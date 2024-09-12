@@ -1,47 +1,39 @@
 <!DOCTYPE html>
 <html lang="pl" xmlns:th="http://www.thymeleaf.org">
 
-    <head>
-        <meta charset="UTF-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <link rel="stylesheet" href="/css/style.css">
-        <link rel="icon" type="image/png" href="icons/AC.png"/>
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-        <link href="https://allfont.net/allfont.css?fonts=agency-fb" rel="stylesheet" type="text/css" />
-        <title>Asset Store Start</title>
-    </head>
+    <th:block th:replace="~{fragments/head.html :: head}"></th:block>
+    <title>Asset Store</title>
 <body>
-    <div th:replace="~{fragments/nav.html :: nav}" id="nav-placeholder"></div>
+    <div th:replace="~{layouts/nav.html :: nav}" id="nav-placeholder"></div>
 
 
-        <img class="imgbox" src="icons/baner2.png"> </a>
+        <img class="imgbox" th:src="@{icons/baner2.png}"> </a>
 
     <p class="header">TOP POPULAR ASSETS</p>
 
 
      <div class="products">
          <div th:each="product : ${products}" class="fragment-products"> 
-             <div th:replace="~{fragments/product.html :: product(${product})}"></div>
+             <div th:replace="~{product/product-thumbnail.html :: product(${product})}"></div>
          </div>
-         <img class="positions-shop-img" src="icons/Warstwa 10.png">
-         <img class="positions-shop-img" src="icons/Warstwa 29.png">
-         <img class="positions-shop-img" src="icons/Warstwa 30.png">
-         <img class="positions-shop-img" src="icons/Warstwa 31.png">
-         <img class="positions-shop-img" src="icons/Warstwa 32.png">
-         <img class="positions-shop-img" src="icons/Warstwa 33.png">
-         <img class="positions-shop-img" src="icons/Warstwa 34.png">
-         <img class="positions-shop-img" src="icons/Warstwa 35.png">
-         <img class="positions-shop-img" src="icons/Warstwa 36.png">
-         <img class="positions-shop-img" src="icons/Warstwa 37.png">
-         <img class="positions-shop-img" src="icons/Warstwa 38.png">
-         <img class="positions-shop-img" src="icons/Warstwa 5.png">
-         <img class="positions-shop-img" src="icons/Warstwa 6.png">
-         <img class="positions-shop-img" src="icons/Warstwa 7.png">
-         <img class="positions-shop-img" src="icons/Warstwa 8.png">
-         <img class="positions-shop-img" src="icons/Warstwa 9.png">
+         <img class="positions-shop-img" th:src="@{icons/Warstwa 10.png}">
+         <img class="positions-shop-img" th:src="@{icons/Warstwa 29.png}">
+         <img class="positions-shop-img" th:src="@{icons/Warstwa 30.png}">
+         <img class="positions-shop-img" th:src="@{icons/Warstwa 31.png}">
+         <img class="positions-shop-img" th:src="@{icons/Warstwa 32.png}">
+         <img class="positions-shop-img" th:src="@{icons/Warstwa 33.png}">
+         <img class="positions-shop-img" th:src="@{icons/Warstwa 34.png}">
+         <img class="positions-shop-img" th:src="@{icons/Warstwa 35.png}">
+         <img class="positions-shop-img" th:src="@{icons/Warstwa 36.png}">
+         <img class="positions-shop-img" th:src="@{icons/Warstwa 37.png}">
+         <img class="positions-shop-img" th:src="@{icons/Warstwa 38.png}">
+         <img class="positions-shop-img" th:src="@{icons/Warstwa 5.png}">
+         <img class="positions-shop-img" th:src="@{icons/Warstwa 6.png}">
+         <img class="positions-shop-img" th:src="@{icons/Warstwa 7.png}">
+         <img class="positions-shop-img" th:src="@{icons/Warstwa 8.png}">
+         <img class="positions-shop-img" th:src="@{icons/Warstwa 9.png}">
      </div>
 
-    <div th:replace="~{fragments/footer.html :: footer}" id="footer-placeholder"></div>
+    <div th:replace="~{layouts/footer.html :: footer}" id="footer-placeholder"></div>
 </body>
 </html>

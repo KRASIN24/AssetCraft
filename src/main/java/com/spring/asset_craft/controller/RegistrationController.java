@@ -42,7 +42,7 @@ public class RegistrationController {
 
         // form validation
         if (theBindingResult.hasErrors()){
-            return "signUp";
+            return "user/signUp";
         }
 
         // check the database if user already exists
@@ -52,7 +52,7 @@ public class RegistrationController {
             theModel.addAttribute("registrationError", "User name already exists.");
 
             System.out.println("User name already exists.");
-            return "signUp";
+            return "user/signUp";
         }
 
         // create user account and store in the databse

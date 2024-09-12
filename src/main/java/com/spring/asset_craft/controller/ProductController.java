@@ -54,7 +54,7 @@ public class ProductController {
         }
 
         model.addAttribute("product", ProductDTO);
-        return "productPage";
+        return "product/product-page";
     }
 
     // TODO: Maybe rest api
@@ -66,7 +66,7 @@ public class ProductController {
 
         productService.addReview(productId, review, rating, principal.getName());
 
-        return "redirect:/productPage/" + productId;
+        return "redirect:/" + productId;
     }
 
 
@@ -74,7 +74,7 @@ public class ProductController {
     public String showAddProductForm(Model model, Principal principal) {
 
         model.addAttribute("productForm", new FormProductDTO());
-        return "add-product-form";
+        return "product/product-form";
     }
 
 
@@ -91,25 +91,25 @@ public class ProductController {
 
         if (bindingResult.hasErrors()) {
             model.addAttribute("productForm", productForm);
-            return "add-product-form";
+            return "product/product-form";
         }
 
         // Validate file uploads
         if (productForm.getFiles().isEmpty()) {
             bindingResult.rejectValue("files", "error.files", "At least one file is required.");
-            return "add-product-form";
+            return "product/product-form";
         }
 
         for (MultipartFile file : productForm.getFiles()) {
             if (file.getSize() > MAX_FILE_SIZE) {
                 bindingResult.rejectValue("files", "error.files", "File size exceeds the 2MB limit.");
-                return "add-product-form";
+                return "product/product-form";
             }
 
             // Additional checks for file type, if needed
             if (!file.getContentType().equals("image/jpeg") && !file.getContentType().equals("image/png")) {
                 bindingResult.rejectValue("files", "error.files", "Only JPEG or PNG images are allowed.");
-                return "add-product-form";
+                return "product/product-form";
             }
         }
 
@@ -145,7 +145,7 @@ public class ProductController {
 
         } catch (Exception e) {
             bindingResult.rejectValue("files", "error.files", "Failed to upload files.");
-            return "add-product-form";
+            return "product/product-form";
         }
         redirectAttributes.addFlashAttribute("successMessage", "Product added successfully!");
         return "redirect:/account/sold";
@@ -158,7 +158,7 @@ public class ProductController {
         FormProductDTO formProductDTO = productService.getFormProductById(id);
 
         model.addAttribute("productForm", formProductDTO);
-        return "add-product-form";
+        return "product/product-form";
     }
 
     @PostMapping("/edit/{productId}")
@@ -168,14 +168,14 @@ public class ProductController {
 
         if (bindingResult.hasErrors()) {
             model.addAttribute("productForm", productForm);
-            return "add-product-form";
+            return "product/product-form";
         }
 
 
         for (MultipartFile file : productForm.getFiles()) {
             if (file.getSize() > MAX_FILE_SIZE) {
                 bindingResult.rejectValue("files", "error.files", "File size exceeds the 2MB limit.");
-                return "add-product-form";
+                return "product/product-form";
             }
         }
 
@@ -183,7 +183,7 @@ public class ProductController {
         if ( productForm.getFiles().isEmpty()){
             //if (productForm.getImages() == null) {
             bindingResult.rejectValue("files", "error.files", "At least one file is required.");
-            return "add-product-form";
+            return "product/product-form";
         }
 
         List<MultipartFile> files = productForm.getFiles();
@@ -219,7 +219,7 @@ public class ProductController {
 
         } catch (Exception e) {
             bindingResult.rejectValue("files", "error.files", "Failed to upload files.");
-            return "add-product-form";
+            return "product/product-form";
         }
 
         redirectAttributes.addFlashAttribute("successMessage", "Product added successfully!");

@@ -1,18 +1,10 @@
 <!DOCTYPE html>
-<html lang="pl" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 
-    <head>
-        <meta charset="UTF-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <link rel="stylesheet" href="/css/style.css">
-        <link rel="icon" type="image/png" href="icons/AC.png"/>
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-        <link href="https://allfont.net/allfont.css?fonts=agency-fb" rel="stylesheet" type="text/css" />
-        <title>Asset Store Start</title>
-    </head>
+    <th:block th:replace="~{fragments/head.html :: head}"></th:block>
+    <title>Cart</title>
 <body>
-    <div th:replace="~{fragments/nav.html :: nav}" id="nav-placeholder"></div>
+    <div th:replace="~{layouts/nav.html :: nav}" id="nav-placeholder"></div>
 
     <div class="cartback">
 
@@ -23,15 +15,15 @@
             <label class="contain">
                 
                 <div class="info">
-                    <img src="icons/visual.png">
-                    <img src="icons/coment.png">
+                    <img th:src="@{icons/visual.png}">
+                    <img th:src="@{icons/coment.png}">
                 </div>
                 
                 <div class="incartright">
                 <p>€53.60</p>
                 <div class="bin">
-    	            <img src="icons/binclose.png" class="img-bottom">
-                    <img src="icons/binopen.png" class="img-top">
+    	            <img th:src="@{icons/binclose.png}" class="img-bottom">
+                    <img th:src="@{icons/binopen.png}" class="img-top">
                 </div>
                 </div>
 
@@ -69,8 +61,8 @@
 
                 <button type="button" class="bin-button" th:attr="onclick='removeProduct('+${product.id}+')'">
                     <div class="bin">
-                        <img src="icons/binclose.png" class="img-bottom">
-                        <img src="icons/binopen.png" class="img-top">
+                        <img th:src="@{icons/binclose.png}" class="img-bottom">
+                        <img th:src="@{icons/binopen.png}" class="img-top">
                     </div>
                 </button>
 
@@ -84,7 +76,7 @@
         
         <div class="akcepting">
             <p>WE ARE AKCEPTING</p>
-            <img src="icons/akcept.png">
+            <img th:src="@{icons/akcept.png}">
         </div>
 
     </div>
@@ -121,7 +113,7 @@
 
     </div>
 
-    <div th:replace="~{fragments/footer.html :: footer}" id="footer-placeholder"></div>
+    <div th:replace="~{layouts/footer.html :: footer}" id="footer-placeholder"></div>
 
     <script th:src="@{/js/scriptCart.js}"></script>
 </body>

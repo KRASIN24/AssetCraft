@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
+    <th:block th:replace="~{fragments/head.html :: head}"></th:block>
+    <title>Asset Store Start</title>
+<body>
+    <div th:replace="~{layouts/nav.html :: nav}" id="nav-placeholder"></div>
+
+    <!-- TODO: Make account responsive-->
+    <div class="blackback">
+        <div class="main">
+            <div class="user">
+
+            <div class="hello">
+                <h1>Hello User!</h1>
+                <p sec:authentication="principal.username"></p>
+                <p th:text="${email}">account@e-mail.com</p>
+                <!-- <span th:text="${#authentication.principal.email}"></span> -->
+                <a th:href="@{/product/add}"><div><img th:src="@{icons/paying icon.png}"> <p>Add Product</p></div></a>
+                 <h2>Assets</h2>
+                <a th:href="@{/account/sold}"><div><img th:src="@{icons/security icon.png}"> <p>Sold</p></div></a>
+                <a th:href="@{/account/bought}"><div><img th:src="@{icons/feedback icon.png}"> <p>Bought</p></div></a>
+
+                <form th:action="@{/logout}" method="POST">
+                    <input type="submit" value="Logout"/>
+                </form>
+
+                <!-- <div sec:authorize="hasRole('UserRole')"> <a href="#">Link that show when user has neccesary role</a></div> -->
+
+            </div>
+
+                <div class="avatar"><img th:src="@{icons/avatar.png}"></div>
+            </div>
+
+            <div class="option">
+            <div class="options">
+                <div><img th:src="@{icons/security icon.png}"> <p>Security</p></div>
+                <div><img th:src="@{icons/feedback icon.png}"> <p>Feedback</p></div>
+                <div><img th:src="@{icons/paying icon.png}"> <p>Paying</p></div>
+                <div><img th:src="@{icons/account.png}"> <p>Account</p></div>
+            </div>
+            </div>
+        </div>
+
+    </div>
+
+    <div th:replace="~{layouts/footer.html :: footer}" id="footer-placeholder"></div>
+</body>
+</html>
