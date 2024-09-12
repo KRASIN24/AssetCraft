@@ -6,6 +6,7 @@ import com.spring.asset_craft.dto.ReviewDTO;
 import com.spring.asset_craft.entity.Product;
 import com.spring.asset_craft.entity.ProductImage;
 import com.spring.asset_craft.entity.ProductUser.ProductUserStatus;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.security.Principal;
 import java.util.List;
@@ -49,7 +50,7 @@ public interface ProductService {
 
     Double getProductRating(Long productId);
 
-    void addProduct(List<String> paths, String name, String category, float price, String description, Principal principal);
+    void addProduct(List<String> paths, FormProductDTO productForm, Principal principal);
 
 
 
@@ -65,4 +66,10 @@ public interface ProductService {
 
 
     boolean hasStatus(Long productId, Long userId, ProductUserStatus productUserStatus);
+
+    void handleProduct(Long productId, FormProductDTO productForm, Principal principal);
+
+    List<String> getDbPathsAndSaveFiesToDirectory(List<MultipartFile> files);
+
+    void validateFiles(List<MultipartFile> files);
 }

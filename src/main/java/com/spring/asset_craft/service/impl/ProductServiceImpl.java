@@ -1,5 +1,6 @@
 package com.spring.asset_craft.service.impl;
 
+import com.spring.asset_craft.exception.ValidationException;
 import com.spring.asset_craft.dto.FormProductDTO;
 import com.spring.asset_craft.entity.ProductImage;
 import com.spring.asset_craft.entity.ProductUser;
@@ -20,12 +21,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.nio.file.StandardCopyOption;
 import java.security.Principal;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -202,12 +206,12 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public void addProduct(List<String> paths, String name, String category, float price, String description, Principal principal) {
+    public void addProduct(List<String> paths, FormProductDTO productForm, Principal principal) {
         Product product = new Product(
-                name,
-                price,
-                category,
-                description
+                productForm.getName(),
+                productForm.getPrice().floatValue(),
+                productForm.getCategory(),
+                productForm.getDescription()
         );
         Product savedProduct = productRepository.save(product);
 
@@ -266,8 +270,7 @@ public class ProductServiceImpl implements ProductService {
         return formProductDTO;
     }
 
-    @Value("${file.upload-dir}")
-    private String uploadDir;
+
     @Override
     public void deleteImage(Long imageId) {
         ProductImage productImage = productImageRepository.findImagesById(imageId);
@@ -282,5 +285,73 @@ public class ProductServiceImpl implements ProductService {
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
+    }
+
+
+    @Override
+    public void handleProduct(Long productId, FormProductDTO productForm, Principal principal) throws ValidationException{
+
+        List<MultipartFile> files = productForm.getFiles();
+        List<String> dbPaths = getDbPathsAndSaveFiesToDirectory(files);
+
+        try {
+            if (productId == null)
+                addProduct(dbPaths,productForm,principal);
+            else
+                updateProduct(productId, productForm, dbPaths);
+        } catch (Exception e) {
+            //bindingResult.rejectValue("files", "error.files", "Failed to upload files.");
+            throw new ValidationException("Failed to upload files.");
+        }
+
+    }
+
+    private static final long MAX_FILE_SIZE = 5 * 1024 * 1024; // 5MB
+    @Override
+    public void validateFiles(List<MultipartFile> files) throws ValidationException {
+
+//        FIXME: Even if files are empty "Only JPEG or PNG images are allowed." is thrown
+        if (files.isEmpty()) {
+            throw new ValidationException("At least one file is required.");
+        }
+        else {
+            for (MultipartFile file : files) {
+                if (file.getSize() > MAX_FILE_SIZE) {
+                    throw new ValidationException("File size exceeds the 5MB limit.");
+                }
+                else if (!file.getContentType().equals("image/jpeg") && !file.getContentType().equals("image/png")) {
+                    throw new ValidationException("Only JPEG or PNG images are allowed.");
+                }
+            }
+        }
+
+    }
+
+    @Value("${file.upload-dir}")
+    private String uploadDir;
+    @Override
+    public List<String> getDbPathsAndSaveFiesToDirectory(List<MultipartFile> files) {
+        List<String> dbPaths = new ArrayList<>();
+
+        for (MultipartFile file : files) {
+            try {
+
+                String fileName = file.getOriginalFilename();
+
+                Path uploadPath = Paths.get(uploadDir + "products/");
+                if(!Files.exists(uploadPath)){
+                    Files.createDirectories(uploadPath);
+                }
+
+                Path filePath = uploadPath.resolve(fileName);
+                Files.copy(file.getInputStream(), filePath, StandardCopyOption.REPLACE_EXISTING);
+
+
+                dbPaths.add("/images/products/" + fileName);
+            }catch (IOException e){
+                System.out.println("ERRRRRORRRRRR");
+            }
+        }
+        return dbPaths;
     }
 }
