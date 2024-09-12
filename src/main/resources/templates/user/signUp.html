@@ -18,7 +18,7 @@
         </div>
         <h1>Sign Up</h1>
         
-        <form th:action="@{/register/processRegistrationForm}" method="POST" th:object="${webUser}">
+        <form th:action="@{/auth/processRegistrationForm}" method="POST" th:object="${webUser}">
             <p><input type="text"  th:field="*{username}" placeholder="Username" id="" class="username-input"></p>
             <div th:if="${#fields.hasErrors('username')}" th:errors="*{username}" class="error-message">Name Error</div>
 

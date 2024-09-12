@@ -42,7 +42,7 @@ public class SecurityConfig {
                 .authorizeHttpRequests(authorizeRequest -> authorizeRequest
 //                        .requestMatchers("/webPath").hasRole("UserRole")
                         .requestMatchers("/", "/shop", "/contact",
-                                "/product/**", "/auth/**", "/register/**", "/api/**",
+                                "/product/**", "/auth/**", "/api/**",
                                 "/css/**", "/js/**", "/images/**" ,"/icons/**").permitAll()
                         .anyRequest().authenticated()
                 )
