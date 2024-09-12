@@ -74,7 +74,6 @@ CREATE TABLE `user` (
   `username` varchar(45) DEFAULT NULL,
 	-- TODO: Make encripted passwords --
   `password` varchar(45) DEFAULT NULL,
-	-- TODO: Email veryfication--
   `email` varchar(45) DEFAULT NULL,
   `active` BOOLEAN NOT NULL DEFAULT FALSE,
   PRIMARY KEY (`id`)

@@ -42,6 +42,7 @@ public class RegistrationController {
 
         // form validation
         if (theBindingResult.hasErrors()){
+            theModel.addAttribute("webUser", theWebUser);
             return "user/signUp";
         }
 
@@ -50,8 +51,6 @@ public class RegistrationController {
         if (existing != null){
             theModel.addAttribute("webUser", new WebUser());
             theModel.addAttribute("registrationError", "User name already exists.");
-
-            System.out.println("User name already exists.");
             return "user/signUp";
         }
 

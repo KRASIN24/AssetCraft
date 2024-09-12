@@ -18,19 +18,20 @@
         </div>
         <h1>Sign Up</h1>
         
-        <div th:if="${param.error}" class="message">
-            <span class="error-message">Wrong username or password entered.</span>
-        </div>
-        
-        <div th:if="${param.logout}" class="message">
-            <span class="logout-message">You have been loged out.</span>
-        </div>
-        
         <form th:action="@{/register/processRegistrationForm}" method="POST" th:object="${webUser}">
             <p><input type="text"  th:field="*{username}" placeholder="Username" id="" class="username-input"></p>
+            <div th:if="${#fields.hasErrors('username')}" th:errors="*{username}" class="error-message">Name Error</div>
+
             <p><input type="text" th:field="*{email}" placeholder="Email" id="" class="email-input"></p>
+            <div th:if="${#fields.hasErrors('email')}" th:errors="*{email}" class="error-message">Name Error</div>
+
             <p><input type="password" th:field="*{password}" placeholder="Password" id="" class="password-input"></p>
-            <p><input type="password"  placeholder="Repeat Password" id="" class="password-input"></p>
+            <button type="button" onclick="togglePasswordVisibility()">Show</button>
+            <div th:if="${#fields.hasErrors('password')}" th:errors="*{password}" class="error-message">Name Error</div>
+
+            <p><input type="password" th:field="*{confirmPassword}"  placeholder="Repeat Password" id="" class="password-input"></p>
+            <button type="button" onclick="toggleConfirmPasswordVisibility()">Show</button>
+            <div th:if="${#fields.hasErrors('confirmPassword')}" th:errors="*{confirmPassword}" class="error-message">Name Error</div>
             
             
             <div class="forgot-password-link-holder">
@@ -47,5 +48,6 @@
     </div>
 
     <div th:replace="~{layouts/footer.html :: footer}" id="footer-placeholder"></div>
+    <script th:src="@{/js/scriptSignUp.js}"></script>
 </body>
 </html>

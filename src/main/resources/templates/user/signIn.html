@@ -28,7 +28,9 @@
         
         <form th:action="@{/authenticateTheUser}" method="POST">
             <p><input type="text" name="username" placeholder="Username" id="" class="username-input"></p>
-            <p><input type="password" name="password" placeholder="Password" id="" class="password-input"></p>
+
+            <p><input type="password" name="password" placeholder="Password" id="password" class="password-input"></p>
+            <button type="button" class="toggle-password" onmousedown="showPassword()" onmouseup="hidePassword()" onmouseleave="hidePassword()">Show</button>
 
             
             <div class="forgot-password-link-holder">
@@ -47,5 +49,6 @@
     </div>
 
     <div th:replace="~{layouts/footer.html :: footer}" id="footer-placeholder"></div>
+    <script th:src="@{/js/scriptSignIn.js}"></script>
 </body>
 </html>

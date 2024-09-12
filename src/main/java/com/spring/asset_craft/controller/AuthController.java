@@ -14,7 +14,7 @@ public class AuthController {
     public String showSignIn(){  return "user/signIn";}
 
 
-    //    TODO: Finish user registration and Add verification
+    //    TODO: Add verification by email
     @GetMapping("/signUp")
     public String showSignUp(Model theModel){
         theModel.addAttribute("webUser", new WebUser());

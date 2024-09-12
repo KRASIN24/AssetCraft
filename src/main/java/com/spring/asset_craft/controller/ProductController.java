@@ -66,7 +66,7 @@ public class ProductController {
         model.addAttribute("productForm", new FormProductDTO());
         return "product/product-form";
     }
-    
+
     @PostMapping("/add")
     public String addProduct(
             @Valid @ModelAttribute("productForm") FormProductDTO productForm,
