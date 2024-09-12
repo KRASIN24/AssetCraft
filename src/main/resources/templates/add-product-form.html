@@ -20,7 +20,7 @@
         <input type="hidden" name="_csrf" th:value="${_csrf.token}" id="_csrf">
         <input type="hidden" th:field="*{id}">
 
-        <div th:each="image : ${productForm.images}">
+        <!-- <div th:each="image : ${productForm.images}">
             <img th:src="@{${image.path}}" alt="Image">
             <button type="button" class="bin-button" th:attr="onclick='removeImage('+${image.id}+')'">
                 <div class="bin">
@@ -28,12 +28,27 @@
                     <img src="/icons/binopen.png" class="img-top">
                 </div>
             </button>
-        </div>
+        </div> -->
 
         <div class="input-field">
-            <h2>Images</h2><input type="file" th:field="*{files}" accept="image/**" multiple> 
+            <h2>Images</h2><input type="file" th:field="*{files}" accept="image/**" multiple onchange="previewNewFiles()" style="color: white;"/> 
             <div th:if="${#fields.hasErrors('files')}" th:errors="*{files}" class="error-message">File Upload Error</div>
         </div>
+
+        <ul id="fileList" class="sortable-list">
+            <li th:each="image : ${productForm.images}">
+                <img th:src="@{${image.path}}" alt="Image" style="width: 250px; height: 250px">
+                <button type="button" class="bin-button" th:attr="onclick='removeImage('+${image.id}+')'">
+                    <div class="bin">
+                        <img src="/icons/binclose.png" class="img-bottom">
+                        <img src="/icons/binopen.png" class="img-top">
+                    </div>
+                </button>
+            </li>
+        </ul>
+
+
+
 
         <div class="input-field">
             <h2>Name</h2><input type="text" th:field="*{name}" id="">
@@ -64,6 +79,9 @@
     </form>
 
     <div th:replace="~{fragments/footer.html :: footer}" id="footer-placeholder"></div>
+
     <script th:src="@{/js/scriptProductForm.js}"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sortablejs@1.14.0/Sortable.min.js"></script>
+
 </body>
 </html>

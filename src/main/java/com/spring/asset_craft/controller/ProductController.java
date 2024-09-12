@@ -76,7 +76,7 @@ public class ProductController {
         model.addAttribute("productForm", new FormProductDTO());
         return "add-product-form";
     }
-    
+
 
     // TODO: make logic responsible for adding products more readable
     @Value("${file.upload-dir}")
