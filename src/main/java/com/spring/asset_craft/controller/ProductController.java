@@ -72,7 +72,7 @@ public class ProductController {
             @Valid @ModelAttribute("productForm") FormProductDTO productForm,
             BindingResult bindingResult, Model model, Principal principal,
             RedirectAttributes redirectAttributes) {
-        
+
         if (bindingResult.hasErrors()) {
             model.addAttribute("productForm", productForm);
             return "product/product-form";

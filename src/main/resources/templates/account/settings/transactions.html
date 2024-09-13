@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+    
+    <th:block th:replace="~{fragments/head.html :: head}"></th:block>
+    <title>Transaction history</title>
+<body>
+    <div th:replace="~{layouts/nav.html :: nav}" id="nav-placeholder"></div>
+
+    <h2>Transaction history</h2>
+    <!-- <div  th:unless="${products.isEmpty()}"> 
+        <div th:each="product : ${products}" class="incart">
+
+            <div class="cart-img-holder">
+                <img th:src="@{${product.productImages[0].path}}">
+            </div>
+
+            <a th:href="@{/product/{productId}(productId=${product.id})}" class="product-card-link">
+            <p class="product-card__owner">
+                <span th:text="${product.ownerUsername}">Owner Username</span>
+                <h2 class="product-card__title" th:text="${product.name}">Product Name</h2>
+                <span>$</span><span th:text="${product.price}">$0.00</span>
+                <span th:text="${product.rating}">Rating</span>
+                <span th:text="${product.category}">Category</span>
+                <span th:text="${product.description}">Description</span>
+            </p>
+        </a>
+        </div>
+    </div> -->
+
+    <div th:replace="~{layouts/footer.html :: footer}" id="footer-placeholder"></div>
+</body>
+</html>

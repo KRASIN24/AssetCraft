@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
+    <th:block th:replace="~{fragments/head.html :: head}"></th:block>
+    <title text="Edit User"></title>
+<body>
+    <div th:replace="~{layouts/nav.html :: nav}" id="nav-placeholder"></div>
+   
+    <!-- th:action="@{/user/edit/{productId}(productId=${productForm.id})}" th:object="${webUser}" th:field="*{username}" th:field="*{email}"-->
+    <form action="#"
+    method="POST" class="add-product-form">
+
+        <input type="hidden" name="_csrf" th:value="${_csrf.token}" id="_csrf">
+        <!-- <input type="hidden" th:field="*{id}"> -->
+
+        <div class="input-field">
+            <h2>Old Password</h2><input type="text"  id="">
+            <!-- <div th:if="${#fields.hasErrors('username')}" th:errors="*{username}" class="error-message">Name Error</div> -->
+        </div>
+
+        <div class="input-field">
+            <h2>New Password</h2><input type="text"  id="">
+            <!-- <div th:if="${#fields.hasErrors('email')}" th:errors="*{email}" class="error-message">Name Error</div> -->
+        </div>
+
+        <div class="input-field">
+            <h2>Repeat Password</h2><input type="text"  id="">
+            <!-- <div th:if="${#fields.hasErrors('email')}" th:errors="*{email}" class="error-message">Name Error</div> -->
+        </div>
+
+        <div class="input-field">
+            <button type="submit"> <span text="">Edit User</span></button>
+            <!-- <input type="submit" value="Save as Draft"> -->
+            <button type="button" class="add-product-button">Discard</button>
+        </div>
+
+
+        <h2>Two-Factor Authentication (2FA)</h2>
+    
+        <h2>View LogIn History</h2>
+    
+        <button type="button" th:attr="onclick='deleteUser()'">
+            <span>Delete Account</span>
+        </button>
+    
+    </form>
+    
+    <div th:replace="~{layouts/footer.html :: footer}" id="footer-placeholder"></div>
+
+    <!-- <script th:src="@{/js/scriptProductForm.js}"></script> -->
+</body>
+</html>

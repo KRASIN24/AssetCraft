@@ -1,11 +1,9 @@
 package com.spring.asset_craft.service.impl;
 
+import com.spring.asset_craft.entity.*;
 import com.spring.asset_craft.exception.ValidationException;
 import com.spring.asset_craft.dto.FormProductDTO;
-import com.spring.asset_craft.entity.ProductImage;
-import com.spring.asset_craft.entity.ProductUser;
 import com.spring.asset_craft.entity.ProductUser.ProductUserStatus;
-import com.spring.asset_craft.entity.Review;
 import com.spring.asset_craft.repository.ProductImageRepository;
 import com.spring.asset_craft.repository.ProductUserRepository;
 import com.spring.asset_craft.repository.ProductRepository;
@@ -14,7 +12,6 @@ import com.spring.asset_craft.search.ProductSpecification;
 import com.spring.asset_craft.dao.AppDAO;
 import com.spring.asset_craft.dto.ReviewDTO;
 import com.spring.asset_craft.dto.ProductDTO;
-import com.spring.asset_craft.entity.Product;
 import com.spring.asset_craft.service.ProductService;
 import com.spring.asset_craft.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -125,6 +122,22 @@ public class ProductServiceImpl implements ProductService {
     public List<ReviewDTO> getReviewsDTO(Long productId){
         return productRepository.findProductReviews(productId);
     }
+
+    @Override
+    public List<ReviewDTO> getReviewsDTOByOwner(String username) {
+        User user = userService.getUserByUsername(username);
+        List<ProductDTO> products = getProductsWithStatus(username,OWNER);
+        List<ReviewDTO> reviewDTOS= new ArrayList<>();
+        for (ProductDTO productDTO : products) {
+            Long  productId = productDTO.getId();
+            List<ReviewDTO> tempReviewDTOS= productRepository.findProductReviewsByOwner(productId);
+            for (ReviewDTO review : tempReviewDTOS) {
+                reviewDTOS.add(review);
+            }
+        }
+        return reviewDTOS;
+    }
+
 
     @Override
     public List<ProductDTO>  searchProducts(String name, Float minPrice, Float maxPrice, Double rating, List<String> categories) {
@@ -326,7 +339,6 @@ public class ProductServiceImpl implements ProductService {
         }
 
     }
-
     @Value("${file.upload-dir}")
     private String uploadDir;
     @Override

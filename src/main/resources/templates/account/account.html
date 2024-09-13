@@ -15,11 +15,9 @@
                 <h1>Hello User!</h1>
                 <p sec:authentication="principal.username"></p>
                 <p th:text="${email}">account@e-mail.com</p>
+                <h2>Account crateion date</h2>
                 <!-- <span th:text="${#authentication.principal.email}"></span> -->
-                <a th:href="@{/product/add}"><div><img th:src="@{icons/paying icon.png}"> <p>Add Product</p></div></a>
-                 <h2>Assets</h2>
-                <a th:href="@{/account/sold}"><div><img th:src="@{icons/security icon.png}"> <p>Sold</p></div></a>
-                <a th:href="@{/account/bought}"><div><img th:src="@{icons/feedback icon.png}"> <p>Bought</p></div></a>
+               
 
                 <form th:action="@{/logout}" method="POST">
                     <input type="submit" value="Logout"/>
@@ -32,14 +30,25 @@
                 <div class="avatar"><img th:src="@{icons/avatar.png}"></div>
             </div>
 
+            <h2>Assets</h2>
             <div class="option">
             <div class="options">
-                <div><img th:src="@{icons/security icon.png}"> <p>Security</p></div>
-                <div><img th:src="@{icons/feedback icon.png}"> <p>Feedback</p></div>
-                <div><img th:src="@{icons/paying icon.png}"> <p>Paying</p></div>
-                <div><img th:src="@{icons/account.png}"> <p>Account</p></div>
+                <a th:href="@{/product/add}"><div><img th:src="@{icons/paying icon.png}"> <p>Add Product</p></div></a>
+                <a th:href="@{/account/sold}"><div><img th:src="@{icons/security icon.png}"> <p>Sold</p></div></a>
+                <a th:href="@{/account/bought}"><div><img th:src="@{icons/feedback icon.png}"> <p>Bought</p></div></a>
+                <a th:href="@{/account/wishlist}"><div><img th:src="@{icons/account.png}"> <p>Whislisted</p></div></a>
             </div>
             </div>
+
+            <h2>Settings</h2>
+            <div class="option">
+                <div class="options">
+                    <a th:href="@{/account/settings/security}"><div><img th:src="@{icons/security icon.png}"> <p>Security</p></div></a>
+                    <a th:href="@{/account/settings/feedback}"><div><img th:src="@{icons/feedback icon.png}"> <p>Feedback</p></div></a>
+                    <a th:href="@{/account/settings/transactions}"><div><img th:src="@{icons/paying icon.png}"> <p>Transaction history</p></div></a>
+                    <a th:href="@{/account/settings/settings}"><div><img th:src="@{icons/account.png}"> <p>Settings</p></div></a>
+                </div>
+                </div>
         </div>
 
     </div>

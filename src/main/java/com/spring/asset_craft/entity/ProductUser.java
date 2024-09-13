@@ -64,7 +64,7 @@ public class ProductUser {
     public enum ProductUserStatus {
         OWNER,
         BUYER,
-        WHISHLIST,
+        WISHLIST,
         CART
     }
 }

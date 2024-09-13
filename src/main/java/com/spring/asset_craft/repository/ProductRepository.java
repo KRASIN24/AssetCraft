@@ -27,4 +27,9 @@ public interface ProductRepository extends JpaRepository<Product, Long>, JpaSpec
     @Query("UPDATE Product p SET p.name = :name, p.category = :category, p.description = :description, p.price = :price "+
             "WHERE p.id = :id")
     void updateProduct(@Param("id") Long id, @Param("name") String name, @Param("category") String category, @Param("description") String description, @Param("price") Double price);
+
+    @Query("SELECT new com.spring.asset_craft.dto.ReviewDTO(r.comment, r.rating, u.username, p.name, p.id) " +
+            "FROM Review r JOIN r.product p JOIN r.user u " +
+            "WHERE p.id = :productId")
+    List<ReviewDTO> findProductReviewsByOwner(@Param("productId") Long productId);
 }

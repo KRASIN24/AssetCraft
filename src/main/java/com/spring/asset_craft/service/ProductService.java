@@ -72,4 +72,6 @@ public interface ProductService {
     List<String> getDbPathsAndSaveFiesToDirectory(List<MultipartFile> files);
 
     void validateFiles(List<MultipartFile> files);
+
+    List<ReviewDTO> getReviewsDTOByOwner(String username);
 }
