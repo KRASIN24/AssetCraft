@@ -152,7 +152,7 @@ CREATE TABLE `product_user` (
   `id` BIGINT NOT NULL AUTO_INCREMENT,
   `product_id` BIGINT NOT NULL,
   `user_id` BIGINT NOT NULL,
-  `status` ENUM('OWNER', 'BUYER','WHISHLIST','CART') NOT NULL,
+  `status` ENUM('OWNER', 'BUYER','WISHLIST','CART') NOT NULL,
   FOREIGN KEY (`product_id`) REFERENCES product(`id`),
   FOREIGN KEY (`user_id`) REFERENCES user(`id`),
   PRIMARY KEY (`id`)
@@ -186,7 +186,7 @@ INSERT INTO `product_user` VALUES
 	(25, 5, 11, 'CART'),
 	(26, 6, 12, 'WISHLIST'),
 	(27, 6, 13, 'BUYER'),
-	(28, 7, 14, 'WISHLIST'),
+	(28, 7, 1, 'WISHLIST'),
 	(29, 8, 1, 'WISHLIST'),
 	(30, 9, 1, 'CART'),
     (31, 2, 1, 'BUYER');

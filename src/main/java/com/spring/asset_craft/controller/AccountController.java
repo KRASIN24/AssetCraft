@@ -53,8 +53,6 @@ public class AccountController {
         return "account/bought-assets";
     }
 
-
-//    FIXME: It seems that getProductsWithStatus doesn't work with WISHLIST
     @GetMapping("/wishlist")
     public String showWhitelistedAssets(Model model, Principal principal) {
         model.addAttribute("products", productService.getProductsWithStatus(principal.getName(), WISHLIST));
@@ -82,10 +80,6 @@ public class AccountController {
     @GetMapping("/settings/feedback")
     public String showUserFeedback(Model model, Principal principal) {
         List<ReviewDTO> reviewDTOS = productService.getReviewsDTOByOwner(principal.getName());
-        for (ReviewDTO reviewDTO : reviewDTOS) {
-        System.out.println(reviewDTO.toString());
-
-        }
         model.addAttribute("reviews", reviewDTOS);
         return "account/settings/feedback";
     }
