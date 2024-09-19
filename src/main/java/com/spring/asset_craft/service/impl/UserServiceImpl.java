@@ -1,8 +1,10 @@
 package com.spring.asset_craft.service.impl;
 
 import com.spring.asset_craft.dao.AppDAO;
+import com.spring.asset_craft.entity.LoginHistory;
 import com.spring.asset_craft.entity.ProductUser;
 import com.spring.asset_craft.entity.User;
+import com.spring.asset_craft.repository.LoginHistoryRepository;
 import com.spring.asset_craft.repository.ProductUserRepository;
 import com.spring.asset_craft.repository.UserRepository;
 import com.spring.asset_craft.security.WebUser;
@@ -15,24 +17,29 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDateTime;
 import java.util.Collection;
 import java.util.Collections;
+import java.util.List;
 
 @Service
 @Transactional
 public class UserServiceImpl implements UserService {
 
     private UserRepository userRepository;
+    ;
 
-    private ProductUserRepository productUserRepository;
+    private LoginHistoryRepository loginHistoryRepository;
     private AppDAO appDAO;
 
     @Autowired
-    public UserServiceImpl(UserRepository userRepository, ProductUserRepository productUserRepository, AppDAO appDAO) {
+    public UserServiceImpl(UserRepository userRepository, LoginHistoryRepository loginHistoryRepository, AppDAO appDAO) {
         this.userRepository = userRepository;
-        this.productUserRepository = productUserRepository;
+        this.loginHistoryRepository = loginHistoryRepository;
         this.appDAO = appDAO;
     }
+
+
 
 
 
@@ -115,6 +122,21 @@ public class UserServiceImpl implements UserService {
     private Collection<? extends GrantedAuthority> getAthority(){
 
         return Collections.singleton(new SimpleGrantedAuthority("USER"));
+    }
+
+
+    @Override
+    public void saveLoginHistory(User user, String ipAddress) {
+        LoginHistory history = new LoginHistory();
+        history.setUser(user);
+        history.setLoginTime(LocalDateTime.now());
+        history.setIpAddress(ipAddress);
+        loginHistoryRepository.save(history);
+    }
+
+    @Override
+    public List<LoginHistory> getLoginHistoryForUser(Long userId) {
+        return loginHistoryRepository.findByUserId(userId);
     }
 
 }

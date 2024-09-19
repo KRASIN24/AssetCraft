@@ -2,6 +2,7 @@ package com.spring.asset_craft.controller;
 
 import com.spring.asset_craft.dto.PasswordForm;
 import com.spring.asset_craft.dto.ReviewDTO;
+import com.spring.asset_craft.entity.LoginHistory;
 import com.spring.asset_craft.entity.User;
 import com.spring.asset_craft.service.ProductService;
 import com.spring.asset_craft.service.UserService;
@@ -77,6 +78,12 @@ public class AccountController {
     @GetMapping("/settings/security")
     public String showUserSecurity(Model model, Principal principal) {
         //model.addAttribute("products", productService.getProductsWithStatus(principal.getName(), WISHLIST));
+
+        String username = principal.getName();
+        User user = userService.getUserByUsername(username);
+        List<LoginHistory> loginHistory = userService.getLoginHistoryForUser(user.getId());
+
+        model.addAttribute("loginHistory", loginHistory);
 
         model.addAttribute("passwordForm", new PasswordForm());
         return "account/settings/security";

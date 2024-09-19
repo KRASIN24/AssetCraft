@@ -7,6 +7,7 @@ DROP TABLE IF EXISTS `product_image`;
 DROP TABLE IF EXISTS `product`;
 DROP TABLE IF EXISTS `users_roles`;
 DROP TABLE IF EXISTS `role`;
+DROP TABLE IF EXISTS `login_history`;
 DROP TABLE IF EXISTS `user_image`;
 DROP TABLE IF EXISTS `user`;
 
@@ -124,6 +125,15 @@ INSERT INTO `user_image` VALUES
 	(14, '/images/users/user-image14.jpg', 14),
 	(15, '/images/users/user-image15.jpg', 15);
     
+    
+    CREATE TABLE `login_history` (
+	`id` BIGINT NOT NULL AUTO_INCREMENT,
+	`user_id` BIGINT NOT NULL,
+    `login_time` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    `ip_address` varchar(45),
+	FOREIGN KEY (`user_id`) REFERENCES user(`id`) ON DELETE CASCADE,
+	PRIMARY KEY (`id`)
+	) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=latin1;
     
 	CREATE TABLE `role` (
     `id` BIGINT NOT NULL,

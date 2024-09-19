@@ -1,6 +1,7 @@
 package com.spring.asset_craft.service;
 
 import com.spring.asset_craft.dao.AppDAO;
+import com.spring.asset_craft.entity.LoginHistory;
 import com.spring.asset_craft.entity.Role;
 import com.spring.asset_craft.entity.User;
 import com.spring.asset_craft.repository.UserRepository;
@@ -16,6 +17,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Collection;
 import java.util.Collections;
+import java.util.List;
 import java.util.stream.Collectors;
 
 
@@ -31,4 +33,8 @@ public interface UserService extends UserDetailsService{
     void updatePassword(User user, String newPassword);
 
     void deleteUser(Long id);
+
+    void saveLoginHistory(User user, String ipAddress);
+
+    List<LoginHistory> getLoginHistoryForUser(Long userId);
 }

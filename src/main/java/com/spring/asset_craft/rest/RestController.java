@@ -67,6 +67,7 @@ public class RestController {
     }
 
 
+//    TODO: make account(user) deletion work
     @DeleteMapping("/user/delete")
     public ResponseEntity<?> deleteUser( Principal principal) {
 //        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
