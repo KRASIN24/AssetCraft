@@ -1,17 +1,20 @@
 package com.spring.asset_craft.controller;
 
+import com.spring.asset_craft.dto.PasswordForm;
 import com.spring.asset_craft.dto.ReviewDTO;
+import com.spring.asset_craft.entity.User;
 import com.spring.asset_craft.service.ProductService;
 import com.spring.asset_craft.service.UserService;
 import com.spring.asset_craft.service.impl.ProductServiceImpl;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.propertyeditors.StringTrimmerEditor;
+import org.springframework.boot.context.properties.bind.BindResult;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.WebDataBinder;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.InitBinder;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 import java.security.Principal;
 import java.util.List;
@@ -74,7 +77,32 @@ public class AccountController {
     @GetMapping("/settings/security")
     public String showUserSecurity(Model model, Principal principal) {
         //model.addAttribute("products", productService.getProductsWithStatus(principal.getName(), WISHLIST));
+
+        model.addAttribute("passwordForm", new PasswordForm());
         return "account/settings/security";
+    }
+
+    @PostMapping("/settings/security")
+    public String changePassword(@ModelAttribute("passwordForm") @Valid PasswordForm passwordForm,
+                                 BindingResult bindingResult, Model model, Principal principal) {
+        //model.addAttribute("products", productService.getProductsWithStatus(principal.getName(), WISHLIST));
+
+        if (bindingResult.hasErrors()) {
+        model.addAttribute("passwordForm", passwordForm);
+        return "account/settings/security";
+        }
+
+        String username = principal.getName();
+        User user = userService.getUserByUsername(username);
+
+        if (!userService.verifyPassword(user,passwordForm.getOldPassword())) {
+            bindingResult.rejectValue("oldPassword", "error.oldPassword", "Incorrect old password.");
+            return "account/settings/security";
+        }
+
+        userService.updatePassword(user, passwordForm.getNewPassword());
+
+        return "redirect:/account?passwordChanged=true";
     }
 
     @GetMapping("/settings/feedback")

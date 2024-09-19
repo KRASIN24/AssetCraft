@@ -25,11 +25,11 @@
             <p><input type="text" th:field="*{email}" placeholder="Email" id="" class="email-input"></p>
             <div th:if="${#fields.hasErrors('email')}" th:errors="*{email}" class="error-message">Name Error</div>
 
-            <p><input type="password" th:field="*{password}" placeholder="Password" id="" class="password-input"></p>
+            <p><input type="password" th:field="*{password}" placeholder="Password" id="password" class="password-input"></p>
             <button type="button" onclick="togglePasswordVisibility()">Show</button>
             <div th:if="${#fields.hasErrors('password')}" th:errors="*{password}" class="error-message">Name Error</div>
 
-            <p><input type="password" th:field="*{confirmPassword}"  placeholder="Repeat Password" id="" class="password-input"></p>
+            <p><input type="password" th:field="*{confirmPassword}"  placeholder="Repeat Password" id="confirmPassword" class="password-input"></p>
             <button type="button" onclick="toggleConfirmPasswordVisibility()">Show</button>
             <div th:if="${#fields.hasErrors('confirmPassword')}" th:errors="*{confirmPassword}" class="error-message">Name Error</div>
             

@@ -13,7 +13,7 @@ public class ProductUser {
     @ManyToOne
     @JoinColumn(name = "product_id", referencedColumnName = "id")
     private Product product;
-    @ManyToOne
+    @ManyToOne(cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
     @JoinColumn(name = "user_id", referencedColumnName = "id")
     private User user;
 

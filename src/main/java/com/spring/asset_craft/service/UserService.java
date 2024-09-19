@@ -26,4 +26,9 @@ public interface UserService extends UserDetailsService{
     String getUserEmail(String username);
     void save(WebUser theWebUser);
 
+    boolean verifyPassword(User user, String oldPassword);
+
+    void updatePassword(User user, String newPassword);
+
+    void deleteUser(Long id);
 }

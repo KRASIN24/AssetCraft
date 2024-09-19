@@ -1,15 +1,15 @@
 package com.spring.asset_craft.rest;
 
 import com.spring.asset_craft.entity.ProductUser;
+import com.spring.asset_craft.entity.User;
 import com.spring.asset_craft.pojo.CartUpdateRequest;
 import com.spring.asset_craft.service.UserService;
 import com.spring.asset_craft.service.impl.ProductServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.web.bind.annotation.*;
 
 import java.security.Principal;
 import java.util.Map;
@@ -64,5 +64,19 @@ public class RestController {
 
         productService.deleteImage(imageId);
         return ResponseEntity.ok().build();
+    }
+
+
+    @DeleteMapping("/user/delete")
+    public ResponseEntity<?> deleteUser( Principal principal) {
+//        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+//        String username = authentication.getName();
+
+        String username = principal.getName();
+        System.out.println(username);
+        //User user = userService.getUserByUsername(username);
+
+        //userService.deleteUser(user.getId());
+        return ResponseEntity.ok("User deleted");
     }
 }

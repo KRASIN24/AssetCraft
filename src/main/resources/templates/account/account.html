@@ -16,6 +16,9 @@
                 <p sec:authentication="principal.username"></p>
                 <p th:text="${email}">account@e-mail.com</p>
                 <h2>Account crateion date</h2>
+                <div th:if="${param.passwordChanged}" >
+                    <span class="logout-message">Password changed succesfully.</span>
+                </div>
                 <!-- <span th:text="${#authentication.principal.email}"></span> -->
                
 

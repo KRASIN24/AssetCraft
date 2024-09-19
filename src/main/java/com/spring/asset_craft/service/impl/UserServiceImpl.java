@@ -1,7 +1,9 @@
 package com.spring.asset_craft.service.impl;
 
 import com.spring.asset_craft.dao.AppDAO;
+import com.spring.asset_craft.entity.ProductUser;
 import com.spring.asset_craft.entity.User;
+import com.spring.asset_craft.repository.ProductUserRepository;
 import com.spring.asset_craft.repository.UserRepository;
 import com.spring.asset_craft.security.WebUser;
 import com.spring.asset_craft.service.UserService;
@@ -21,13 +23,18 @@ import java.util.Collections;
 public class UserServiceImpl implements UserService {
 
     private UserRepository userRepository;
+
+    private ProductUserRepository productUserRepository;
     private AppDAO appDAO;
 
     @Autowired
-    public UserServiceImpl(UserRepository userRepository, AppDAO appDAO) {
+    public UserServiceImpl(UserRepository userRepository, ProductUserRepository productUserRepository, AppDAO appDAO) {
         this.userRepository = userRepository;
+        this.productUserRepository = productUserRepository;
         this.appDAO = appDAO;
     }
+
+
 
 
     @Override
@@ -62,6 +69,25 @@ public class UserServiceImpl implements UserService {
         User savedUser = userRepository.save(user);
         userRepository.insertUserRole(savedUser.getId());
 
+    }
+
+    @Override
+    public boolean verifyPassword(User user, String oldPassword) {
+        oldPassword = "{noop}" + oldPassword;
+        return oldPassword.equals(user.getPassword());
+    }
+
+    @Override
+    public void updatePassword(User user, String newPassword) {
+        String password = "{noop}" + newPassword;
+        user.setPassword(password);
+        userRepository.save(user);
+    }
+
+    @Transactional
+    @Override
+    public void deleteUser(Long id) {
+        userRepository.deleteById(id);
     }
 
 

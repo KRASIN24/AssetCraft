@@ -48,6 +48,7 @@ public interface ProductUserRepository extends JpaRepository<ProductUser, Long> 
             "JOIN pu.user u " +
             "WHERE pu.status = :status AND u.username = :username")
     List<Product> findProductsWithStatusByUser(@Param("username") String username, @Param("status") ProductUserStatus status);
+
 }
 
 
