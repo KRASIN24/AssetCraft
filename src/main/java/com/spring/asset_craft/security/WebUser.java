@@ -7,12 +7,12 @@ import jakarta.validation.constraints.Size;
 @FieldMatch(first = "password", second = "confirmPassword", message = "Passwords do not match")
 public class WebUser {
 
-    @NotNull(message="is required")
-    @Size(min=1, message="is required")
+    @NotNull(message="Username cannot be empty")
+    @Size(min=1, message="Username cannot be empty")
     private String username;
 
-    @NotNull(message="is required")
-    @Size(min=1, message="is required")
+    @NotNull(message="Email cannot be empty")
+    @Size(min=1, message="Email cannot be empty")
     private String email;
 
 //    @Size(min=1, message="is required")

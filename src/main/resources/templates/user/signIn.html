@@ -1,22 +1,17 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="/css/style.css">
-    <link rel="icon" type="image/png" href="icons/AC.png"/>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-    <link href="https://allfont.net/allfont.css?fonts=agency-fb" rel="stylesheet" type="text/css" />
-    <title>Sign In</title>
-</head>
-<body>
-    <div th:replace="~{layouts/nav.html :: nav}" id="nav-placeholder"></div>
+<html lang="pl" xmlns:th="http://www.thymeleaf.org">
 
-    <div class="form-holder">
+<th:block th:replace="~{fragments/head.html :: head}"></th:block>
+<title>Sign In</title>
+
+<body>
+    <!-- <div th:replace="~{layouts/nav.html :: nav}" id="nav-placeholder"></div> -->
+
+    <!-- <div class="form-holder">
         <div class="img-holder">
-            <img th:src="@{/icons/account.png}" alt="">
+            
         </div>
-        <h1>Sign in</h1>
+        
         
         <div th:if="${param.error}" class="message">
             <span class="error-message">Wrong username or password entered.</span>
@@ -46,9 +41,46 @@
                 <input type="submit" value="Sign In" class="submit-input">
             </div>
         </form>
-    </div>
+    </div> -->
 
-    <div th:replace="~{layouts/footer.html :: footer}" id="footer-placeholder"></div>
+    <form class="auth__form" th:action="@{/authenticateTheUser}" method="POST">
+        <img th:src="@{/icons/account.png}" alt="" />
+        <h1>Login</h1>
+
+        <label class="input-field" for="username">
+            <input type="text" name="username" placeholder="Username" class="username-input">
+        </label>
+
+        <label class="input-field" for="password">
+            <input type="password" name="password" placeholder="Password" id="password" class="password-input">
+            <button type="button" class="toggle-password" onmousedown="showPassword()" onmouseup="hidePassword()"
+                onmouseleave="hidePassword()"><span id="visibility-icon" class="material-symbols-outlined">
+                    visibility_off
+                </span></button>
+        </label>
+
+
+        <div th:if="${param.error}" class="error-message">Wrong username or password entered.</div>
+
+        <div th:if="${param.logout}" class="logout-message">You have been loged out.</div>
+
+
+        <h3>Forgot password?<a href="#"> Resset Password</a></h3>
+
+        <h3>Don't have an account yet?<a th:href="@{/auth/signUp}"> Sign Up</a></h3>
+
+        <div class="signup__buttons">
+            <button class="go-back-input"><span class="material-symbols-outlined">
+                    undo
+                </span>Go Back</button>
+            <button class="submit-input" type="submit"><span class="material-symbols-outlined">
+                    login
+                </span>Sign In</button>
+        </div>
+    </form>
+
+    <!-- <div th:replace="~{layouts/footer.html :: footer}" id="footer-placeholder"></div> -->
     <script th:src="@{/js/scriptSignIn.js}"></script>
 </body>
+
 </html>

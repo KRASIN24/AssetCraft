@@ -7,12 +7,21 @@
     <div th:replace="~{layouts/nav.html :: nav}" id="nav-placeholder"></div>
 
 
-        <img class="imgbox" th:src="@{icons/baner2.png}"> </a>
+        <!-- <img class="imgbox" th:src="@{icons/baner2.png}"> </a> -->
+         <main>
+            <div class="product-cards">
+                <div th:each="product : ${products}" class="container"> 
+                    <div th:replace="~{product/product-card.html :: product(${product})}"></div>
+                </div>
+            </div>
 
-    <p class="header">TOP POPULAR ASSETS</p>
+         </main>
 
 
      <div class="products">
+
+
+
          <div th:each="product : ${products}" class="fragment-products"> 
              <div th:replace="~{product/product-thumbnail.html :: product(${product})}"></div>
          </div>

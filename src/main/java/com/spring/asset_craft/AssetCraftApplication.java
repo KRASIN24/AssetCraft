@@ -14,6 +14,8 @@ public class AssetCraftApplication {
 
 	//TODO: Add Loading Types to Hibernate mappings
 
+
+
 	public static void main(String[] args) {
 		SpringApplication.run(AssetCraftApplication.class, args);
 	}

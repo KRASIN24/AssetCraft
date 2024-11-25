@@ -4,10 +4,10 @@ function togglePasswordVisibility() {
 
     if (passwordField.type === "password") {
         passwordField.type = "text";
-        showButton.textContent = "Hide";
+        document.getElementById("visibility-icon").textContent = "visibility_off";
     } else {
         passwordField.type = "password";
-        showButton.textContent = "Show";
+        document.getElementById("visibility-icon").textContent = "visibility";
     }
 }
 
@@ -17,9 +17,9 @@ function toggleConfirmPasswordVisibility() {
 
     if (confirmPasswordField.type === "password") {
         confirmPasswordField.type = "text";
-        showButton.textContent = "Hide";
+        document.getElementById("visibility-icon-confirm").textContent = "visibility_off";
     } else {
         confirmPasswordField.type = "password";
-        showButton.textContent = "Show";
+        document.getElementById("visibility-icon-confirm").textContent = "visibility";
     }
 }

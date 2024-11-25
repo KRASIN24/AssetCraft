@@ -1,7 +1,44 @@
 <footer th:fragment="footer">
-    <div class="bottomnav">
+    <!-- <div class="bottomnav">
         <div class="1"><img th:src="@{/icons/facebook-like-logo-black-and-white-like-facebook-logo-black-gMzMue-clipart.png}"><p>Over 11,000 five-star assets</p></div>
         <div class="2"><img th:src="@{/icons/support.png}"><p>Supported by 100,000+ forum members</p></div>
         <div class="3"><img th:src="@{/icons/verified.png}"><p>Rated by 85,000+ customers</p></div>
+    </div> -->
+
+
+    <div class="left-footer">
+        <h2>Newslatter</h2>
+        <!-- <p>Subscribe to our newsletter to get the latest news and updates.</p> -->
+        <form>
+            <label class="email" for="email-input">
+                <span class="material-symbols-outlined">
+                    mail
+                </span>
+                <input type="email" id="email-input" placeholder="example@gmail.com">
+            </label>
+            <button type="submit">Subscribe</button>
+        </form>
     </div>
+
+    <div class="right-footer">
+        <h2>Follow AssetCraft on Social Media</h2>
+        <!-- <p>Connect with us on social media to stay up-to-date with the latest news and updates.</p> -->
+        <ul>
+            <li><a href="#"><img th:src="@{/icons/new-instagram-logo-white-border-icon-png-large.png}" /></a></li>
+            <li><a href="#"><img th:src="@{/icons/twitter.png}" /></a></li>
+            <li><a href="#"><img th:src="@{/icons/yt.png}" /></a></li>
+            <li><a href="#"><img th:src="@{/icons/fb.png}" /></a></li>
+            <li><a href="#"><img th:src="@{/icons/fb.png}" /></a></li>
+        </ul>
+    </div>
+
+
+    <!-- <h2>Quick Links</h2>
+    <ul>
+        <li><a href="#">About Us</a></li>
+        <li><a href="#">Contact Us</a></li>
+        <li><a href="#">Privacy Policy</a></li>
+        <li><a href="#">Terms and Conditions</a></li>
+    </ul> -->
+
 </footer>

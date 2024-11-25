@@ -1,0 +1,53 @@
+<div th:fragment="product(product)" class="product-card">
+    <!-- th:src="@{${product.productImages[0].path}}" -->
+    <img src="/images/products/placeholder-asset-craft.jpg" alt="Product Image">
+    <p>
+        <div class="temp_product-card__info">
+            <span th:text="${product.ownerUsername}" >Owner Username</span>
+            <div class="temp_product-card__price">
+                <span>$</span><span th:text="${product.price}">$0.00</span>
+            </div>
+        </div>
+            <a th:href="@{/product/{productId}(productId=${product.id})}">
+                <h2 class="temp_product-card__name" th:text="${product.name}">Product Name</h2>
+            </a>
+
+        <div class="temp_product-card__extra-info">
+            <div th:if="${product.rating}" class="_rating">
+
+                <!-- Filled stars -->
+                <span th:each="star : ${#numbers.sequence(1, T(java.lang.Math).floor(product.rating).intValue())}" class="star"><i class="fa-solid fa-star"></i></span>
+    
+                <!-- Half star (if needed) -->
+                <span th:if="${product.rating % 1 >= 0.5}" class="half-star"><i class="fa-solid fa-star-half"></i><i class="fa-solid fa-star-half mirrored-icon"></i></span> <!-- Unicode for a half star -->
+                
+                <!-- Empty stars -->
+                <span th:each="star : ${#numbers.sequence(T(java.lang.Math).floor(product.rating).intValue() + (product.rating % 1 >= 0.5 ? 1 : 0), 5)}" 
+                    th:if="${star <= 4}" class="no-star"><i class="fa-solid fa-star"></i></span>
+                
+                <!-- Numeric rating -->
+                <span th:text="${product.rating}" class="numeric-rating">Rating</span>
+            </div>
+            
+            <div th:unless="${product.rating}" class="_rating">
+                <span>Not Rated Yet</span>
+            </div>
+    
+            <div class="_wishlist">
+            <span class="material-symbols-outlined">
+                favorite
+            </span>
+            <span th:text="${product.whishlistAmout}">0</span>
+        </div>
+        </div>
+
+            <span th:text="${product.category}" class="temp_product-card__category">Category</span>
+    </p>
+    <button class="product-card__button"><span class="material-symbols-outlined">
+        heart_plus
+    </span></button>
+</div>
+
+<div th:unless="${product.rating}" class="product-card__rating">
+    <span>Not Rated Yet</span>
+</div>

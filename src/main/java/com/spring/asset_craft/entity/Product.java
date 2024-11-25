@@ -31,7 +31,6 @@ public class Product {
     @OneToMany(cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
     private List<ProductUser> productUsers;
 
-
     public Product() {
     }
 

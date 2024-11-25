@@ -1,18 +1,14 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="/css/style.css">
-    <link rel="icon" type="image/png" href="icons/AC.png"/>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-    <link href="https://allfont.net/allfont.css?fonts=agency-fb" rel="stylesheet" type="text/css" />
-    <title>Sign Up</title>
-</head>
-<body>
-    <div th:replace="~{layouts/nav.html :: nav}" id="nav-placeholder"></div>
+<html lang="pl" xmlns:th="http://www.thymeleaf.org">
 
-    <div class="form-holder">
+<th:block th:replace="~{fragments/head.html :: head}"></th:block>
+<title>Sign Up</title>
+</head>
+
+<body>
+    <!-- <div th:replace="~{layouts/nav.html :: nav}" id="nav-placeholder"></div> -->
+
+    <!-- <div class="form-holder">
         <div class="img-holder">
             <img th:src="@{/icons/account.png}" alt="">
         </div>
@@ -45,9 +41,58 @@
                 <input type="submit" value="Sign Up" class="submit-input">
             </div>
         </form>
-    </div>
+    </div> -->
 
-    <div th:replace="~{layouts/footer.html :: footer}" id="footer-placeholder"></div>
+
+    <form class="auth__form" th:action="@{/auth/processRegistrationForm}" method="POST" th:object="${webUser}">
+        <img th:src="@{/icons/account.png}" alt="" />
+        <h1>Register</h1>
+
+        <label class="input-field" for="username">
+            <input type="text" name="username" th:field="*{username}" placeholder="Username" class="username-input">
+        </label>
+        <div th:if="${#fields.hasErrors('username')}" class="error-message" th:errors="*{username}">Username already
+            taken</div>
+
+        <label class="input-field" for="email">
+            <input type="text" name="email" th:field="*{email}" placeholder="Email" class="username-input">
+        </label>
+        <div th:if="${#fields.hasErrors('email')}" class="error-message" th:errors="*{email}">Email already taken</div>
+
+        <label class="input-field" for="password">
+            <input type="password" name="password" th:field="*{password}" placeholder="Password" id="password"
+                class="password-input">
+            <button type="button" onclick="togglePasswordVisibility()" class="toggle-password"><span id="visibility-icon" class="material-symbols-outlined">
+                visibility
+            </span></button>
+        </label>
+        <div th:if="${#fields.hasErrors('password')}" class="error-message" th:errors="*{password}">Password does not
+            match neccessary conditions</div>
+
+        <label class="input-field" for="confirmPassword">
+            <input type="password" name="confirmPassword" th:field="*{confirmPassword}" placeholder="Repeat Password"
+                id="confirmPassword" class="password-input">
+            <button type="button" onclick="toggleConfirmPasswordVisibility()" class="toggle-password"><span id="visibility-icon-confirm" class="material-symbols-outlined">
+                visibility
+            </span></button>
+        </label>
+        <div th:if="${#fields.hasErrors('confirmPassword')}" class="error-message" th:errors="*{confirmPassword}">
+            Passwords does not match</div>
+
+        <h3>Have account already?<a href="@{/auth/signIn}"> Sign In</a></h3>
+
+        <div class="signup__buttons">
+            <button class="go-back-input"><span class="material-symbols-outlined">
+                undo
+            </span>Go Back</button>
+        <button class="submit-input" type="submit"><span class="material-symbols-outlined">
+            person_add
+            </span>Sign Up</button>
+        </div>
+    </form>
+
+    <!-- <div th:replace="~{layouts/footer.html :: footer}" id="footer-placeholder"></div> -->
     <script th:src="@{/js/scriptSignUp.js}"></script>
 </body>
+
 </html>

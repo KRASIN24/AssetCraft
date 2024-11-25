@@ -1,205 +1,153 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 
-  <th:block th:replace="~{fragments/head.html :: head}"></th:block>
-  <title>Shop</title>
+<th:block th:replace="~{fragments/head.html :: head}"></th:block>
+<title>Shop</title>
+
 <body>
   <div th:replace="~{layouts/nav.html :: nav}" id="nav-placeholder"></div>
-<!--TODO: Add sort by -->
-    <div class="center">
 
-      <div th:if="${products.isEmpty()}" class="no-products">
-        <p>No products found.</p>
+  <main>
+    <div class="shop__layout">
+      <div class="product-cards">
+
+        <div th:if="${products.isEmpty()}" class="no-products">
+          <p>No products found.</p>
+        </div>
+
+        <div th:each="product : ${products}" class="container">
+          <div th:replace="~{product/product-card.html :: product(${product})}"></div>
+        </div>
+
       </div>
-      
-      <div th:unless="${products.isEmpty()}" class="products">
-          <div th:each="product : ${products}" class="fragment-products"> 
-              <div th:replace="~{product/product-thumbnail.html :: product(${product})}"></div>
+
+      <div class="filter">
+        <h1>Filter</h1>
+        <form th:action="@{/shop}" method="GET">
+
+          <input type="hidden" id="hiddenSearch" name="name" th:value="${name != null ? name : ''}">
+
+          <div class="filter__buttons">
+            <button type="submit"><span class="material-symbols-outlined">
+                check
+              </span>Apply</button>
+            <button type="reset"><span class="material-symbols-outlined">
+              close
+              </span>Clear</button>
           </div>
-          <img class="positions-shop-img" th:src="@{icons/Warstwa 10.png}">
-          <img class="positions-shop-img" th:src="@{icons/Warstwa 29.png}">
-          <img class="positions-shop-img" th:src="@{icons/Warstwa 30.png}">
-          <img class="positions-shop-img" th:src="@{icons/Warstwa 31.png}">
-          <img class="positions-shop-img" th:src="@{icons/Warstwa 32.png}">
-          <img class="positions-shop-img" th:src="@{icons/Warstwa 33.png}">
-          <img class="positions-shop-img" th:src="@{icons/Warstwa 34.png}">
-          <img class="positions-shop-img" th:src="@{icons/Warstwa 35.png}">
-          <img class="positions-shop-img" th:src="@{icons/Warstwa 36.png}">
-          <img class="positions-shop-img" th:src="@{icons/Warstwa 37.png}">
-          <img class="positions-shop-img" th:src="@{icons/Warstwa 38.png}">
-          <img class="positions-shop-img" th:src="@{icons/Warstwa 5.png}">
-          <img class="positions-shop-img" th:src="@{icons/Warstwa 6.png}">
-          <img class="positions-shop-img" th:src="@{icons/Warstwa 7.png}">
-          <img class="positions-shop-img" th:src="@{icons/Warstwa 8.png}">
-          <img class="positions-shop-img" th:src="@{icons/Warstwa 9.png}">
-        </div>
 
-    <!-- TODO: Make filter work with AJAX and API for using functions of java in js without reloading the page-->
-    <div class="nav-shop">
-      <h1>Filter</h1>
-
-      <form id="filterForm" th:action="@{/shop}" method="GET">
-        <div class="button-holder-filter">
-          <input type="submit"  class="filter-submit" value="Apply">
-          <input type="reset" onclick="resetFilter()"  class="filter-clear" value="Clear"> 
-        </div>
-        <!-- <input type="hidden" name="page" value="1"> -->
-        <input type="hidden" id="hiddenSearch" name="name" th:value="${name != null ? name : ''}">
-      <div class="cost">
-        <h3 onclick="resetCost()">Cost</h3>
-        <div class="range_container">
-          <div class="form_control">
-            <div class="form_control_container">
-              <div class="form_control_container__time">Min</div>
-              <input class="form_control_container__time__input" type="number"  id="fromInput" th:placeholder="${minPrice}" th:min="${smallestPrice}" th:max="${biggestPrice}" th:step="0.01"/>
-            </div>
-            <!-- FIXME: Fix range steps-->
-            <div class="form_control_container">
-              <div class="form_control_container__time">Max</div>
-                  <input class="form_control_container__time__input" type="number"  id="toInput" th:placeholder="${maxPrice}" th:min="${smallestPrice}" th:max="${biggestPrice}" th:step="0.01"/>
+          <h3>Price</h3>
+          <div class="price-filter">
+            <div class="price-filter__inputs">
+              <div class="price-filter__range">
+                <h3>Min</h3>
+                <input class="price-filter__input" type="number" id="fromInput"
+                  th:placeholder="${T(java.lang.Math).floor(minPrice).intValue()}" th:min="${T(java.lang.Math).floor(smallestPrice).intValue()}"
+                  th:max="${biggestPrice}" th:step="0.5" />
               </div>
-          </div>
-          <div class="sliders_control">
-              <input id="fromSlider" type="range" name="minPrice" th:value="${minPrice}" th:min="${smallestPrice}" th:max="${biggestPrice}"/>
-              <input id="toSlider" type="range" name="maxPrice" th:value="${maxPrice}" th:min="${smallestPrice}" th:max="${biggestPrice}"/>
-          </div>
-      </div>
-      </div>
+              <div class="price-filter__range">
+                <h3>Max</h3>
+                <input class="price-filter__input" type="number" id="toInput"
+                  th:placeholder="${T(java.lang.Math).ceil(maxPrice).intValue()}" th:min="${smallestPrice}"
+                  th:max="${biggestPrice}" th:step="0.5" />
+              </div>
+            </div>
 
-      <div class="rating-holder">
-        <h3 onclick="resetRating()">Rating</h3>
-        <label class="rating-label">
-          <input
-            id="ratingRange"
-            class="rating"
-            name="rating"
-            th:value="${rating != null ? rating : 0}"
-            th:style="'--value:' + (${rating != null ? rating : 0})"
-            min="0.0"
-            max="5"
-            oninput="this.style.setProperty('--value', this.value)"
-            step="0.5"
-            type="range">
-        </label>
-      </div>
+            <div class="price-filter__sliders">
+              <input id="fromSlider" class="price-filter__slider" type="range" name="minPrice" th:value="${minPrice}"
+                th:min="${smallestPrice}" th:max="${biggestPrice}"  th:step="1"/>
+              <input id="toSlider" class="price-filter__slider" type="range" name="maxPrice" th:value="${maxPrice}"
+                th:min="${smallestPrice}" th:max="${biggestPrice}" th:step="1" />
+            </div>
+          </div>
 
-        <h3 onclick="resetCategories()">Categories</h3>
-        <div class="option">
-            <label class="container">
-              <input type="checkbox" name="categories" value="3D" class="checkbox" th:checked="${categories != null and categories.contains('3D')}" >
+          <h3>Rating</h3>
+          <div class="rating-filter">
+            <label class="rating-label">
+              <input id="ratingRange" class="rating" name="rating" th:value="${rating != null ? rating : 0}"
+                th:style="'--value:' + (${rating != null ? rating : 0})" min="0" max="5"
+                oninput="this.style.setProperty('--value', this.value)" step="0.5" type="range">
+            </label>
+          </div>
+
+          <h3>Categories</h3>
+          <div class="category">
+            <label class="category-label">
+              <input type="checkbox" name="categories" value="3D" class="checkbox"
+                th:checked="${categories != null and categories.contains('3D')}">
               <span class="checkmark"></span>
               <p>3D (42794)</p>
             </label>
-    </div>
+          </div>
 
-    <div class="option">
-        <label class="container">
-          <input type="checkbox" name="categories" value="2D" class="checkbox" th:checked="${categories != null and categories.contains('2D')}" >
-          <span class="checkmark"></span>
-          <p>2D (9281)</p>
-        </label>
+          <div class="category">
+            <label class="category-label">
+              <input type="checkbox" name="categories" value="2D" class="checkbox"
+                th:checked="${categories != null and categories.contains('2D')}">
+              <span class="checkmark"></span>
+              <p>2D (9281)</p>
+            </label>
+          </div>
+
+          <div class="category">
+            <label class="category-label">
+              <input type="checkbox" name="categories" value="Templates" class="checkbox"
+                th:checked="${categories != null and categories.contains('Templates')}">
+              <span class="checkmark"></span>
+              <p>Templates (2925)</p>
+            </label>
+          </div>
+
+          <div class="category">
+            <label class="category-label">
+              <input type="checkbox" name="categories" value="Audio" class="checkbox"
+                th:checked="${categories != null and categories.contains('Audio')}">
+              <span class="checkmark"></span>
+              <p>Audio (2925)</p>
+            </label>
+          </div>
+
+          <div class="category">
+            <label class="category-label">
+              <input type="checkbox" name="categories" value="Video" class="checkbox"
+                th:checked="${categories != null and categories.contains('Video')}">
+              <span class="checkmark"></span>
+              <p>Video (2925)</p>
+            </label>
+          </div>
+
+          <div class="category">
+            <label class="category-label">
+              <input type="checkbox" name="categories" value="Animations" class="checkbox"
+                th:checked="${categories != null and categories.contains('Animations')}">
+              <span class="checkmark"></span>
+              <p>Animations (2925)</p>
+            </label>
+          </div>
+
+          <div class="category">
+            <label class="category-label">
+              <input type="checkbox" name="categories" value="Props" class="checkbox"
+                th:checked="${categories != null and categories.contains('Props')}">
+              <span class="checkmark"></span>
+              <p>Props (2925)</p>
+            </label>
+          </div>
+
+        </form>
       </div>
 
-      <div class="option">
-        <label class="container">
-          <input type="checkbox" name="categories" value="Templates" class="checkbox" th:checked="${categories != null and categories.contains('Templates')}" >
-          <span class="checkmark"></span>
-          <p>Templates (2925)</p>
-        </label>
     </div>
-
-    <div class="option">
-      <label class="container">
-        <input type="checkbox" name="categories" value="Audio" class="checkbox" th:checked="${categories != null and categories.contains('Audio')}" >
-        <span class="checkmark"></span>
-        <p>Audio (2925)</p>
-      </label>
-  </div>
-
-<div class="option">
-    <label class="container">
-      <input type="checkbox" class="checkbox">
-      <span class="checkmark"></span>
-      <p>Animations (804)</p>
-    </label>
-</div>
-
-<div class="option">
-    <label class="container">
-      <input type="checkbox" class="checkbox">
-      <span class="checkmark"></span>
-      <p>Characters (12404)</p>
-    </label>
-</div>
-
-<div class="option">
-    <label class="container">
-      <input type="checkbox" class="checkbox">
-      <span class="checkmark"></span>
-      <p>Environments (8677)</p>
-    </label>
-</div>
-
-<div class="option">
-    <label class="container">
-      <input type="checkbox" class="checkbox">
-      <span class="checkmark"></span>
-      <p>Props (12893)</p>
-    </label>
-</div>
-
-<div class="option">
-    <label class="container">
-      <input type="checkbox" class="checkbox">
-      <span class="checkmark"></span>
-      <p>Vegetation (1079)</p>
-    </label>
-</div>
-
-<div class="option">
-    <label class="container">
-      <input type="checkbox" class="checkbox">
-      <span class="checkmark"></span>
-      <p>Vehicles (5427)</p>
-    </label>
-</div>
-
-<div class="option">
-    <label class="container">
-      <input type="checkbox" class="checkbox">
-      <span class="checkmark"></span>
-      <p>Essentials (45)</p>
-    </label>
-</div>
-
-<div class="option">
-    <label class="container">
-      <input type="checkbox" class="checkbox">
-      <span class="checkmark"></span>
-      <p>Tools (9818)</p>
-    </label>
-</div>
-
-<div class="option">
-    <label class="container">
-      <input type="checkbox" class="checkbox">
-      <span class="checkmark"></span>
-      <p>VFX (2989)</p>
-    </label>
-</div>
+  </main>
+  <!--TODO: Add sort by -->
 
 
 
-</form>
-    </div>
 
-    </div>
-
-    
-
-
-    <div th:replace="~{layouts/footer.html :: footer}" id="footer-placeholder"></div>
-    //FIXME: Add to script part for relading filters inputs
-    <script th:src="@{/js/script.js}"></script>
+  <div th:replace="~{layouts/footer.html :: footer}" id="footer-placeholder"></div>
+  <!-- FIXME: Add to script part for relading filters inputs -->
+  <!-- <script th:src="@{/js/script.js}"></script> -->
+  <script th:src="@{/js/scriptShop.js}"></script>
 </body>
+
 </html>

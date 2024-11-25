@@ -1,32 +1,74 @@
 <nav th:fragment="nav">
-    <div class="topnav">
-        <div class="lefttop">
-            <a><img th:src="@{/icons/new-instagram-logo-white-border-icon-png-large.png}"></a>
-            <a><img th:src="@{/icons/twitter.png}"></a>
-            <a><img th:src="@{/icons/yt.png}"></a>
-            <a><img th:src="@{/icons/fb.png}"></a>
-        </div>
-        <div class="righttop">
-            <a th:href="@{/contact}"><img th:src="@{/icons/iconmonstr-email-3-240.png}"></a>
-            <a href="">Notyfications</a>
-            <a th:href="@{/cart}"><img th:src="@{/icons/cart.png}"></a>
-            <a th:href="@{/account}"><img th:src="@{/icons/account.png}"></a>
-        </div>
-    </div>
-    <div class="middlenav">
-        <a th:href="@{/}"><img th:src="@{/icons/Bez nazwy-2.png}"></a>
-        <div class="search">
-            <form th:action="@{/shop}" method="GET">
-            <input class="searchbar" type="text" name="name" th:value="${name != null ? name : ''}" placeholder="Search">
+    <div class="navigation__top">
+        <a th:href="@{/}"><img class="logo" th:src="@{/icons/Bez nazwy-2.png}" alt="AssetCraft Logo" /></a>
+
+        <form class="search-bar" th:action="@{/shop}" method="GET">
+            <input class="search-input" type="text" name="name" th:value="${name != null ? name : ''}"
+                placeholder="Search">
             <button type="submit" id="icon" class="fa fa-search"></button>
-            </form>
-        </div>
-    <div class="links">
-        <a th:href="@{/shop(categories='3D')}">3D</a>
-        <a th:href="@{/shop(categories='2D')}">2D</a>
-        <a th:href="@{/shop(categories='Audio')}">Audio</a>
-        <a th:href="@{/shop}">Code</a>
-        <a th:href="@{/shop}">All</a>
+        </form>
+
+
+        <ul class="navigation__tabs">
+            <li><a th:href="@{/wishlist}">
+                    <div class="tabs-active">
+                        <span class="material-symbols-outlined">favorite</span>
+                        <p>Wishlist</p>
+                    </div>
+                </a></li>
+            <li><a th:href="@{/cart}">
+                    <div class="tabs-active"><span class="material-symbols-outlined">
+                            shopping_cart
+                        </span>
+                        <p>Cart</p>
+                    </div>
+                </a></li>
+            <li><a th:href="@{/account}">
+                    <div class="tabs-active"><span class="material-symbols-outlined">
+                            person
+                        </span>
+                        <p>Account</p>
+                    </div>
+                </a></li>
+        </ul>
     </div>
+
+    <ul class="navigation__categories">
+        <li><a th:href="@{/shop(categories='3D')}">
+                <div class="categories-active">
+                    <p>3D</p>
+                </div>
+            </a></li>
+        <li><a th:href="@{/shop(categories='2D')}">
+                <div class="categories-active">
+                    <p>2D</p>
+                </div>
+            </a></li>
+        <li><a th:href="@{/shop(categories='Audio')}">
+                <div class="categories-active">
+                    <p>Templates</p>
+                </div>
+            </a></li>
+        <li><a th:href="@{/shop(categories='3D')}">
+                <div class="categories-active">
+                    <p>Audio</p>
+                </div>
+            </a></li>
+        <li><a th:href="@{/shop(categories='2D')}">
+                <div class="categories-active">
+                    <p>Video</p>
+                </div>
+            </a></li>
+        <li><a th:href="@{/shop(categories='Audio')}">
+                <div class="categories-active">
+                    <p>Animations</p>
+                </div>
+            </a></li>
+        <li><a th:href="@{/shop(categories='2D')}">
+                <div class="categories-active">
+                    <p>Props</p>
+                </div>
+            </a></li>
+    </ul>
     </div>
 </nav>

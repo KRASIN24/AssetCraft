@@ -16,37 +16,37 @@ public class PasswordConstraintValidator implements ConstraintValidator<ValidPas
 
         if (password == null) {
             context.disableDefaultConstraintViolation();
-            context.buildConstraintViolationWithTemplate("Password cannot be null")
+            context.buildConstraintViolationWithTemplate("Password is required")
                     .addConstraintViolation();
             return false;
         }
 
         if (password.length() < 8) {
-            context.buildConstraintViolationWithTemplate("Password must be at least 8 characters long")
+            context.buildConstraintViolationWithTemplate("Password must be at least 6 characters long")
                     .addConstraintViolation();
             valid = false;
         }
 
         if (!password.matches(".*[a-z].*")) {
-            context.buildConstraintViolationWithTemplate("Password must contain at least one lowercase letter")
+            context.buildConstraintViolationWithTemplate("Password must include at least 1 lowercase letter")
                     .addConstraintViolation();
             valid = false;
         }
 
         if (!password.matches(".*[A-Z].*")) {
-            context.buildConstraintViolationWithTemplate("Password must contain at least one uppercase letter")
+            context.buildConstraintViolationWithTemplate("Password must include at least 1 uppercase letter")
                     .addConstraintViolation();
             valid = false;
         }
 
         if (!password.matches(".*\\d.*")) {
-            context.buildConstraintViolationWithTemplate("Password must contain at least one digit")
+            context.buildConstraintViolationWithTemplate("Password must contain at least 1 digit")
                     .addConstraintViolation();
             valid = false;
         }
 
         if (!password.matches(".*[@#$%^&+=!].*")) {
-            context.buildConstraintViolationWithTemplate("Password must contain at least one special character (@#$%^&+=!)")
+            context.buildConstraintViolationWithTemplate("Password must contain at least 1 special character")
                     .addConstraintViolation();
             valid = false;
         }

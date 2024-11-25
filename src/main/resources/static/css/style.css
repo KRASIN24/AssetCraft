@@ -47,6 +47,7 @@ body{
     cursor: pointer;
 }
 
+
 .lefttop{
     margin-left: 5vw;
 }
@@ -1543,11 +1544,11 @@ h2{
     color: var(--light);
 }
 
-.message{
+/* .message{
     margin: 30px;
-}
+} */
 
-.error-message{
+/* .error-message{
     border: 3px solid var(--light);
     border-radius: 12px;
     padding: 20px;
@@ -1559,7 +1560,7 @@ h2{
     border-radius: 12px;
     padding: 20px;
     color: green;
-}
+} */
 
 .add-product-form{
     width: fit-content;

@@ -28,6 +28,7 @@ import java.nio.file.StandardCopyOption;
 import java.security.Principal;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 import static com.spring.asset_craft.entity.ProductUser.ProductUserStatus.*;
 
@@ -88,6 +89,9 @@ public class Controller {
             }
         }
 
+        for (ProductDTO product : ProductDTOs) {
+            product.setWhishlistAmout(Random.from(new Random()).nextInt(100));
+        }
 
         model.addAttribute("products", ProductDTOs);
 

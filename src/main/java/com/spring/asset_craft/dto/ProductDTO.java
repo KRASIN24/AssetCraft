@@ -19,6 +19,8 @@ public class ProductDTO {
     private boolean inCart;
     private boolean isBought;
 
+    private int whishlistAmout = 0;
+
     // Small DTO
     public ProductDTO(Long id, String name, float price, Double rating, String category, List<ProductImage> productImages,
                       String ownerUsername, boolean isOwner, boolean inCart, boolean isBought) {
@@ -151,6 +153,15 @@ public class ProductDTO {
 
     public void setBought(boolean bought) {
         isBought = bought;
+    }
+
+
+    public int getWhishlistAmout() {
+        return whishlistAmout;
+    }
+
+    public void setWhishlistAmout(int whishlistAmout) {
+        this.whishlistAmout = whishlistAmout;
     }
 
     @Override
