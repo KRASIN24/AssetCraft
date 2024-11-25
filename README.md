@@ -1,5 +1,5 @@
 
-![Logo]([https://dev-to-uploads.s3.amazonaws.com/uploads/articles/th5xamgrr6se0x5ro4g6.png](https://github.com/KRASIN24/AssetCraft/blob/master/src/main/resources/static/icons/Bez%20nazwy-2.png))
+![Logo](https://github.com/KRASIN24/AssetCraft/blob/master/src/main/resources/static/icons/Bez%20nazwy-2.png)
 
 
 
