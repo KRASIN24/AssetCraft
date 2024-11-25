@@ -1,5 +1,5 @@
 
-![Logo](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/th5xamgrr6se0x5ro4g6.png)
+![Logo]([https://dev-to-uploads.s3.amazonaws.com/uploads/articles/th5xamgrr6se0x5ro4g6.png](https://github.com/KRASIN24/AssetCraft/blob/master/src/main/resources/static/icons/Bez%20nazwy-2.png))
 
 
 
@@ -39,12 +39,10 @@ mvn spring-boot:run
     
 ## 📷Screenshots
 
-![App Screenshot](https://via.placeholder.com/468x300?text=App+Screenshot+Here)
+![App Screenshot](https://github.com/KRASIN24/AssetCraft/blob/master/screenshots/AssetCraft-shop.gif)
+![App Screenshot](https://github.com/KRASIN24/AssetCraft/blob/master/screenshots/AssetCraft-signIn.gif)
+![App Screenshot](https://github.com/KRASIN24/AssetCraft/blob/master/screenshots/AssetCraft-signUp.gif)
 
-<p align="center">
-  <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/java/java-original.svg" alt="java" width="200"/> 
-  <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/html5/html5-original.svg" alt="html5" width="200"/> 
-</p>
 
 
 ## 🔮Future Enhancements
