@@ -22,20 +22,6 @@
 
 **Database:** MySQL
 
-
-## ⚙Installation
-
-- Clone the repo: 
-```bash
-git clone https://github.com/KRASIN24/AssetCraft.git
-```
-- Navigate to the project directory.
-- Ensure Java, Maven, and MySQL are installed.
-- Set up database and configure application properties.
-- Run the project: 
-```bash
-mvn spring-boot:run
-```
     
 ## 📷Screenshots
 
